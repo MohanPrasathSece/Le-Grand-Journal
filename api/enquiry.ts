@@ -98,7 +98,7 @@ export default async function handler(req: any, res: any) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        "Authorization": `Bearer ${affiliateToken}`
+        "Authorization": affiliateToken
       },
       body: JSON.stringify(crmPayload)
     });
