@@ -20,7 +20,30 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-const NAV = ["Markets", "Bitcoin", "Ethereum", "Regulation", "Technology", "Web3", "NFTs", "Analysis", "Opinion"];
+const NAV = [
+  "Markets", "Bitcoin", "Ethereum", "Altcoins", "DeFi", "NFTs",
+  "Web3", "Mining", "Regulation", "Technology", "Analysis", "Opinion", "Podcasts", "Events",
+];
+
+const MARQUEE = [
+  { s: "BTC", p: "$71,842.30", c: "+2.41%", u: true },
+  { s: "ETH", p: "$3,824.10", c: "+1.87%", u: true },
+  { s: "SOL", p: "$184.22", c: "+4.18%", u: true },
+  { s: "BNB", p: "$612.55", c: "-0.42%", u: false },
+  { s: "XRP", p: "$0.5821", c: "-1.12%", u: false },
+  { s: "ADA", p: "$0.487", c: "+0.93%", u: true },
+  { s: "DOGE", p: "$0.162", c: "+3.04%", u: true },
+  { s: "TON", p: "$7.24", c: "+5.71%", u: true },
+  { s: "AVAX", p: "$38.10", c: "+1.22%", u: true },
+  { s: "LINK", p: "$18.06", c: "+2.66%", u: true },
+  { s: "DOT", p: "$8.42", c: "-0.31%", u: false },
+  { s: "MATIC", p: "$0.78", c: "+1.04%", u: true },
+  { s: "LTC", p: "$92.51", c: "+0.55%", u: true },
+  { s: "ATOM", p: "$10.21", c: "-0.78%", u: false },
+  { s: "GOLD", p: "$2,738", c: "+0.62%", u: true },
+  { s: "DXY", p: "104.18", c: "-0.14%", u: false },
+  { s: "SPX", p: "5,861.4", c: "+0.31%", u: true },
+];
 
 const PRICES = [
   { sym: "BTC", name: "Bitcoin", price: "$71,842.30", chg: 2.41, up: true },
@@ -88,6 +111,26 @@ function Index() {
         </div>
       </div>
 
+      {/* Utility bar */}
+      <div className="hidden border-b border-rule bg-surface md:block">
+        <div className="mx-auto flex max-w-[1320px] items-center justify-between px-6 py-1.5 text-[11px] text-ink-soft">
+          <div className="flex items-center gap-4">
+            <span className="font-medium text-ink">Friday, Nov 14, 2025</span>
+            <span className="hidden lg:inline">New York · 09:42 EST</span>
+            <span className="hidden items-center gap-1.5 lg:flex"><span className="h-1.5 w-1.5 rounded-full bg-bull" /> Markets Open</span>
+          </div>
+          <div className="flex items-center gap-4">
+            <a href="#" className="hover:text-ink">Newsletters</a>
+            <a href="#" className="hover:text-ink">Podcasts</a>
+            <a href="#" className="hover:text-ink">Events</a>
+            <a href="#" className="hover:text-ink">Research</a>
+            <span className="h-3 w-px bg-rule" />
+            <a href="#" className="hover:text-ink">Sign in</a>
+            <a href="#" className="font-semibold text-ink hover:underline">Try Pro</a>
+          </div>
+        </div>
+      </div>
+
       {/* Header */}
       <header className="sticky top-0 z-40 border-b border-rule bg-background/95 backdrop-blur">
         <div className="mx-auto flex max-w-[1320px] items-center gap-6 px-6 py-3">
@@ -95,13 +138,6 @@ function Index() {
             <span className="font-serif text-2xl font-bold tracking-tight text-ink">CipherWire</span>
             <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Pro</span>
           </a>
-          <nav className="hidden flex-1 items-center justify-center gap-6 lg:flex">
-            {NAV.map((n) => (
-              <a key={n} href="#" className="text-[13px] font-medium text-ink-soft transition-colors hover:text-ink">
-                {n}
-              </a>
-            ))}
-          </nav>
           <div className="ml-auto flex items-center gap-1">
             {[Search, Bell, Bookmark, Moon].map((Icon, i) => (
               <button key={i} className="rounded-md p-2 text-ink-soft transition-colors hover:bg-surface hover:text-ink">
@@ -113,6 +149,39 @@ function Index() {
             </button>
             <div className="ml-2 grid h-8 w-8 place-items-center rounded-full bg-surface text-ink">
               <User className="h-4 w-4" />
+            </div>
+          </div>
+        </div>
+        {/* Primary nav */}
+        <nav className="hidden border-t border-rule lg:block">
+          <div className="mx-auto flex max-w-[1320px] items-center gap-6 overflow-x-auto px-6 py-2.5">
+            {NAV.map((n, i) => (
+              <a
+                key={n}
+                href="#"
+                className={`shrink-0 text-[12px] font-medium uppercase tracking-wider transition-colors hover:text-ink ${i === 1 ? "text-ink" : "text-ink-soft"}`}
+              >
+                {n}
+              </a>
+            ))}
+            <span className="ml-auto shrink-0 text-[11px] text-ink-soft">More ▾</span>
+          </div>
+        </nav>
+        {/* Live price marquee */}
+        <div className="border-t border-rule bg-background">
+          <div className="mx-auto flex max-w-[1320px] items-center gap-3 px-6 py-1.5">
+            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-ink-soft">Live</span>
+            <span className="hidden h-3 w-px shrink-0 bg-rule sm:inline-block" />
+            <div className="relative flex-1 overflow-hidden">
+              <div className="ticker-track flex gap-8 whitespace-nowrap text-[12px]">
+                {[...MARQUEE, ...MARQUEE].map((m, i) => (
+                  <span key={i} className="flex items-center gap-2">
+                    <span className="font-semibold text-ink">{m.s}</span>
+                    <span className="font-mono text-ink">{m.p}</span>
+                    <span className={`font-mono ${m.u ? "text-bull" : "text-bear"}`}>{m.c}</span>
+                  </span>
+                ))}
+              </div>
             </div>
           </div>
         </div>
@@ -666,7 +735,7 @@ function Index() {
       {/* Footer */}
       <footer className="mt-24 border-t border-rule bg-background">
         <div className="mx-auto max-w-[1320px] px-6 py-14">
-          <div className="grid grid-cols-2 gap-10 md:grid-cols-5">
+          <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
             <div className="col-span-2">
               <div className="flex items-baseline gap-1.5">
                 <span className="font-serif text-2xl font-bold tracking-tight text-ink">CipherWire</span>
@@ -682,11 +751,19 @@ function Index() {
                   </a>
                 ))}
               </div>
+              <div className="mt-6">
+                <div className="text-[11px] font-semibold uppercase tracking-widest text-ink">Get the app</div>
+                <div className="mt-3 flex gap-2">
+                  <a href="#" className="rounded-sm border border-rule px-3 py-2 text-[11px] text-ink-soft hover:border-ink hover:text-ink">App Store</a>
+                  <a href="#" className="rounded-sm border border-rule px-3 py-2 text-[11px] text-ink-soft hover:border-ink hover:text-ink">Google Play</a>
+                </div>
+              </div>
             </div>
             {[
-              { h: "Company", l: ["About", "Editorial Policy", "Corrections", "Careers", "Press"] },
-              { h: "Categories", l: ["Bitcoin", "Ethereum", "Markets", "Regulation", "Web3", "NFT"] },
-              { h: "Legal", l: ["Privacy Policy", "Terms", "Cookie Policy", "Advertising", "Contact"] },
+              { h: "Company", l: ["About", "Editorial Policy", "Corrections", "Careers", "Press", "Diversity", "Ethics"] },
+              { h: "Categories", l: ["Bitcoin", "Ethereum", "Markets", "Regulation", "Web3", "NFT", "DeFi", "Mining", "Stablecoins"] },
+              { h: "Products", l: ["Pro Terminal", "Research", "API & Data", "Newsletters", "Podcasts", "Events", "Indices"] },
+              { h: "Legal", l: ["Privacy Policy", "Terms of Service", "Cookie Policy", "Advertising", "Disclosures", "Accessibility", "Contact"] },
             ].map((col) => (
               <div key={col.h}>
                 <div className="text-[11px] font-semibold uppercase tracking-widest text-ink">{col.h}</div>
@@ -696,12 +773,28 @@ function Index() {
               </div>
             ))}
           </div>
+          <div className="mt-12 grid grid-cols-2 gap-6 border-t border-rule pt-8 text-[12px] text-ink-soft md:grid-cols-4">
+            {[
+              { h: "Trusted Sources", l: "Reuters · Bloomberg · AP" },
+              { h: "Member of", l: "Digital Content Next" },
+              { h: "Awards", l: "SABEW 2024 · Webby Honoree" },
+              { h: "Verified", l: "Trust Project · IFCN signatory" },
+            ].map((b) => (
+              <div key={b.h}>
+                <div className="text-[10px] font-semibold uppercase tracking-widest text-ink">{b.h}</div>
+                <div className="mt-1.5">{b.l}</div>
+              </div>
+            ))}
+          </div>
           <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-rule pt-6 text-[12px] text-ink-soft md:flex-row md:items-center">
-            <div>© 2025 CipherWire Media, Inc. All rights reserved.</div>
-            <div className="flex items-center gap-4">
+            <div>© 2025 CipherWire Media, Inc. All rights reserved. Prices delayed up to 60 seconds.</div>
+            <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <button className="flex items-center gap-1.5 hover:text-ink"><Globe className="h-3.5 w-3.5" /> English (US)</button>
+              <a href="#" className="hover:text-ink">Do Not Sell My Info</a>
+              <a href="#" className="hover:text-ink">Cookie Settings</a>
               <a href="#" className="hover:text-ink">Sitemap</a>
               <a href="#" className="hover:text-ink">RSS</a>
+              <a href="#" className="hover:text-ink">Help Center</a>
               <button className="hover:text-ink">Back to top ↑</button>
             </div>
           </div>
