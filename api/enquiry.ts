@@ -125,7 +125,7 @@ export default async function handler(req: any, res: any) {
         return res.end(JSON.stringify(responseData));
       }
     } else {
-      console.error(`CRM Rejected Lead. Status: ${response.status}. Response: ${responseText}`);
+      console.error(`CRM Rejected Lead. Endpoint: ${crmEndpoint}. Status: ${response.status}. Response: ${responseText}`);
       const crmRejected = { error: "Le serveur CRM a rejeté la soumission de la demande.", details: responseText };
       if (typeof res.status === "function") {
         return res.status(502).json(crmRejected);
@@ -136,7 +136,7 @@ export default async function handler(req: any, res: any) {
       }
     }
   } catch (error: any) {
-    console.error("Server API Exception caught:", error);
+    console.error(`Server API Exception caught for endpoint [${process.env.CRM_API_ENDPOINT}]:`, error);
     const serverErr = { error: "Une erreur s'est produite sur le serveur proxy sécurisé lors de la transmission des données de la demande." };
     if (typeof res.status === "function") {
       return res.status(500).json(serverErr);
