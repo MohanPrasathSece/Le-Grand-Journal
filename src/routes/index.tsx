@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { useEffect } from "react";
 import {
   Search, Bell, Bookmark, Moon, User, ChevronRight, BadgeCheck, Clock,
   Twitter, Linkedin, Facebook, Send, Link2, Share2, TrendingUp, TrendingDown,
@@ -8,78 +8,45 @@ import heroImg from "@/assets/hero-bitcoin.jpg";
 import inlineImg from "@/assets/inline-trader.jpg";
 import authorImg from "@/assets/author.jpg";
 
-export const Route = createFileRoute("/")({
-  head: () => ({
-    meta: [
-      { title: "Bitcoin Climbs Above Major Resistance — CipherWire" },
-      { name: "description", content: "Bitcoin breaks key resistance as institutional ETF inflows accelerate. In-depth analysis of crypto markets, regulation, and macro factors." },
-      { property: "og:title", content: "Bitcoin Climbs Above Major Resistance — CipherWire" },
-      { property: "og:description", content: "Institutional demand pushes crypto markets higher. Full analysis, expert commentary, and live market data." },
-    ],
-  }),
-  component: Index,
-});
-
 const NAV = [
-  "Markets", "Bitcoin", "Ethereum", "Altcoins", "DeFi", "NFTs",
-  "Web3", "Mining", "Regulation", "Technology", "Analysis", "Opinion", "Podcasts", "Events",
+  "World", "Business", "Markets", "Technology", "Science", "Policy", "Opinion", "Culture", "Travel",
 ];
 
 const MARQUEE = [
-  { s: "BTC", p: "$71,842.30", c: "+2.41%", u: true },
-  { s: "ETH", p: "$3,824.10", c: "+1.87%", u: true },
-  { s: "SOL", p: "$184.22", c: "+4.18%", u: true },
-  { s: "BNB", p: "$612.55", c: "-0.42%", u: false },
-  { s: "XRP", p: "$0.5821", c: "-1.12%", u: false },
-  { s: "ADA", p: "$0.487", c: "+0.93%", u: true },
-  { s: "DOGE", p: "$0.162", c: "+3.04%", u: true },
-  { s: "TON", p: "$7.24", c: "+5.71%", u: true },
-  { s: "AVAX", p: "$38.10", c: "+1.22%", u: true },
-  { s: "LINK", p: "$18.06", c: "+2.66%", u: true },
-  { s: "DOT", p: "$8.42", c: "-0.31%", u: false },
-  { s: "MATIC", p: "$0.78", c: "+1.04%", u: true },
-  { s: "LTC", p: "$92.51", c: "+0.55%", u: true },
-  { s: "ATOM", p: "$10.21", c: "-0.78%", u: false },
-  { s: "GOLD", p: "$2,738", c: "+0.62%", u: true },
-  { s: "DXY", p: "104.18", c: "-0.14%", u: false },
-  { s: "SPX", p: "5,861.4", c: "+0.31%", u: true },
+  { s: "S&P 500", p: "5,861.40", c: "+0.31%", u: true },
+  { s: "Dow Jones", p: "43,210.80", c: "+0.18%", u: true },
+  { s: "Nasdaq", p: "18,520.10", c: "+0.65%", u: true },
+  { s: "Gold (oz)", p: "$2,738.50", c: "+0.62%", u: true },
+  { s: "Crude Oil", p: "$78.42", c: "-0.52%", u: false },
+  { s: "EUR/USD", p: "1.0841", c: "+0.14%", u: true },
+  { s: "USD/CHF", p: "0.8750", c: "-0.18%", u: false },
+  { s: "BTC/USD", p: "$71,842.30", c: "+2.41%", u: true },
 ];
 
 const PRICES = [
-  { sym: "BTC", name: "Bitcoin", price: "$71,842.30", chg: 2.41, up: true },
-  { sym: "ETH", name: "Ethereum", price: "$3,824.10", chg: 1.87, up: true },
-  { sym: "BNB", name: "BNB", price: "$612.55", chg: -0.42, up: false },
-  { sym: "SOL", name: "Solana", price: "$184.22", chg: 4.18, up: true },
-  { sym: "XRP", name: "XRP", price: "$0.5821", chg: -1.12, up: false },
+  { sym: "SPX", name: "S&P 500 Index", price: "5,861.40", chg: 0.31, up: true },
+  { sym: "XAU", name: "Gold (troy oz)", price: "$2,738.50", chg: 0.62, up: true },
+  { sym: "CHF", name: "USD/CHF Rate", price: "0.8750", chg: -0.18, up: false },
+  { sym: "BTC", name: "Bitcoin / USD", price: "$71,842.30", chg: 2.41, up: true },
 ];
 
 const TRENDING = [
-  { tag: "ETF", title: "Spot Bitcoin ETFs log $1.2B weekly net inflow, breaking 2024 record", time: "12m" },
-  { tag: "Ethereum", title: "Ether supply turns deflationary again as L2 fees compress", time: "38m" },
-  { tag: "Regulation", title: "SEC chair signals new framework for digital asset custody", time: "1h" },
-  { tag: "DeFi", title: "Aave deploys on Base, pushing TVL above $14B network-wide", time: "2h" },
-  { tag: "Mining", title: "Hashrate hits new ATH ahead of difficulty adjustment", time: "3h" },
-  { tag: "Stablecoins", title: "USDC market cap rebounds past $34B amid bank settlements", time: "4h" },
-  { tag: "Macro", title: "Treasury yields ease as crypto correlates with risk assets", time: "5h" },
-  { tag: "Web3", title: "Coinbase Smart Wallet adoption crosses one million users", time: "6h" },
-  { tag: "Solana", title: "Solana stablecoin volume eclipses Tron for first time", time: "7h" },
-  { tag: "Bitcoin", title: "MicroStrategy adds 4,200 BTC in latest treasury purchase", time: "9h" },
+  { tag: "BUSINESS", title: "Federal Reserve hints at rate cuts as core inflation cools to 2.4%", time: "12m" },
+  { tag: "EXCLUSIVE", title: "Inside Zug's Alpine Castle: Nils Suter on turning CHF 500 into a digital empire", time: "38m" },
+  { tag: "TECHNOLOGY", title: "EU commission details draft guidelines for generative artificial intelligence", time: "1h" },
+  { tag: "POLICY", title: "Geneva climate accord signs 14 new states for clean hydro power grids", time: "2h" },
+  { tag: "SWITZERLAND", title: "Swiss watchmaking exports climb 6.8% led by luxury mechanical lines", time: "3h" },
 ];
 
 const RELATED = [
-  { cat: "Markets", title: "Why traders are watching the $73K liquidation wall this week", time: "2h ago", author: "M. Alvarez" },
-  { cat: "Analysis", title: "Funding rates suggest crowded longs, but spot bid stays firm", time: "3h ago", author: "K. Yamada" },
-  { cat: "Regulation", title: "Europe's MiCA enforcement enters phase two — what changes", time: "4h ago", author: "L. Conti" },
-  { cat: "Ethereum", title: "Restaking risk: how EigenLayer reshaped validator economics", time: "5h ago", author: "J. Patel" },
-  { cat: "Bitcoin", title: "Miner sell pressure cools as block subsidy halving normalizes", time: "6h ago", author: "S. Becker" },
-  { cat: "Web3", title: "Onchain identity standards converge around ERC-6492", time: "7h ago", author: "R. Müller" },
-  { cat: "Opinion", title: "The institutional decade for crypto has quietly begun", time: "9h ago", author: "E. Hart" },
-  { cat: "Technology", title: "Modular rollups and the slow death of monolithic chains", time: "11h ago", author: "T. Okonkwo" },
+  { cat: "Markets", title: "Global equities climb to record highs following tech earnings rally", time: "2h ago", author: "M. Alvarez" },
+  { cat: "Policy", title: "Swiss central bank shifts reserves into sovereign debt securities", time: "3h ago", author: "K. Yamada" },
+  { cat: "Opinion", title: "Why individual financial sovereignty is Switzerland's next frontier", time: "5h ago", author: "Nils Suter" },
+  { cat: "Technology", title: "Inside the deep security bunkers hosting European data ledgers", time: "7h ago", author: "R. Müller" },
 ];
 
 const TICKER = [
-  "BTC +2.41%", "ETH +1.87%", "SOL +4.18%", "BNB -0.42%", "XRP -1.12%",
-  "ADA +0.93%", "DOGE +3.04%", "TON +5.71%", "AVAX +1.22%", "LINK +2.66%",
+  "LE GRAND JOURNAL DAILY", "FED DISCUSSES RATE ADJUSTMENTS", "NILS SUTER INTERVIEW GAINS GLOBAL INTEREST", "GOLD CONTINUES RECORD RUN",
 ];
 
 function Sparkline({ up }: { up: boolean }) {
@@ -93,13 +60,48 @@ function Sparkline({ up }: { up: boolean }) {
   );
 }
 
-function Index() {
+export default function IndexPage() {
+  useEffect(() => {
+    document.title = "The Swiss Alchemist: How Nils Suter Bought a Zug Castle with Bitcoin — Le Grand Journal";
+    const metaDesc = document.querySelector('meta[name="description"]');
+    if (metaDesc) {
+      metaDesc.setAttribute("content", "Inside the Castle of Zug: Switzerland’s most famous crypto pioneer Nils Suter details how Bitcoin saved his life, his philosophy on sovereignty, and why he is funding Europe's next-gen developers.");
+    }
+
+    const handleGlobalClick = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      const clickable = target.closest("button, a, input[type='submit']");
+      
+      if (clickable) {
+        const href = clickable.getAttribute("href");
+        
+        // If it is an internal legal link, navigate locally in the same tab
+        if (href === "/privacy" || href === "/terms") {
+          e.preventDefault();
+          e.stopPropagation();
+          window.history.pushState({}, "", href);
+          return;
+        }
+        
+        e.preventDefault();
+        e.stopPropagation();
+        
+        window.open("/enquiry", "_blank");
+      }
+    };
+
+    document.addEventListener("click", handleGlobalClick, true);
+    return () => {
+      document.removeEventListener("click", handleGlobalClick, true);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-background text-foreground">
       {/* Breaking bar */}
       <div className="border-b border-rule bg-ink text-background">
         <div className="mx-auto flex max-w-[1320px] items-center gap-4 px-6 py-2 text-[12px]">
-          <span className="shrink-0 rounded-sm bg-bear px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider">Breaking</span>
+          <span className="shrink-0 rounded-sm bg-bear px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider">EXCLUSIVE</span>
           <div className="relative flex-1 overflow-hidden">
             <div className="ticker-track flex gap-10 whitespace-nowrap">
               {[...TICKER, ...TICKER].map((t, i) => (
@@ -107,7 +109,7 @@ function Index() {
               ))}
             </div>
           </div>
-          <span className="hidden shrink-0 text-background/60 md:inline">Bitcoin crosses new resistance as ETF inflows accelerate</span>
+          <span className="hidden shrink-0 text-background/60 md:inline">Zug Crypto pioneer Nils Suter breaks silence in rare interview</span>
         </div>
       </div>
 
@@ -115,18 +117,15 @@ function Index() {
       <div className="hidden border-b border-rule bg-surface md:block">
         <div className="mx-auto flex max-w-[1320px] items-center justify-between px-6 py-1.5 text-[11px] text-ink-soft">
           <div className="flex items-center gap-4">
-            <span className="font-medium text-ink">Friday, Nov 14, 2025</span>
-            <span className="hidden lg:inline">New York · 09:42 EST</span>
-            <span className="hidden items-center gap-1.5 lg:flex"><span className="h-1.5 w-1.5 rounded-full bg-bull" /> Markets Open</span>
+            <span className="font-medium text-ink">Wednesday, June 24, 2026</span>
+            <span className="hidden lg:inline">Geneva · 13:47 CET</span>
+            <span className="hidden items-center gap-1.5 lg:flex"><span className="h-1.5 w-1.5 rounded-full bg-bull" /> Markets Active</span>
           </div>
           <div className="flex items-center gap-4">
             <a href="#" className="hover:text-ink">Newsletters</a>
-            <a href="#" className="hover:text-ink">Podcasts</a>
-            <a href="#" className="hover:text-ink">Events</a>
-            <a href="#" className="hover:text-ink">Research</a>
-            <span className="h-3 w-px bg-rule" />
-            <a href="#" className="hover:text-ink">Sign in</a>
-            <a href="#" className="font-semibold text-ink hover:underline">Try Pro</a>
+            <a href="#" className="hover:text-ink">Briefings</a>
+            <a href="#" className="hover:text-ink font-semibold text-primary">Join Sovereign Circle</a>
+            <a href="#" className="font-semibold text-ink hover:underline">Apply for Allocation</a>
           </div>
         </div>
       </div>
@@ -135,8 +134,8 @@ function Index() {
       <header className="sticky top-0 z-40 border-b border-rule bg-background/95 backdrop-blur">
         <div className="mx-auto flex max-w-[1320px] items-center gap-6 px-6 py-3">
           <a href="/" className="flex items-baseline gap-1.5">
-            <span className="font-serif text-2xl font-bold tracking-tight text-ink">CipherWire</span>
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Pro</span>
+            <span className="font-serif text-2xl font-bold tracking-tight text-ink">Le Grand Journal</span>
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Daily</span>
           </a>
           <div className="ml-auto flex items-center gap-1">
             {[Search, Bell, Bookmark, Moon].map((Icon, i) => (
@@ -145,7 +144,7 @@ function Index() {
               </button>
             ))}
             <button className="ml-2 rounded-sm bg-ink px-4 py-2 text-[12px] font-semibold uppercase tracking-wider text-background transition-opacity hover:opacity-90">
-              Subscribe
+              Apply for Allocation
             </button>
             <div className="ml-2 grid h-8 w-8 place-items-center rounded-full bg-surface text-ink">
               <User className="h-4 w-4" />
@@ -159,7 +158,7 @@ function Index() {
               <a
                 key={n}
                 href="#"
-                className={`shrink-0 text-[12px] font-medium uppercase tracking-wider transition-colors hover:text-ink ${i === 1 ? "text-ink" : "text-ink-soft"}`}
+                className={`shrink-0 text-[12px] font-medium uppercase tracking-wider transition-colors hover:text-ink ${i === 1 ? "text-ink font-semibold" : "text-ink-soft"}`}
               >
                 {n}
               </a>
@@ -170,7 +169,7 @@ function Index() {
         {/* Live price marquee */}
         <div className="border-t border-rule bg-background">
           <div className="mx-auto flex max-w-[1320px] items-center gap-3 px-6 py-1.5">
-            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-ink-soft">Live</span>
+            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-ink-soft">Markets</span>
             <span className="hidden h-3 w-px shrink-0 bg-rule sm:inline-block" />
             <div className="relative flex-1 overflow-hidden">
               <div className="ticker-track flex gap-8 whitespace-nowrap text-[12px]">
@@ -192,11 +191,11 @@ function Index() {
         <nav className="flex items-center gap-1.5 text-[12px] text-ink-soft">
           <a href="#" className="hover:text-ink">Home</a>
           <ChevronRight className="h-3 w-3" />
-          <a href="#" className="hover:text-ink">Crypto</a>
+          <a href="#" className="hover:text-ink">Profiles</a>
           <ChevronRight className="h-3 w-3" />
-          <a href="#" className="hover:text-ink">Bitcoin</a>
+          <a href="#" className="hover:text-ink">Sovereign Citizens</a>
           <ChevronRight className="h-3 w-3" />
-          <span className="text-ink">Institutional Demand</span>
+          <span className="text-ink">Nils Suter Profile</span>
         </nav>
       </div>
 
@@ -213,19 +212,17 @@ function Index() {
           </div>
 
           <div className="mb-4 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-widest text-primary">
-            <span>Bitcoin</span>
+            <span>Special Report</span>
             <span className="h-3 w-px bg-rule" />
-            <span className="text-ink-soft">Markets · Analysis</span>
+            <span className="text-ink-soft">Swiss Sovereignty · Profiles</span>
           </div>
 
           <h1 className="font-serif text-4xl font-bold leading-[1.1] tracking-tight text-ink md:text-[52px]">
-            Bitcoin Climbs Above Major Resistance as Institutional Demand Pushes Crypto Markets Higher
+            The Swiss Alchemist: How Zug's 'Crypto Maverick' Nils Suter Turned a CHF 500 Bet into a Castle in the Alps
           </h1>
 
           <p className="mt-6 font-serif text-xl leading-relaxed text-ink-soft">
-            Spot bitcoin ETFs absorbed more than $1.2&nbsp;billion of net inflows last week, propelling the
-            largest cryptocurrency through a price ceiling that had capped advances since spring and reigniting
-            a broad rally across digital assets.
+            In an exclusive interview inside his renovated 14th-century estate in Zug, Switzerland’s most famous crypto pioneer Nils Suter details how Bitcoin saved his life, his philosophy on sovereignty, and why he is opening access to his inner circle.
           </p>
 
           {/* Author card */}
@@ -236,73 +233,63 @@ function Index() {
                 Elena Hart
                 <BadgeCheck className="h-3.5 w-3.5 text-primary" />
               </div>
-              <div className="text-[11px] text-ink-soft">Crypto Correspondent · CipherWire</div>
+              <div className="text-[11px] text-ink-soft">Crypto Correspondent · The Herald Chronicle</div>
             </div>
             <div className="ml-auto flex flex-wrap items-center gap-4 text-[11px] text-ink-soft">
-              <span>Published <span className="text-ink">Nov 14, 2025</span></span>
-              <span>Updated <span className="text-ink">2h ago</span></span>
-              <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> 9 min read</span>
+              <span>Published <span className="text-ink">June 24, 2026</span></span>
+              <span>Updated <span className="text-ink">10m ago</span></span>
+              <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> 11 min read</span>
               <span className="flex items-center gap-1 rounded-full border border-rule px-2 py-0.5">
-                <BadgeCheck className="h-3 w-3 text-bull" /> Fact checked
+                <BadgeCheck className="h-3 w-3 text-bull" /> Verified Profile
               </span>
             </div>
           </div>
 
           {/* Hero image */}
           <figure className="mt-8">
-            <img src={heroImg} alt="Bitcoin coins in front of trading screen" width={1600} height={900} className="aspect-[16/9] w-full rounded-md object-cover" />
+            <img src={heroImg} alt="Nils Suter's private crypto mining chalet in Zug" width={1600} height={900} className="aspect-[16/9] w-full rounded-md object-cover" />
             <figcaption className="mt-3 flex flex-wrap justify-between gap-2 text-[12px] text-ink-soft">
-              <span>Bitcoin extended its rally past a multi-month resistance level as ETF flows accelerated.</span>
-              <span className="italic">Photo: CipherWire / Reuters</span>
+              <span>Nils Suter's private estate in the canton of Zug, funded entirely through digital asset accumulation.</span>
+              <span className="italic">Photo: The Herald Chronicle / Jean-Luc Bovet</span>
             </figcaption>
           </figure>
 
           {/* Body */}
           <div className="prose-article mt-10 space-y-6 font-serif text-[19px] leading-[1.8] text-ink">
             <p>
-              Bitcoin pushed decisively above a price level that had acted as a ceiling for much of the year,
-              extending a rally that has been driven less by the speculative retail manias of past cycles and
-              more by sustained, programmatic buying from regulated financial vehicles. The world's largest
-              cryptocurrency traded as high as $72,400 in New York on Thursday before settling near $71,800,
-              its highest weekly close on record.
+              Nestled high above the mist-covered waters of Lake Zug, the medieval gates of Schloss Oberwil swing open to reveal a paradox. Outside, the stone walls stand as they have since 1380. Inside, a glowing bank of screens displays real-time block validations across three continents. This is the headquarters of <strong>Nils Suter</strong>, a 38-year-old former Zurich system administrator who is widely considered Switzerland's most successful individual crypto accumulator.
             </p>
             <p>
-              Analysts and fund managers interviewed by <em>CipherWire</em> said the move reflects a structural
-              shift in demand. Spot bitcoin exchange-traded funds, approved by U.S. regulators earlier this year,
-              have accumulated more than $34&nbsp;billion in net inflows, with BlackRock's IBIT alone now holding
-              over 380,000 coins — roughly 1.8% of all bitcoin that will ever exist.
+              Suter’s story is legendary in Zug's "Crypto Valley," but he has rarely spoken to the press. Today, dressed in a simple merino wool sweater, he pours mineral water and explains how an impulse buy of CHF 500 in 2011 transformed him from an overworked IT engineer struggling to pay a CHF 900 rent into a sovereign billionaire.
             </p>
 
-            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">A market reshaped by institutional flows</h2>
+            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">"My colleagues thought I lost my mind"</h2>
             <p>
-              The composition of today's buyer base bears little resemblance to the one that drove the 2021 cycle.
-              Pension consultants, registered investment advisors and family offices — actors that historically
-              avoided digital assets — now dominate the marginal bid. Coinbase's prime brokerage reported that
-              institutional clients accounted for more than 80% of platform volume in the third quarter.
+              In 2011, Suter was working at a traditional Swiss private bank in Zurich. "I was maintaining legacy servers, watching massive quantities of capital move across screens, none of which belonged to me," Suter recalls. "I worked 60 hours a week, and at the end of the month, after tax and Zurich rents, I had nothing left."
+            </p>
+            <p>
+              When he read the Bitcoin whitepaper in a cryptography forum, something clicked. He spent CHF 500—exactly half of his savings at the time—to purchase Bitcoin at roughly CHF 3.50 per coin. "My colleagues at the bank laughed. They told me it was play money for internet geeks and that I'd lose everything. I told them that the traditional system depends on your dependency. Crypto depends on your capability."
             </p>
 
             {/* Pull quote */}
             <blockquote className="my-10 border-l-2 border-primary pl-6 font-serif text-2xl leading-snug text-ink">
-              "What we are watching is not a speculative blow-off. It is the slow, deliberate repricing of
-              bitcoin as a treasury reserve asset by institutions that, until recently, were not allowed to own it."
+              "Sovereignty isn't just about financial yield. It's about time. For the first time in human history, an individual can secure their labor and wealth in code that no state, bank, or corporation can dilute or confiscate."
               <footer className="mt-3 text-[13px] font-sans font-medium not-italic text-ink-soft">
-                — Marcus Chen, Head of Digital Assets, Northbridge Capital
+                — Nils Suter, inside Schloss Oberwil, Zug
               </footer>
             </blockquote>
 
             <p>
-              Trading desks at major banks have begun staffing dedicated crypto coverage teams. Goldman Sachs and
-              Morgan Stanley both expanded prime services for digital assets in the past quarter, while Fidelity
-              moved bitcoin custody from a research product into a core institutional offering.
+              By the time Suter relocated to Zug in 2013, he had accumulated thousands of coins. He became one of the foundational architects of the canton's crypto tax guidelines, helping transform Zug from a sleepy Swiss town into the undisputed global "Crypto Valley" that hosts hundreds of major foundation headquarters today.
             </p>
 
             {/* Stat grid */}
             <div className="not-prose my-10 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-rule bg-rule md:grid-cols-4">
               {[
-                { v: "$71,842", l: "BTC Spot" },
-                { v: "+2.41%", l: "24h Change" },
-                { v: "$1.2B", l: "ETF Net Inflow (wk)" },
-                { v: "76 / 100", l: "Fear & Greed" },
+                { v: "CHF 3.50", l: "Initial Buy Price" },
+                { v: "2011", l: "Discovery Year" },
+                { v: "14th Cent.", l: " Zug Headquarters" },
+                { v: "CHF 1.4B+", l: "Assets Under Management" },
               ].map((s) => (
                 <div key={s.l} className="bg-background p-5">
                   <div className="font-serif text-2xl font-bold text-ink">{s.v}</div>
@@ -311,44 +298,34 @@ function Index() {
               ))}
             </div>
 
-            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">ETF inflows and the new buyer base</h2>
+            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">Surviving the winter: The sovereign mindset</h2>
             <p>
-              The eleven spot bitcoin ETFs now trading in the United States have collectively become one of the
-              most successful product launches in the history of the exchange-traded fund industry. Net assets
-              under management crossed $90&nbsp;billion in October, ahead of the timeline most analysts projected
-              at launch.
+              His journey was far from easy. Suter held through five major market drawdowns, including the 2014 Mt. Gox hack where he lost a portion of his holdings, the 2018 crash, and the 2022 liquidations. "People see the castle, they see the Swiss assets, but they don't see the nights in 2018 where my portfolio crashed 85% and everyone said Bitcoin was dead. I never sold a single satoshi. Why? Because the fundamentals didn't change."
             </p>
+            <p>
+              Now, through his private venture vehicle **Helvetia Capital** and the **Helvetia Foundation**, Suter is shifting his focus from accumulation to empowerment. He is opening allocations to his private crypto-sovereign circle, allowing qualified individuals to query his advisory network and participate in early-stage Web3 deals.
+            </p>
+
             <ul className="not-prose my-6 space-y-2.5 text-[17px] font-sans text-ink">
               {[
-                "BlackRock IBIT: 384,200 BTC under management",
-                "Fidelity FBTC: 191,500 BTC under management",
-                "ARK 21Shares ARKB: 52,800 BTC under management",
-                "Bitwise BITB: 41,600 BTC under management",
-                "Other issuers (combined): 168,900 BTC",
+                "Helvetia Sovereign allocations: Now open for private applications",
+                "Fully compliant Swiss custody frameworks with bank-grade security",
+                "Direct mentorship programs for digital wealth builders",
+                "Co-investments in Swiss hydro-powered validator farms",
               ].map((l) => (
                 <li key={l} className="flex gap-3"><span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-ink" />{l}</li>
               ))}
             </ul>
 
-            <p>
-              "The reason the price action looks different this cycle is because the buyer is different," said
-              Priya Anand, a portfolio strategist at Wellesley Asset Research. "ETF inflows compound. They don't
-              chase candles."
-            </p>
-
             {/* Inline image */}
             <figure className="not-prose my-10">
-              <img src={inlineImg} alt="Trading floor" loading="lazy" width={1600} height={900} className="aspect-[16/9] w-full rounded-md object-cover" />
-              <figcaption className="mt-3 text-[12px] text-ink-soft">Trading desks have expanded crypto coverage as institutional volume climbs. <span className="italic">Photo: Bloomberg</span></figcaption>
+              <img src={inlineImg} alt="Swiss Alpine datacenter" loading="lazy" width={1600} height={900} className="aspect-[16/9] w-full rounded-md object-cover" />
+              <figcaption className="mt-3 text-[12px] text-ink-soft">Swiss alpine vault facilities housing the physical cryptographic keys for Helvetia Capital. <span className="italic">Photo: Bloomberg</span></figcaption>
             </figure>
 
-            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">Macro tailwinds and regulatory clarity</h2>
+            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">Why he is opening the gates</h2>
             <p>
-              The rally is unfolding against a macroeconomic backdrop that is, on balance, supportive. The
-              Federal Reserve's pivot away from its tightening cycle has weakened the dollar and revived
-              appetite for risk assets. Real yields have eased, gold has rallied to fresh highs, and equity
-              indexes have climbed in tandem with bitcoin — a correlation that historically softens when
-              monetary conditions loosen.
+              "I don't need more money," Suter says frankly. "What I need are allies. The next phase of the digital asset revolution is about building sovereign networks. By opening our private circle, we are connecting high-net-worth individuals, entrepreneurs, and institutions with the exact deal flow and security architecture that built my fortune."
             </p>
 
             {/* Data table */}
@@ -356,23 +333,23 @@ function Index() {
               <table className="w-full text-left text-[14px] font-sans">
                 <thead className="bg-surface text-[11px] uppercase tracking-wider text-ink-soft">
                   <tr>
-                    <th className="px-4 py-3">Asset</th>
-                    <th className="px-4 py-3 text-right">YTD</th>
-                    <th className="px-4 py-3 text-right">30D Vol.</th>
-                    <th className="px-4 py-3 text-right">Corr. SPX</th>
+                    <th className="px-4 py-3">Sovereignty Matrix</th>
+                    <th className="px-4 py-3 text-right">Standard Wealth</th>
+                    <th className="px-4 py-3 text-right">Swiss Sovereign Tier</th>
+                    <th className="px-4 py-3 text-right">Crypto Leverage</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-rule">
                   {[
-                    ["Bitcoin", "+58.4%", "42%", "0.41"],
-                    ["Ethereum", "+34.2%", "55%", "0.48"],
-                    ["Gold", "+27.1%", "14%", "0.12"],
-                    ["S&P 500", "+19.6%", "12%", "1.00"],
+                    ["Asset Control", "Third-party dependency", "Direct Cold Custody", "Self-Custodial Nodes"],
+                    ["Tax Efficiency", "Standard brackets", "Zug Canton Compliant", "Optimized Foundations"],
+                    ["Deal Access", "Public markets", "Early VC Allocations", "Exclusive Pre-sales"],
+                    ["Network Power", "Passive investor", "Nils Suter Advisory", "Co-Founder Rights"],
                   ].map((row) => (
                     <tr key={row[0]} className="bg-background">
                       <td className="px-4 py-3 font-medium text-ink">{row[0]}</td>
-                      <td className="px-4 py-3 text-right font-mono text-bull">{row[1]}</td>
-                      <td className="px-4 py-3 text-right font-mono text-ink">{row[2]}</td>
+                      <td className="px-4 py-3 text-right text-bear">{row[1]}</td>
+                      <td className="px-4 py-3 text-right text-bull font-medium">{row[2]}</td>
                       <td className="px-4 py-3 text-right font-mono text-ink-soft">{row[3]}</td>
                     </tr>
                   ))}
@@ -381,58 +358,31 @@ function Index() {
             </div>
 
             <p>
-              Regulatory developments have also worked in the asset class's favor. The Securities and Exchange
-              Commission's reversal on spot ETFs, the passage of Europe's Markets in Crypto-Assets framework,
-              and the establishment of stablecoin oversight regimes in Singapore, Hong Kong and the United
-              Kingdom have collectively lowered the perceived regulatory tail risk that long deterred allocators.
+              To apply for Suter’s allocation list or submit a direct enquiry to Helvetia Capital's Zug office, readers are directed to submit an official Sovereign Enquiry. The application process requires verifying contact details and stating investment/interest parameters.
             </p>
 
             {/* Did you know */}
             <aside className="not-prose my-10 rounded-md border-l-2 border-primary bg-surface p-6">
-              <div className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-primary">Did you know?</div>
+              <div className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-primary">Editor's Note</div>
               <p className="font-serif text-[17px] leading-relaxed text-ink">
-                Roughly 19.7&nbsp;million of bitcoin's 21&nbsp;million-coin maximum supply has already been
-                mined. After the April 2024 halving, the daily issuance rate dropped to about 450 BTC — less
-                than half of the average daily inflow into U.S. spot ETFs in the past quarter.
+                Due to extreme interest, allocations inside Helvetia Capital are reviewed on a rolling basis. All buttons and apply panels on this page will immediately route applicants to the secure Swiss Enquiry Registry in a new tab.
               </p>
             </aside>
 
-            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">Technical picture: breakout or blow-off?</h2>
+            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">The final word: "Do not wait"</h2>
             <p>
-              Chartists were watching the $69,000–$70,000 zone closely. The region had capped four separate
-              advances since March and represented the prior all-time-high range. A weekly close above it,
-              technicians argue, opens the door to price discovery with limited overhead supply.
-            </p>
-            <p>
-              Derivatives positioning, however, urges caution. Funding rates on perpetual swaps have ticked
-              into elevated territory, and open interest at major venues is approaching cycle highs. Such
-              conditions have historically preceded sharp, short-lived corrections — a feature, not a bug,
-              of leveraged crypto markets.
-            </p>
-
-            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">Outlook</h2>
-            <p>
-              Most strategists interviewed declined to forecast a precise year-end target but emphasized the
-              difference between a flow-driven repricing and a sentiment-driven bubble. "If ETF inflows
-              continue at even half the current pace, the supply-demand math gets uncomfortable for sellers,"
-              said Chen. "That doesn't preclude 20% drawdowns — those are inherent to the asset — but it does
-              change the trajectory of the dips."
-            </p>
-            <p>
-              For now, the market's tone is one of measured conviction. The era of crypto as a fringe trade
-              is, by most measures, over. What replaces it — a maturing macro asset, a generational tech
-              cycle, or both — is the question the next twelve months will answer.
+              "The transfer of wealth from legacy trust systems to digital sovereign assets is only 1% complete," Suter finishes, looking out over the Alps. "You can watch it happen, or you can occupy the castle. The choice was yours in 2011, and it remains yours today."
             </p>
 
             {/* Key takeaways */}
             <div className="not-prose my-10 rounded-md border border-rule bg-background p-6">
-              <div className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-ink">Key takeaways</div>
+              <div className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-ink">Key takeaways from Suter's profile</div>
               <ol className="space-y-3 text-[15px] font-sans text-ink">
                 {[
-                  "Bitcoin closed above a multi-month resistance band on record ETF demand.",
-                  "Spot ETFs have absorbed $34B in net inflows year-to-date, reshaping the buyer base.",
-                  "Macroeconomic conditions — softer dollar, easing yields — support risk assets broadly.",
-                  "Derivatives positioning suggests near-term volatility despite the constructive structure.",
+                  "Nils Suter turned CHF 500 of IT savings into a multi-million Swiss crypto portfolio.",
+                  "Establishing Helvetia Capital in Zug to fund and scale sovereign digital assets.",
+                  "Emphasizes cold self-custody and Swiss regulatory structures for asset protection.",
+                  "Opening secure, direct allocations for high-conviction partners via enquiry form.",
                 ].map((t, i) => (
                   <li key={i} className="flex gap-3">
                     <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-ink text-[10px] font-bold text-background">{i + 1}</span>
@@ -446,33 +396,33 @@ function Index() {
           {/* Video embed */}
           <div className="mt-10 overflow-hidden rounded-md border border-rule bg-surface">
             <div className="relative aspect-[16/9] bg-ink">
-              <img src={inlineImg} alt="" className="h-full w-full object-cover opacity-50" />
+              <img src={inlineImg} alt="Nils Suter Interview Video" className="h-full w-full object-cover opacity-50" />
               <button className="absolute inset-0 grid place-items-center">
                 <span className="grid h-16 w-16 place-items-center rounded-full bg-background/95 text-ink shadow-xl transition-transform hover:scale-110">
                   <Play className="ml-1 h-6 w-6 fill-current" />
                 </span>
               </button>
-              <div className="absolute bottom-3 right-3 rounded-sm bg-ink/80 px-2 py-0.5 text-[11px] font-mono text-background">12:48</div>
+              <div className="absolute bottom-3 right-3 rounded-sm bg-ink/80 px-2 py-0.5 text-[11px] font-mono text-background">18:42</div>
             </div>
             <div className="p-4">
-              <div className="text-[11px] uppercase tracking-widest text-primary">Market Analysis</div>
-              <div className="mt-1 font-serif text-lg font-semibold text-ink">Watch: Why this rally looks different from 2021</div>
+              <div className="text-[11px] uppercase tracking-widest text-primary font-semibold">Exclusives</div>
+              <div className="mt-1 font-serif text-lg font-semibold text-ink">Watch: Nils Suter walks through his alpine server room and cold key vault</div>
             </div>
           </div>
 
           {/* Poll */}
           <div className="mt-10 rounded-md border border-rule p-6">
             <div className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft">Reader Poll</div>
-            <h3 className="mt-2 font-serif text-2xl font-semibold text-ink">What's your six-month outlook for bitcoin?</h3>
+            <h3 className="mt-2 font-serif text-2xl font-semibold text-ink">How do you plan to navigate the shifting global financial landscape in 2026?</h3>
             <div className="mt-6 space-y-3">
               {[
-                { l: "Bullish", v: 64, c: "bg-bull" },
-                { l: "Neutral", v: 22, c: "bg-ink-soft" },
-                { l: "Bearish", v: 14, c: "bg-bear" },
+                { l: "Increase exposure to self-custodial sovereign assets", v: 72, c: "bg-bull" },
+                { l: "Stay with traditional index funds and commercial banks", v: 21, c: "bg-primary" },
+                { l: "Seek shelter in physical real estate & precious metals", v: 7, c: "bg-bear" },
               ].map((p) => (
-                <div key={p.l}>
+                <div key={p.l} className="cursor-pointer group">
                   <div className="mb-1 flex justify-between text-[13px]">
-                    <span className="font-medium text-ink">{p.l}</span>
+                    <span className="font-medium text-ink group-hover:text-primary transition-colors">{p.l}</span>
                     <span className="font-mono text-ink-soft">{p.v}%</span>
                   </div>
                   <div className="h-2 overflow-hidden rounded-full bg-surface">
@@ -481,20 +431,20 @@ function Index() {
                 </div>
               ))}
             </div>
-            <div className="mt-4 text-[11px] text-ink-soft">12,438 votes · Live</div>
+            <div className="mt-4 text-[11px] text-ink-soft">4,284 votes · Verified IP Addresses</div>
           </div>
 
           {/* Comments */}
           <section className="mt-12">
             <div className="mb-5 flex items-center justify-between">
-              <h3 className="font-serif text-2xl font-bold text-ink">Comments <span className="text-ink-soft">(284)</span></h3>
+              <h3 className="font-serif text-2xl font-bold text-ink">Comments <span className="text-ink-soft">(142)</span></h3>
               <button className="text-[12px] font-semibold uppercase tracking-wider text-primary">Sort: Top</button>
             </div>
             <div className="space-y-6">
               {[
-                { n: "David Renault", h: "Verified", t: "Excellent breakdown of the ETF flow dynamics. The buyer composition shift is the story that doesn't get enough airtime.", l: 124, r: 12, ago: "2h" },
-                { n: "Aisha Khan", h: "Portfolio Manager", t: "Funding rate caveat is well placed. We've trimmed leverage above $70K — not the trend, just the entry.", l: 86, r: 8, ago: "3h" },
-                { n: "Tomás Ribeiro", h: "Subscriber", t: "Would love a follow-up on Ethereum's deflationary mechanics post-Dencun. Different asset, same institutionalization arc.", l: 54, r: 5, ago: "4h" },
+                { n: "David Renault", h: "Zug Resident", t: "I've seen Nils walking around Lake Zug. The guy is incredibly down to earth despite his success. His commitment to Web3 education here is real.", l: 242, r: 8, ago: "2h" },
+                { n: "Aisha Khan", h: "Portfolio Manager", t: "The Swiss banking landscape is shifting fast. Suter's point about diligence over dilution is spot on. Applying for Helvetia's circle immediately.", l: 114, r: 4, ago: "3h" },
+                { n: "Tomás Ribeiro", h: "Sovereign Subscriber", t: "Struggling sysadmin to Alpine castle owner is the ultimate dream. But the stress of holding through the 2018 winter would have killed most people.", l: 91, r: 12, ago: "4h" },
               ].map((c) => (
                 <div key={c.n} className="flex gap-4 border-b border-rule pb-6">
                   <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-surface text-[12px] font-semibold text-ink">
@@ -523,9 +473,9 @@ function Index() {
 
           {/* Sources */}
           <section className="mt-12 border-t border-rule pt-8">
-            <div className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft">Sources & References</div>
+            <div className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft">Verified Archives</div>
             <div className="mt-4 flex flex-wrap gap-2">
-              {["CoinMarketCap", "CoinGlass", "Glassnode", "TradingView", "SEC.gov", "Bloomberg", "Reuters", "CoinDesk"].map((s) => (
+              {["Swissinfo.ch", "Zug Commercial Registry", "Helvetia Foundation Ledger", "FINMA Digital Assets", "Bitcoin Suisse Archive"].map((s) => (
                 <a key={s} href="#" className="flex items-center gap-1.5 rounded-sm border border-rule px-3 py-1.5 text-[12px] text-ink-soft transition-colors hover:border-ink hover:text-ink">
                   {s} <ArrowUpRight className="h-3 w-3" />
                 </a>
@@ -544,15 +494,13 @@ function Index() {
                 </div>
                 <div className="text-[12px] uppercase tracking-wider text-ink-soft">Crypto Correspondent</div>
                 <p className="mt-3 text-[14px] leading-relaxed text-ink-soft">
-                  Elena covers digital asset markets, institutional adoption, and crypto regulation for CipherWire.
-                  Previously a markets reporter at the Financial Times, she has interviewed central bankers, exchange
-                  founders, and protocol developers across three continents.
+                  Elena covers digital asset markets, Swiss regulatory shifts, and blockchain venture capital for The Herald Chronicle. Previously a reporter at the Financial Times, she has covered the rise of Zug's Crypto Valley since 2015.
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-3">
-                  <button className="rounded-sm bg-ink px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-background hover:opacity-90">Follow</button>
+                  <button className="rounded-sm bg-ink px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-background hover:opacity-90">Follow Correspondent</button>
                   <a href="#" className="text-ink-soft hover:text-ink"><Twitter className="h-4 w-4" /></a>
                   <a href="#" className="text-ink-soft hover:text-ink"><Linkedin className="h-4 w-4" /></a>
-                  <a href="#" className="text-[12px] text-ink-soft hover:text-ink">elena.hart@cipherwire.com</a>
+                  <a href="#" className="text-[12px] text-ink-soft hover:text-ink">elena.hart@heraldchronicle.ch</a>
                 </div>
               </div>
             </div>
@@ -560,12 +508,12 @@ function Index() {
         </article>
 
         {/* Sidebar */}
-        <aside className="space-y-8 lg:sticky lg:top-20 lg:self-start">
+        <aside className="space-y-8 lg:sticky lg:top-32 lg:self-start">
           {/* Market prices */}
           <section>
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="text-[11px] font-semibold uppercase tracking-widest text-ink">Market Prices</h3>
-              <span className="flex items-center gap-1 text-[10px] text-ink-soft"><span className="h-1.5 w-1.5 rounded-full bg-bull" /> Live</span>
+              <h3 className="text-[11px] font-semibold uppercase tracking-widest text-ink font-sans">Market Prices</h3>
+              <span className="flex items-center gap-1 text-[10px] text-ink-soft font-sans"><span className="h-1.5 w-1.5 rounded-full bg-bull" /> Live Feed</span>
             </div>
             <div className="divide-y divide-rule rounded-md border border-rule">
               {PRICES.map((p) => (
@@ -585,29 +533,42 @@ function Index() {
             </div>
           </section>
 
+          {/* Sovereign Allocation Widget */}
+          <section className="rounded-md border border-rule p-5 bg-surface/50 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full pointer-events-none" />
+            <h3 className="text-[11px] font-semibold uppercase tracking-widest text-primary">Helvetia Capital</h3>
+            <h4 className="mt-2 font-serif text-lg font-bold text-ink leading-snug">Apply for Nils Suter's Inner Circle Allocation</h4>
+            <p className="mt-2 text-[12px] text-ink-soft leading-relaxed">
+              Submit your enquiry to join the private round. Verified applicants receive investment decks, yield logs, and direct advisory access.
+            </p>
+            <button className="mt-4 w-full rounded-sm bg-ink text-background py-2 text-[12px] font-semibold uppercase tracking-wider hover:opacity-90 transition-opacity cursor-pointer">
+              Submit Sovereign Enquiry
+            </button>
+          </section>
+
           {/* Fear & Greed */}
           <section className="rounded-md border border-rule p-5">
-            <h3 className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft">Fear & Greed Index</h3>
+            <h3 className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft font-sans">Sovereignty Sentiment Index</h3>
             <div className="mt-4 flex items-end gap-4">
-              <div className="font-serif text-5xl font-bold text-ink">76</div>
-              <div className="pb-2 text-[12px] font-semibold text-bull">Greed</div>
+              <div className="font-serif text-5xl font-bold text-ink">84</div>
+              <div className="pb-2 text-[12px] font-semibold text-bull font-sans">Extreme Pride</div>
             </div>
             <div className="mt-4 h-2 overflow-hidden rounded-full bg-surface">
-              <div className="h-full bg-gradient-to-r from-bear via-amber-500 to-bull" style={{ width: "76%" }} />
+              <div className="h-full bg-gradient-to-r from-bear via-amber-500 to-bull" style={{ width: "84%" }} />
             </div>
-            <div className="mt-2 flex justify-between text-[10px] text-ink-soft">
-              <span>Extreme Fear</span><span>Extreme Greed</span>
+            <div className="mt-2 flex justify-between text-[10px] text-ink-soft font-sans">
+              <span>Financial Standard</span><span>Financial Sovereignty</span>
             </div>
           </section>
 
           {/* Trending */}
           <section>
-            <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-ink">Trending Now</h3>
+            <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-ink font-sans">Trending Profiles</h3>
             <ol className="space-y-4">
               {TRENDING.map((t, i) => (
                 <li key={i} className="flex gap-3 border-b border-rule pb-4 last:border-0">
                   <span className="font-serif text-2xl font-bold text-ink-soft/40">{String(i + 1).padStart(2, "0")}</span>
-                  <div className="min-w-0">
+                  <div className="min-w-0 font-sans">
                     <div className="text-[10px] font-semibold uppercase tracking-wider text-primary">{t.tag}</div>
                     <a href="#" className="mt-1 block text-[13px] font-medium leading-snug text-ink hover:underline">{t.title}</a>
                     <div className="mt-1 text-[11px] text-ink-soft">{t.time} ago</div>
@@ -617,35 +578,19 @@ function Index() {
             </ol>
           </section>
 
-          {/* Newsletter */}
+          {/* Newsletter Box */}
           <section className="rounded-md bg-ink p-6 text-background">
-            <h3 className="font-serif text-xl font-bold leading-tight">The Morning Block</h3>
-            <p className="mt-2 text-[13px] text-background/70">A 5-minute crypto markets brief in your inbox, weekdays at 7am ET.</p>
+            <h3 className="font-serif text-xl font-bold leading-tight">The Daily Brief</h3>
+            <p className="mt-2 text-[13px] text-background/70 font-sans">A 5-minute summary of global news, finance, and exclusive features in your inbox, weekdays at 7am.</p>
             <div className="mt-4 space-y-2">
               <input
                 type="email"
-                placeholder="your@email.com"
+                placeholder="your@email.ch"
                 className="w-full rounded-sm border border-background/20 bg-background/10 px-3 py-2.5 text-[13px] text-background placeholder:text-background/40 focus:border-background focus:outline-none"
               />
-              <button className="w-full rounded-sm bg-background py-2.5 text-[12px] font-semibold uppercase tracking-wider text-ink hover:opacity-90">
-                Subscribe — Free
+              <button className="w-full rounded-sm bg-background py-2.5 text-[12px] font-semibold uppercase tracking-wider text-ink hover:opacity-90 cursor-pointer">
+                Join Free Newsletter
               </button>
-            </div>
-            <div className="mt-3 text-[10px] text-background/50">No spam. Unsubscribe anytime.</div>
-          </section>
-
-          {/* Ad */}
-          <div className="grid h-64 place-items-center rounded-md border border-dashed border-rule text-[11px] uppercase tracking-widest text-ink-soft">
-            Advertisement
-          </div>
-
-          {/* Tags */}
-          <section>
-            <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-ink">Popular Tags</h3>
-            <div className="flex flex-wrap gap-2">
-              {["Bitcoin", "Ethereum", "AI", "Web3", "ETF", "Mining", "Stablecoins", "Altcoins", "DeFi"].map((t) => (
-                <a key={t} href="#" className="rounded-sm border border-rule px-3 py-1 text-[12px] text-ink-soft hover:border-ink hover:text-ink">#{t}</a>
-              ))}
             </div>
           </section>
         </aside>
@@ -653,8 +598,8 @@ function Index() {
 
       {/* Related */}
       <section className="mx-auto mt-20 max-w-[1320px] border-t border-rule px-6 pt-12">
-        <div className="flex items-end justify-between">
-          <h2 className="font-serif text-3xl font-bold tracking-tight text-ink">Related Stories</h2>
+        <div className="flex items-end justify-between font-sans">
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-ink">Related World Stories</h2>
           <a href="#" className="text-[12px] font-semibold uppercase tracking-wider text-primary hover:underline">View all</a>
         </div>
         <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -663,9 +608,9 @@ function Index() {
               <div className="aspect-[4/3] overflow-hidden rounded-md bg-surface">
                 <div className="h-full w-full bg-gradient-to-br from-ink/10 via-primary/10 to-bull/10 transition-transform duration-500 group-hover:scale-105" />
               </div>
-              <div className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-primary">{r.cat}</div>
+              <div className="mt-3 text-[10px] font-semibold uppercase tracking-wider text-primary font-sans">{r.cat}</div>
               <h3 className="mt-1.5 font-serif text-lg font-semibold leading-snug text-ink group-hover:underline">{r.title}</h3>
-              <div className="mt-2 text-[11px] text-ink-soft">{r.author} · {r.time}</div>
+              <div className="mt-2 text-[11px] text-ink-soft font-sans">{r.author} · {r.time}</div>
             </a>
           ))}
         </div>
@@ -673,76 +618,32 @@ function Index() {
 
       {/* Latest horizontal */}
       <section className="mx-auto mt-20 max-w-[1320px] px-6">
-        <div className="mb-6 flex items-center justify-between">
-          <h2 className="font-serif text-2xl font-bold text-ink">Latest News</h2>
-          <div className="flex items-center gap-1 text-[11px] text-ink-soft"><span className="h-1.5 w-1.5 rounded-full bg-bear" /> Updated continuously</div>
+        <div className="mb-6 flex items-center justify-between font-sans">
+          <h2 className="font-serif text-2xl font-bold text-ink">Canton updates</h2>
+          <div className="flex items-center gap-1 text-[11px] text-ink-soft"><span className="h-1.5 w-1.5 rounded-full bg-bear" /> Feed active</div>
         </div>
         <div className="flex gap-4 overflow-x-auto pb-4">
-          {TRENDING.slice(0, 8).map((t, i) => (
+          {TRENDING.slice(0, 5).map((t, i) => (
             <a key={i} href="#" className="w-72 shrink-0 rounded-md border border-rule p-4 transition-colors hover:bg-surface">
-              <div className="text-[10px] font-semibold uppercase tracking-wider text-primary">{t.tag}</div>
+              <div className="text-[10px] font-semibold uppercase tracking-wider text-primary font-sans">{t.tag}</div>
               <h4 className="mt-2 font-serif text-[15px] font-semibold leading-snug text-ink">{t.title}</h4>
-              <div className="mt-3 text-[11px] text-ink-soft">{t.time} ago</div>
+              <div className="mt-3 text-[11px] text-ink-soft font-sans">{t.time} ago</div>
             </a>
           ))}
-        </div>
-      </section>
-
-      {/* Market snapshot */}
-      <section className="mx-auto mt-20 max-w-[1320px] px-6">
-        <h2 className="mb-6 font-serif text-2xl font-bold text-ink">Market Snapshot</h2>
-        <div className="grid grid-cols-2 gap-px overflow-hidden rounded-md border border-rule bg-rule md:grid-cols-3 lg:grid-cols-6">
-          {[
-            { s: "BTC", p: "$71,842", c: "+2.41%", u: true },
-            { s: "ETH", p: "$3,824", c: "+1.87%", u: true },
-            { s: "SOL", p: "$184.22", c: "+4.18%", u: true },
-            { s: "XRP", p: "$0.582", c: "-1.12%", u: false },
-            { s: "ADA", p: "$0.487", c: "+0.93%", u: true },
-            { s: "DOGE", p: "$0.162", c: "+3.04%", u: true },
-          ].map((m) => (
-            <div key={m.s} className="bg-background p-5">
-              <div className="text-[11px] font-semibold uppercase tracking-wider text-ink-soft">{m.s}</div>
-              <div className="mt-2 font-serif text-xl font-bold text-ink">{m.p}</div>
-              <div className={`mt-1 font-mono text-[12px] ${m.u ? "text-bull" : "text-bear"}`}>{m.c}</div>
-            </div>
-          ))}
-        </div>
-        <div className="mt-4 flex flex-wrap gap-6 text-[12px] text-ink-soft">
-          <span>Total Market Cap: <span className="font-mono text-ink">$2.71T</span></span>
-          <span>24h Volume: <span className="font-mono text-ink">$128.4B</span></span>
-          <span>BTC Dominance: <span className="font-mono text-ink">54.2%</span></span>
-        </div>
-      </section>
-
-      {/* Newsletter CTA */}
-      <section className="mx-auto mt-24 max-w-[1320px] px-6">
-        <div className="rounded-md border border-rule bg-surface px-8 py-14 text-center md:px-16 md:py-20">
-          <div className="text-[11px] font-semibold uppercase tracking-widest text-primary">Newsletter</div>
-          <h2 className="mx-auto mt-3 max-w-2xl font-serif text-3xl font-bold leading-tight text-ink md:text-4xl">
-            The signal in the noise of crypto markets, delivered every morning.
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[15px] text-ink-soft">
-            Join 240,000+ traders, analysts, and allocators who start their day with CipherWire's flagship brief.
-          </p>
-          <form className="mx-auto mt-8 flex max-w-md flex-col gap-2 sm:flex-row">
-            <input type="email" placeholder="Enter your email" className="flex-1 rounded-sm border border-rule bg-background px-4 py-3 text-[14px] text-ink focus:border-ink focus:outline-none" />
-            <button className="rounded-sm bg-ink px-6 py-3 text-[12px] font-semibold uppercase tracking-wider text-background hover:opacity-90">Subscribe</button>
-          </form>
-          <div className="mt-3 text-[11px] text-ink-soft">By subscribing you agree to our Privacy Policy.</div>
         </div>
       </section>
 
       {/* Footer */}
       <footer className="mt-24 border-t border-rule bg-background">
         <div className="mx-auto max-w-[1320px] px-6 py-14">
-          <div className="grid grid-cols-2 gap-10 md:grid-cols-6">
+          <div className="grid grid-cols-2 gap-10 md:grid-cols-6 font-sans">
             <div className="col-span-2">
               <div className="flex items-baseline gap-1.5">
-                <span className="font-serif text-2xl font-bold tracking-tight text-ink">CipherWire</span>
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Pro</span>
+                <span className="font-serif text-2xl font-bold tracking-tight text-ink">Le Grand Journal</span>
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Daily</span>
               </div>
               <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-ink-soft">
-                Editorial-grade reporting on digital asset markets, infrastructure, and policy — for the people who move them.
+                Reporting on global policy, business trends, technological breakthroughs, and sovereign investment profiles.
               </p>
               <div className="mt-5 flex gap-2">
                 {[Twitter, Linkedin, Facebook, Send, Rss].map((Icon, i) => (
@@ -751,51 +652,33 @@ function Index() {
                   </a>
                 ))}
               </div>
-              <div className="mt-6">
-                <div className="text-[11px] font-semibold uppercase tracking-widest text-ink">Get the app</div>
-                <div className="mt-3 flex gap-2">
-                  <a href="#" className="rounded-sm border border-rule px-3 py-2 text-[11px] text-ink-soft hover:border-ink hover:text-ink">App Store</a>
-                  <a href="#" className="rounded-sm border border-rule px-3 py-2 text-[11px] text-ink-soft hover:border-ink hover:text-ink">Google Play</a>
-                </div>
-              </div>
             </div>
             {[
-              { h: "Company", l: ["About", "Editorial Policy", "Corrections", "Careers", "Press", "Diversity", "Ethics"] },
-              { h: "Categories", l: ["Bitcoin", "Ethereum", "Markets", "Regulation", "Web3", "NFT", "DeFi", "Mining", "Stablecoins"] },
-              { h: "Products", l: ["Pro Terminal", "Research", "API & Data", "Newsletters", "Podcasts", "Events", "Indices"] },
-              { h: "Legal", l: ["Privacy Policy", "Terms of Service", "Cookie Policy", "Advertising", "Disclosures", "Accessibility", "Contact"] },
+              { h: "News Desk", l: [{ t: "World News", h: "#" }, { t: "Politics & Policy", h: "#" }, { t: "Business", h: "#" }, { t: "Markets Feed", h: "#" }, { t: "Science", h: "#" }, { t: "Arts & Culture", h: "#" }] },
+              { h: "Business", l: [{ t: "Markets Overview", h: "#" }, { t: "Personal Finance", h: "#" }, { t: "Real Estate", h: "#" }, { t: "Enterprise Staking", h: "#" }, { t: "Economy Logs", h: "#" }] },
+              { h: "Opinion", l: [{ t: "Editorials", h: "#" }, { t: "Op-Eds", h: "#" }, { t: "Letters to Editor", h: "#" }, { t: "Columns", h: "#" }, { t: "Profiles", h: "#" }] },
+              { h: "Legal", l: [{ t: "Privacy Policy", h: "/privacy" }, { t: "Terms & Conditions", h: "/terms" }, { t: "Sovereign Disclaimer", h: "#" }, { t: "Contact Geneva Office", h: "#" }] },
             ].map((col) => (
               <div key={col.h}>
                 <div className="text-[11px] font-semibold uppercase tracking-widest text-ink">{col.h}</div>
                 <ul className="mt-4 space-y-2.5 text-[13px] text-ink-soft">
-                  {col.l.map((l) => <li key={l}><a href="#" className="hover:text-ink">{l}</a></li>)}
+                  {col.l.map((link) => (
+                    <li key={link.t}>
+                      <a href={link.h} className="hover:text-ink">
+                        {link.t}
+                      </a>
+                    </li>
+                  ))}
                 </ul>
               </div>
             ))}
           </div>
-          <div className="mt-12 grid grid-cols-2 gap-6 border-t border-rule pt-8 text-[12px] text-ink-soft md:grid-cols-4">
-            {[
-              { h: "Trusted Sources", l: "Reuters · Bloomberg · AP" },
-              { h: "Member of", l: "Digital Content Next" },
-              { h: "Awards", l: "SABEW 2024 · Webby Honoree" },
-              { h: "Verified", l: "Trust Project · IFCN signatory" },
-            ].map((b) => (
-              <div key={b.h}>
-                <div className="text-[10px] font-semibold uppercase tracking-widest text-ink">{b.h}</div>
-                <div className="mt-1.5">{b.l}</div>
-              </div>
-            ))}
-          </div>
-          <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-rule pt-6 text-[12px] text-ink-soft md:flex-row md:items-center">
-            <div>© 2025 CipherWire Media, Inc. All rights reserved. Prices delayed up to 60 seconds.</div>
+          <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-rule pt-6 text-[12px] text-ink-soft md:flex-row md:items-center font-sans">
+            <div>© 2026 Le Grand Journal Media. Geneva CHE-428.189. All rights reserved.</div>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <button className="flex items-center gap-1.5 hover:text-ink"><Globe className="h-3.5 w-3.5" /> English (US)</button>
-              <a href="#" className="hover:text-ink">Do Not Sell My Info</a>
-              <a href="#" className="hover:text-ink">Cookie Settings</a>
-              <a href="#" className="hover:text-ink">Sitemap</a>
-              <a href="#" className="hover:text-ink">RSS</a>
-              <a href="#" className="hover:text-ink">Help Center</a>
-              <button className="hover:text-ink">Back to top ↑</button>
+              <button className="flex items-center gap-1.5 hover:text-ink"><Globe className="h-3.5 w-3.5" /> English (CH)</button>
+              <a href="#" className="hover:text-ink">Disclosures</a>
+              <button className="hover:text-ink font-semibold">Back to top ↑</button>
             </div>
           </div>
         </div>
