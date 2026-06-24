@@ -77,6 +77,8 @@ export default async function handler(req: any, res: any) {
       }
     }
 
+    console.log(`[Debug Token] Length: ${affiliateToken.length}, Prefix: "${affiliateToken.substring(0, 6)}", Suffix: "${affiliateToken.substring(affiliateToken.length - 6)}"`);
+
     // Format payload matching CRM specifications
     const crmPayload = {
       country_name: "cy",
