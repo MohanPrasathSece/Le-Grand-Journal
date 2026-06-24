@@ -22,11 +22,11 @@ export default async function handler(req: any, res: any) {
 
   if (method !== "POST") {
     if (typeof res.status === "function") {
-      return res.status(405).json({ error: "Method not allowed" });
+      return res.status(405).json({ error: "Méthode non autorisée" });
     } else {
       res.statusCode = 405;
       res.setHeader("Content-Type", "application/json");
-      return res.end(JSON.stringify({ error: "Method not allowed" }));
+      return res.end(JSON.stringify({ error: "Méthode non autorisée" }));
     }
   }
 
@@ -45,7 +45,7 @@ export default async function handler(req: any, res: any) {
 
     // Validate required fields
     if (!name || !email || !phone) {
-      const errResponse = { error: "Name, email, and phone/number are required fields." };
+      const errResponse = { error: "Le nom, l'e-mail et le numéro de téléphone sont des champs obligatoires." };
       if (typeof res.status === "function") {
         return res.status(400).json(errResponse);
       } else {
@@ -67,7 +67,7 @@ export default async function handler(req: any, res: any) {
 
     if (!crmEndpoint || !affiliateToken) {
       console.error("Server Configuration Error: CRM_API_ENDPOINT or CRM_AFFILIATE_TOKEN environment variable is not defined.");
-      const configErr = { error: "Server configuration error. Secure CRM parameters are missing from environment variables." };
+      const configErr = { error: "Erreur de configuration du serveur. Les paramètres sécurisés du CRM sont manquants dans les variables d'environnement." };
       if (typeof res.status === "function") {
         return res.status(500).json(configErr);
       } else {
@@ -126,7 +126,7 @@ export default async function handler(req: any, res: any) {
       }
     } else {
       console.error(`CRM Rejected Lead. Status: ${response.status}. Response: ${responseText}`);
-      const crmRejected = { error: "CRM server rejected lead submission.", details: responseText };
+      const crmRejected = { error: "Le serveur CRM a rejeté la soumission de la demande.", details: responseText };
       if (typeof res.status === "function") {
         return res.status(502).json(crmRejected);
       } else {
@@ -137,7 +137,7 @@ export default async function handler(req: any, res: any) {
     }
   } catch (error: any) {
     console.error("Server API Exception caught:", error);
-    const serverErr = { error: "An error occurred on the secure proxy server while transmitting lead data." };
+    const serverErr = { error: "Une erreur s'est produite sur le serveur proxy sécurisé lors de la transmission des données de la demande." };
     if (typeof res.status === "function") {
       return res.status(500).json(serverErr);
     } else {

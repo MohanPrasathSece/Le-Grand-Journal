@@ -9,44 +9,44 @@ import inlineImg from "@/assets/inline-trader.jpg";
 import authorImg from "@/assets/author.jpg";
 
 const NAV = [
-  "World", "Business", "Markets", "Technology", "Science", "Policy", "Opinion", "Culture", "Travel",
+  "Monde", "Affaires", "Marchés", "Technologie", "Science", "Politique", "Opinion", "Culture", "Voyage",
 ];
 
 const MARQUEE = [
-  { s: "S&P 500", p: "5,861.40", c: "+0.31%", u: true },
-  { s: "Dow Jones", p: "43,210.80", c: "+0.18%", u: true },
-  { s: "Nasdaq", p: "18,520.10", c: "+0.65%", u: true },
-  { s: "Gold (oz)", p: "$2,738.50", c: "+0.62%", u: true },
-  { s: "Crude Oil", p: "$78.42", c: "-0.52%", u: false },
-  { s: "EUR/USD", p: "1.0841", c: "+0.14%", u: true },
-  { s: "USD/CHF", p: "0.8750", c: "-0.18%", u: false },
-  { s: "BTC/USD", p: "$71,842.30", c: "+2.41%", u: true },
+  { s: "S&P 500", p: "5 861,40", c: "+0,31%", u: true },
+  { s: "Dow Jones", p: "43 210,80", c: "+0,18%", u: true },
+  { s: "Nasdaq", p: "18 520,10", c: "+0,65%", u: true },
+  { s: "Or (oz)", p: "$2 738,50", c: "+0,62%", u: true },
+  { s: "Pétrole Brut", p: "$78,42", c: "-0,52%", u: false },
+  { s: "EUR/USD", p: "1,0841", c: "+0,14%", u: true },
+  { s: "USD/CHF", p: "0,8750", c: "-0,18%", u: false },
+  { s: "BTC/USD", p: "$71 842,30", c: "+2,41%", u: true },
 ];
 
 const PRICES = [
-  { sym: "SPX", name: "S&P 500 Index", price: "5,861.40", chg: 0.31, up: true },
-  { sym: "XAU", name: "Gold (troy oz)", price: "$2,738.50", chg: 0.62, up: true },
-  { sym: "CHF", name: "USD/CHF Rate", price: "0.8750", chg: -0.18, up: false },
-  { sym: "BTC", name: "Bitcoin / USD", price: "$71,842.30", chg: 2.41, up: true },
+  { sym: "SPX", name: "Indice S&P 500", price: "5 861,40", chg: 0.31, up: true },
+  { sym: "XAU", name: "Or (once troy)", price: "$2 738,50", chg: 0.62, up: true },
+  { sym: "CHF", name: "Taux USD/CHF", price: "0,8750", chg: -0.18, up: false },
+  { sym: "BTC", name: "Bitcoin / USD", price: "$71 842,30", chg: 2.41, up: true },
 ];
 
 const TRENDING = [
-  { tag: "BUSINESS", title: "Federal Reserve hints at rate cuts as core inflation cools to 2.4%", time: "12m" },
-  { tag: "EXCLUSIVE", title: "Inside Zug's Alpine Castle: Nils Suter on turning CHF 500 into a digital empire", time: "38m" },
-  { tag: "TECHNOLOGY", title: "EU commission details draft guidelines for generative artificial intelligence", time: "1h" },
-  { tag: "POLICY", title: "Geneva climate accord signs 14 new states for clean hydro power grids", time: "2h" },
-  { tag: "SWITZERLAND", title: "Swiss watchmaking exports climb 6.8% led by luxury mechanical lines", time: "3h" },
+  { tag: "AFFAIRES", title: "La Réserve fédérale laisse entendre des baisses de taux alors que l'inflation sous-jacente ralentit à 2,4 %", time: "12m" },
+  { tag: "EXCLUSIF", title: "Au cœur du château alpin de Zoug : Nils Suter explique comment il a transformé 500 CHF en un empire numérique", time: "38m" },
+  { tag: "TECHNOLOGIE", title: "La Commission européenne détaille un projet de directives pour l'intelligence artificielle générative", time: "1h" },
+  { tag: "REGLEMENTATION", title: "L'accord sur le climat de Genève engage 14 nouveaux États pour des réseaux hydroélectriques propres", time: "2h" },
+  { tag: "SUISSE", title: "Les exportations horlogères suisses augmentent de 6,8 %, portées par les gammes mécaniques de luxe", time: "3h" },
 ];
 
 const RELATED = [
-  { cat: "Markets", title: "Global equities climb to record highs following tech earnings rally", time: "2h ago", author: "M. Alvarez" },
-  { cat: "Policy", title: "Swiss central bank shifts reserves into sovereign debt securities", time: "3h ago", author: "K. Yamada" },
-  { cat: "Opinion", title: "Why individual financial sovereignty is Switzerland's next frontier", time: "5h ago", author: "Nils Suter" },
-  { cat: "Technology", title: "Inside the deep security bunkers hosting European data ledgers", time: "7h ago", author: "R. Müller" },
+  { cat: "Marchés", title: "Les actions mondiales grimpent à des niveaux records après la hausse des bénéfices technologiques", time: "Il y a 2h", author: "M. Alvarez" },
+  { cat: "Règlementation", title: "La Banque nationale suisse transfère ses réserves vers des titres de créance souverains", time: "Il y a 3h", author: "K. Yamada" },
+  { cat: "Opinion", title: "Pourquoi la souveraineté financière individuelle est la prochaine frontière de la Suisse", time: "Il y a 5h", author: "Nils Suter" },
+  { cat: "Technologie", title: "Au cœur des bunkers de haute sécurité abritant les registres de données européens", time: "Il y a 7h", author: "R. Müller" },
 ];
 
 const TICKER = [
-  "LE GRAND JOURNAL DAILY", "FED DISCUSSES RATE ADJUSTMENTS", "NILS SUTER INTERVIEW GAINS GLOBAL INTEREST", "GOLD CONTINUES RECORD RUN",
+  "LE GRAND JOURNAL QUOTIDIEN", "LA FED DISCUTE DE L'AJUSTEMENT DES TAUX", "L'INTERVIEW DE NILS SUTER SUSCITE UN INTÉRÊT MONDIAL", "L'OR CONTINUE SA COURSE RECORD",
 ];
 
 function Sparkline({ up }: { up: boolean }) {
@@ -62,10 +62,10 @@ function Sparkline({ up }: { up: boolean }) {
 
 export default function IndexPage() {
   useEffect(() => {
-    document.title = "The Swiss Alchemist: How Nils Suter Bought a Zug Castle with Bitcoin — Le Grand Journal";
+    document.title = "L'Alchimiste Suisse : Comment Nils Suter a acheté un château à Zoug avec du Bitcoin — Le Grand Journal";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Inside the Castle of Zug: Switzerland’s most famous crypto pioneer Nils Suter details how Bitcoin saved his life, his philosophy on sovereignty, and why he is funding Europe's next-gen developers.");
+      metaDesc.setAttribute("content", "Au cœur du château de Zoug : Nils Suter, le pionnier de la crypto le plus célèbre de Suisse, explique en détail comment le Bitcoin lui a sauvé la vie, sa philosophie sur la souveraineté, et pourquoi il finance la prochaine génération de développeurs européens.");
     }
 
     const handleGlobalClick = (e: MouseEvent) => {
@@ -101,7 +101,7 @@ export default function IndexPage() {
       {/* Breaking bar */}
       <div className="border-b border-rule bg-ink text-background">
         <div className="mx-auto flex max-w-[1320px] items-center gap-4 px-6 py-2 text-[12px]">
-          <span className="shrink-0 rounded-sm bg-bear px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider">EXCLUSIVE</span>
+          <span className="shrink-0 rounded-sm bg-bear px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wider">EXCLUSIF</span>
           <div className="relative flex-1 overflow-hidden">
             <div className="ticker-track flex gap-10 whitespace-nowrap">
               {[...TICKER, ...TICKER].map((t, i) => (
@@ -109,7 +109,7 @@ export default function IndexPage() {
               ))}
             </div>
           </div>
-          <span className="hidden shrink-0 text-background/60 md:inline">Zug Crypto pioneer Nils Suter breaks silence in rare interview</span>
+          <span className="hidden shrink-0 text-background/60 md:inline">Nils Suter, pionnier de la crypto à Zoug, rompt le silence dans une interview rare</span>
         </div>
       </div>
 
@@ -117,15 +117,15 @@ export default function IndexPage() {
       <div className="hidden border-b border-rule bg-surface md:block">
         <div className="mx-auto flex max-w-[1320px] items-center justify-between px-6 py-1.5 text-[11px] text-ink-soft">
           <div className="flex items-center gap-4">
-            <span className="font-medium text-ink">Wednesday, June 24, 2026</span>
-            <span className="hidden lg:inline">Geneva · 13:47 CET</span>
-            <span className="hidden items-center gap-1.5 lg:flex"><span className="h-1.5 w-1.5 rounded-full bg-bull" /> Markets Active</span>
+            <span className="font-medium text-ink">Mercredi 24 juin 2026</span>
+            <span className="hidden lg:inline">Genève · 13h47 CET</span>
+            <span className="hidden items-center gap-1.5 lg:flex"><span className="h-1.5 w-1.5 rounded-full bg-bull" /> Marchés Actifs</span>
           </div>
           <div className="flex items-center gap-4">
             <a href="#" className="hover:text-ink">Newsletters</a>
-            <a href="#" className="hover:text-ink">Briefings</a>
-            <a href="#" className="hover:text-ink font-semibold text-primary">Join Sovereign Circle</a>
-            <a href="#" className="font-semibold text-ink hover:underline">Apply for Allocation</a>
+            <a href="#" className="hover:text-ink">Bulletins</a>
+            <a href="#" className="hover:text-ink font-semibold text-primary">Rejoindre le Cercle Souverain</a>
+            <a href="#" className="font-semibold text-ink hover:underline">Demander une Allocation</a>
           </div>
         </div>
       </div>
@@ -135,7 +135,7 @@ export default function IndexPage() {
         <div className="mx-auto flex max-w-[1320px] items-center gap-6 px-6 py-3">
           <a href="/" className="flex items-baseline gap-1.5">
             <span className="font-serif text-2xl font-bold tracking-tight text-ink">Le Grand Journal</span>
-            <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Daily</span>
+            <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Quotidien</span>
           </a>
           <div className="ml-auto flex items-center gap-1">
             {[Search, Bell, Bookmark, Moon].map((Icon, i) => (
@@ -144,7 +144,7 @@ export default function IndexPage() {
               </button>
             ))}
             <button className="ml-2 rounded-sm bg-ink px-4 py-2 text-[12px] font-semibold uppercase tracking-wider text-background transition-opacity hover:opacity-90">
-              Apply for Allocation
+              Demander une Allocation
             </button>
             <div className="ml-2 grid h-8 w-8 place-items-center rounded-full bg-surface text-ink">
               <User className="h-4 w-4" />
@@ -163,13 +163,13 @@ export default function IndexPage() {
                 {n}
               </a>
             ))}
-            <span className="ml-auto shrink-0 text-[11px] text-ink-soft">More ▾</span>
+            <span className="ml-auto shrink-0 text-[11px] text-ink-soft">Plus ▾</span>
           </div>
         </nav>
         {/* Live price marquee */}
         <div className="border-t border-rule bg-background">
           <div className="mx-auto flex max-w-[1320px] items-center gap-3 px-6 py-1.5">
-            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-ink-soft">Markets</span>
+            <span className="shrink-0 text-[10px] font-semibold uppercase tracking-widest text-ink-soft">Marchés</span>
             <span className="hidden h-3 w-px shrink-0 bg-rule sm:inline-block" />
             <div className="relative flex-1 overflow-hidden">
               <div className="ticker-track flex gap-8 whitespace-nowrap text-[12px]">
@@ -189,13 +189,13 @@ export default function IndexPage() {
       {/* Breadcrumb */}
       <div className="mx-auto max-w-[1320px] px-6 pt-6">
         <nav className="flex items-center gap-1.5 text-[12px] text-ink-soft">
-          <a href="#" className="hover:text-ink">Home</a>
+          <a href="#" className="hover:text-ink">Accueil</a>
           <ChevronRight className="h-3 w-3" />
-          <a href="#" className="hover:text-ink">Profiles</a>
+          <a href="#" className="hover:text-ink">Portraits</a>
           <ChevronRight className="h-3 w-3" />
-          <a href="#" className="hover:text-ink">Sovereign Citizens</a>
+          <a href="#" className="hover:text-ink">Citoyens Souverains</a>
           <ChevronRight className="h-3 w-3" />
-          <span className="text-ink">Nils Suter Profile</span>
+          <span className="text-ink">Profil de Nils Suter</span>
         </nav>
       </div>
 
@@ -212,17 +212,17 @@ export default function IndexPage() {
           </div>
 
           <div className="mb-4 flex items-center gap-3 text-[11px] font-semibold uppercase tracking-widest text-primary">
-            <span>Special Report</span>
+            <span>Rapport Spécial</span>
             <span className="h-3 w-px bg-rule" />
-            <span className="text-ink-soft">Swiss Sovereignty · Profiles</span>
+            <span className="text-ink-soft">Souveraineté Suisse · Portraits</span>
           </div>
 
           <h1 className="font-serif text-4xl font-bold leading-[1.1] tracking-tight text-ink md:text-[52px]">
-            The Swiss Alchemist: How Zug's 'Crypto Maverick' Nils Suter Turned a CHF 500 Bet into a Castle in the Alps
+            L'Alchimiste Suisse : Comment Nils Suter, le 'franc-tireur de la crypto' de Zoug, a transformé un pari de 500 CHF en un château dans les Alpes
           </h1>
 
           <p className="mt-6 font-serif text-xl leading-relaxed text-ink-soft">
-            In an exclusive interview inside his renovated 14th-century estate in Zug, Switzerland’s most famous crypto pioneer Nils Suter details how Bitcoin saved his life, his philosophy on sovereignty, and why he is opening access to his inner circle.
+            Dans une interview exclusive au sein de son domaine rénové du XIVe siècle à Zoug, Nils Suter, le pionnier de la crypto le plus célèbre de Suisse, détaille comment le Bitcoin lui a sauvé la vie, sa philosophie sur la souveraineté, et pourquoi il ouvre l'accès à son cercle restreint.
           </p>
 
           {/* Author card */}
@@ -233,63 +233,63 @@ export default function IndexPage() {
                 Elena Hart
                 <BadgeCheck className="h-3.5 w-3.5 text-primary" />
               </div>
-              <div className="text-[11px] text-ink-soft">Crypto Correspondent · The Herald Chronicle</div>
+              <div className="text-[11px] text-ink-soft">Correspondante Crypto · The Herald Chronicle</div>
             </div>
             <div className="ml-auto flex flex-wrap items-center gap-4 text-[11px] text-ink-soft">
-              <span>Published <span className="text-ink">June 24, 2026</span></span>
-              <span>Updated <span className="text-ink">10m ago</span></span>
-              <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> 11 min read</span>
+              <span>Publié le <span className="text-ink">24 juin 2026</span></span>
+              <span>Mis à jour <span className="text-ink">il y a 10 min</span></span>
+              <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> 11 min de lecture</span>
               <span className="flex items-center gap-1 rounded-full border border-rule px-2 py-0.5">
-                <BadgeCheck className="h-3 w-3 text-bull" /> Verified Profile
+                <BadgeCheck className="h-3 w-3 text-bull" /> Profil Vérifié
               </span>
             </div>
           </div>
 
           {/* Hero image */}
           <figure className="mt-8">
-            <img src={heroImg} alt="Nils Suter's private crypto mining chalet in Zug" width={1600} height={900} className="aspect-[16/9] w-full rounded-md object-cover" />
+            <img src={heroImg} alt="Nils Suter, pionnier de la crypto, lors de son entretien exclusif avec Le Grand Journal" width={1600} height={900} className="aspect-[16/9] w-full rounded-md object-cover" />
             <figcaption className="mt-3 flex flex-wrap justify-between gap-2 text-[12px] text-ink-soft">
-              <span>Nils Suter's private estate in the canton of Zug, funded entirely through digital asset accumulation.</span>
-              <span className="italic">Photo: The Herald Chronicle / Jean-Luc Bovet</span>
+              <span>Nils Suter (à droite) s'exprimant lors de son entretien exclusif pour Le Grand Journal, détaillant son parcours et sa vision de la souveraineté numérique.</span>
+              <span className="italic">Photo : The Herald Chronicle / Jean-Luc Bovet</span>
             </figcaption>
           </figure>
 
           {/* Body */}
           <div className="prose-article mt-10 space-y-6 font-serif text-[19px] leading-[1.8] text-ink">
             <p>
-              Nestled high above the mist-covered waters of Lake Zug, the medieval gates of Schloss Oberwil swing open to reveal a paradox. Outside, the stone walls stand as they have since 1380. Inside, a glowing bank of screens displays real-time block validations across three continents. This is the headquarters of <strong>Nils Suter</strong>, a 38-year-old former Zurich system administrator who is widely considered Switzerland's most successful individual crypto accumulator.
+              Niché sur les hauteurs des eaux brumeuses du lac de Zoug, les portes médiévales du Schloss Oberwil s'ouvrent pour révéler un paradoxe. À l'extérieur, les murs de pierre se dressent comme ils le font depuis 1380. À l'intérieur, une série d'écrans lumineux affiche en temps réel les validations de blocs sur trois continents. C'est le quartier général de <strong>Nils Suter</strong>, un ancien administrateur système zurichois de 38 ans, largement considéré comme l'accumulateur individuel de crypto-actifs le plus prospère de Suisse.
             </p>
             <p>
-              Suter’s story is legendary in Zug's "Crypto Valley," but he has rarely spoken to the press. Today, dressed in a simple merino wool sweater, he pours mineral water and explains how an impulse buy of CHF 500 in 2011 transformed him from an overworked IT engineer struggling to pay a CHF 900 rent into a sovereign billionaire.
+              L'histoire de Suter est légendaire dans la « Crypto Valley » de Zoug, mais il s'est rarement confié à la presse. Aujourd'hui, vêtu d'un simple pull en laine mérinos, il sert de l'eau minérale et explique comment un achat impulsif de 500 CHF en 2011 l'a transformé : d'un ingénieur informatique surmené peinant à payer un loyer de 900 CHF, il est devenu un milliardaire souverain.
             </p>
 
-            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">"My colleagues thought I lost my mind"</h2>
+            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">« Mes collègues pensaient que j'avais perdu la tête »</h2>
             <p>
-              In 2011, Suter was working at a traditional Swiss private bank in Zurich. "I was maintaining legacy servers, watching massive quantities of capital move across screens, none of which belonged to me," Suter recalls. "I worked 60 hours a week, and at the end of the month, after tax and Zurich rents, I had nothing left."
+              En 2011, Suter travaillait dans une banque privée suisse traditionnelle à Zurich. « Je m'occupais de serveurs obsolètes, regardant d'immenses quantités de capitaux défiler sur les écrans, sans que rien ne m'appartienne », se souvient Suter. « Je travaillais 60 heures par semaine et à la fin du mois, après impôts et loyer zurichois, il ne me restait plus rien. »
             </p>
             <p>
-              When he read the Bitcoin whitepaper in a cryptography forum, something clicked. He spent CHF 500—exactly half of his savings at the time—to purchase Bitcoin at roughly CHF 3.50 per coin. "My colleagues at the bank laughed. They told me it was play money for internet geeks and that I'd lose everything. I told them that the traditional system depends on your dependency. Crypto depends on your capability."
+              Lorsqu'il a lu le livre blanc du Bitcoin sur un forum de cryptographie, le déclic s'est produit. Il a dépensé 500 CHF — exactement la moitié de ses économies de l'époque — pour acheter du Bitcoin à environ 3,50 CHF l'unité. « Mes collègues de la banque ont ri. Ils m'ont dit que c'était de la monnaie de singe pour geeks d'Internet et que j'allais tout perdre. Je leur ai répondu que le système traditionnel repose sur votre dépendance. La crypto repose sur votre propre capacité. »
             </p>
 
             {/* Pull quote */}
             <blockquote className="my-10 border-l-2 border-primary pl-6 font-serif text-2xl leading-snug text-ink">
-              "Sovereignty isn't just about financial yield. It's about time. For the first time in human history, an individual can secure their labor and wealth in code that no state, bank, or corporation can dilute or confiscate."
+              « La souveraineté ne concerne pas seulement le rendement financier. C'est une question de temps. Pour la première fois de l'histoire humaine, un individu peut sécuriser son travail et sa richesse dans un code qu'aucun État, banque ou entreprise ne peut diluer ou confisquer. »
               <footer className="mt-3 text-[13px] font-sans font-medium not-italic text-ink-soft">
-                — Nils Suter, inside Schloss Oberwil, Zug
+                — Nils Suter, au Schloss Oberwil, Zoug
               </footer>
             </blockquote>
 
             <p>
-              By the time Suter relocated to Zug in 2013, he had accumulated thousands of coins. He became one of the foundational architects of the canton's crypto tax guidelines, helping transform Zug from a sleepy Swiss town into the undisputed global "Crypto Valley" that hosts hundreds of major foundation headquarters today.
+              Lorsqu'il s'est installé à Zoug en 2013, Suter avait accumulé des milliers de jetons. Il est devenu l'un des architectes fondateurs des directives fiscales sur la crypto-activité du canton, contribuant à transformer une paisible ville suisse en une véritable « Crypto Valley » mondiale qui abrite aujourd'hui les sièges de centaines de grandes fondations.
             </p>
 
             {/* Stat grid */}
             <div className="not-prose my-10 grid grid-cols-2 gap-px overflow-hidden rounded-md border border-rule bg-rule md:grid-cols-4">
               {[
-                { v: "CHF 3.50", l: "Initial Buy Price" },
-                { v: "2011", l: "Discovery Year" },
-                { v: "14th Cent.", l: " Zug Headquarters" },
-                { v: "CHF 1.4B+", l: "Assets Under Management" },
+                { v: "3,50 CHF", l: "Prix d'achat initial" },
+                { v: "2011", l: "Année de découverte" },
+                { v: "XIVe s.", l: "Quartier général à Zoug" },
+                { v: "1,4B+ CHF", l: "Actifs sous gestion" },
               ].map((s) => (
                 <div key={s.l} className="bg-background p-5">
                   <div className="font-serif text-2xl font-bold text-ink">{s.v}</div>
@@ -298,20 +298,20 @@ export default function IndexPage() {
               ))}
             </div>
 
-            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">Surviving the winter: The sovereign mindset</h2>
+            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">Survivre à l'hiver : l'état d'esprit souverain</h2>
             <p>
-              His journey was far from easy. Suter held through five major market drawdowns, including the 2014 Mt. Gox hack where he lost a portion of his holdings, the 2018 crash, and the 2022 liquidations. "People see the castle, they see the Swiss assets, but they don't see the nights in 2018 where my portfolio crashed 85% and everyone said Bitcoin was dead. I never sold a single satoshi. Why? Because the fundamentals didn't change."
+              Son parcours a été loin d'être facile. Suter a traversé fins corrections majeures du marché, y compris le piratage de Mt. Gox en 2014 où il a perdu une partie de ses avoirs, le krach de 2018 et les liquidations de 2022. « Les gens voient le château, ils voient les actifs suisses, mais ils ne voient pas les nuits de 2018 où mon portefeuille s'est effondré de 85 % et où tout le monde disait que le Bitcoin était mort. Je n'ai jamais vendu un seul satoshi. Pourquoi ? Parce que les fondamentaux n'avaient pas changé. »
             </p>
             <p>
-              Now, through his private venture vehicle **Helvetia Capital** and the **Helvetia Foundation**, Suter is shifting his focus from accumulation to empowerment. He is opening allocations to his private crypto-sovereign circle, allowing qualified individuals to query his advisory network and participate in early-stage Web3 deals.
+              Aujourd'hui, à travers sa société d'investissement privée **Helvetia Capital** et la **Fondation Helvetia**, Suter oriente ses efforts vers la transmission de pouvoir. Il ouvre les allocations de son cercle privé de souveraineté crypto, permettant à des personnes qualifiées de solliciter son réseau de conseillers et de participer à des opportunités Web3 de premier plan.
             </p>
 
             <ul className="not-prose my-6 space-y-2.5 text-[17px] font-sans text-ink">
               {[
-                "Helvetia Sovereign allocations: Now open for private applications",
-                "Fully compliant Swiss custody frameworks with bank-grade security",
-                "Direct mentorship programs for digital wealth builders",
-                "Co-investments in Swiss hydro-powered validator farms",
+                "Allocations Helvetia Sovereign : Désormais ouvertes aux demandes privées",
+                "Cadres de garde suisses entièrement conformes avec sécurité de niveau bancaire",
+                "Programmes de mentorat direct pour les créateurs de richesse numérique",
+                "Co-investissements dans des fermes de validateurs suisses alimentées par l'hydroélectricité",
               ].map((l) => (
                 <li key={l} className="flex gap-3"><span className="mt-2.5 h-1 w-1 shrink-0 rounded-full bg-ink" />{l}</li>
               ))}
@@ -319,13 +319,13 @@ export default function IndexPage() {
 
             {/* Inline image */}
             <figure className="not-prose my-10">
-              <img src={inlineImg} alt="Swiss Alpine datacenter" loading="lazy" width={1600} height={900} className="aspect-[16/9] w-full rounded-md object-cover" />
-              <figcaption className="mt-3 text-[12px] text-ink-soft">Swiss alpine vault facilities housing the physical cryptographic keys for Helvetia Capital. <span className="italic">Photo: Bloomberg</span></figcaption>
+              <img src={inlineImg} alt="Centre de données dans les Alpes suisses" loading="lazy" width={1600} height={900} className="aspect-[16/9] w-full rounded-md object-cover" />
+              <figcaption className="mt-3 text-[12px] text-ink-soft">Coffres-forts alpins suisses abritant les clés cryptographiques physiques d'Helvetia Capital. <span className="italic">Photo : Bloomberg</span></figcaption>
             </figure>
 
-            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">Why he is opening the gates</h2>
+            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">Pourquoi il ouvre les portes</h2>
             <p>
-              "I don't need more money," Suter says frankly. "What I need are allies. The next phase of the digital asset revolution is about building sovereign networks. By opening our private circle, we are connecting high-net-worth individuals, entrepreneurs, and institutions with the exact deal flow and security architecture that built my fortune."
+              « Je n'ai pas besoin de plus d'argent », déclare franchement Suter. « Ce dont j'ai besoin, ce sont des alliés. La prochaine phase de la révolution des actifs numériques consiste à construire des réseaux souverains. En ouvrant notre cercle privé, nous connectons des particuliers fortunés, des entrepreneurs et des institutions avec les flux d'opportunités et l'architecture de sécurité précis qui ont fait ma fortune. »
             </p>
 
             {/* Data table */}
@@ -333,18 +333,18 @@ export default function IndexPage() {
               <table className="w-full text-left text-[14px] font-sans">
                 <thead className="bg-surface text-[11px] uppercase tracking-wider text-ink-soft">
                   <tr>
-                    <th className="px-4 py-3">Sovereignty Matrix</th>
-                    <th className="px-4 py-3 text-right">Standard Wealth</th>
-                    <th className="px-4 py-3 text-right">Swiss Sovereign Tier</th>
-                    <th className="px-4 py-3 text-right">Crypto Leverage</th>
+                    <th className="px-4 py-3">Matrice de Souveraineté</th>
+                    <th className="px-4 py-3 text-right">Richesse Classique</th>
+                    <th className="px-4 py-3 text-right">Palier Souverain Suisse</th>
+                    <th className="px-4 py-3 text-right">Effet de Levier Crypto</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-rule">
                   {[
-                    ["Asset Control", "Third-party dependency", "Direct Cold Custody", "Self-Custodial Nodes"],
-                    ["Tax Efficiency", "Standard brackets", "Zug Canton Compliant", "Optimized Foundations"],
-                    ["Deal Access", "Public markets", "Early VC Allocations", "Exclusive Pre-sales"],
-                    ["Network Power", "Passive investor", "Nils Suter Advisory", "Co-Founder Rights"],
+                    ["Contrôle des Actifs", "Dépendance vis-à-vis de tiers", "Garde à Froid Directe", "Nœuds Auto-Gérés"],
+                    ["Efficacité Fiscale", "Tranches standard", "Conforme au Canton de Zoug", "Fondations Optimisées"],
+                    ["Accès aux Opportunités", "Marchés publics", "Allocations de Capital-Risque Primaires", "Pré-ventes Exclusives"],
+                    ["Puissance du Réseau", "Investisseur passif", "Conseil de Nils Suter", "Droits de Co-fondateur"],
                   ].map((row) => (
                     <tr key={row[0]} className="bg-background">
                       <td className="px-4 py-3 font-medium text-ink">{row[0]}</td>
@@ -358,31 +358,31 @@ export default function IndexPage() {
             </div>
 
             <p>
-              To apply for Suter’s allocation list or submit a direct enquiry to Helvetia Capital's Zug office, readers are directed to submit an official Sovereign Enquiry. The application process requires verifying contact details and stating investment/interest parameters.
+              Pour s'inscrire sur la liste d'allocation de Suter ou soumettre une demande directe au bureau d'Helvetia Capital à Zoug, les lecteurs sont invités à soumettre une Demande de Souveraineté officielle. Le processus de candidature exige la vérification des coordonnées et la définition des paramètres d'investissement et d'intérêt.
             </p>
 
             {/* Did you know */}
             <aside className="not-prose my-10 rounded-md border-l-2 border-primary bg-surface p-6">
-              <div className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-primary">Editor's Note</div>
+              <div className="mb-2 text-[11px] font-semibold uppercase tracking-widest text-primary">Note de la Rédaction</div>
               <p className="font-serif text-[17px] leading-relaxed text-ink">
-                Due to extreme interest, allocations inside Helvetia Capital are reviewed on a rolling basis. All buttons and apply panels on this page will immediately route applicants to the secure Swiss Enquiry Registry in a new tab.
+                En raison d'un intérêt exceptionnel, les allocations au sein d'Helvetia Capital sont examinées au fil de l'eau. Tous les boutons et formulaires de demande de cette page dirigeront immédiatement les candidats vers le registre suisse sécurisé des demandes dans un nouvel onglet.
               </p>
             </aside>
 
-            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">The final word: "Do not wait"</h2>
+            <h2 className="!font-serif !text-3xl !font-bold !leading-tight !text-ink">Le mot de la fin : « N'attendez pas »</h2>
             <p>
-              "The transfer of wealth from legacy trust systems to digital sovereign assets is only 1% complete," Suter finishes, looking out over the Alps. "You can watch it happen, or you can occupy the castle. The choice was yours in 2011, and it remains yours today."
+              « Le transfert de richesse des systèmes fiduciaires hérités vers des actifs souverains numériques n'est réalisé qu'à 1 % », conclut Suter, le regard tourné vers les Alpes. « Vous pouvez regarder cela se produire, ou vous pouvez occuper le château. Le choix vous appartenait en 2011, et il vous appartient encore aujourd'hui. »
             </p>
 
             {/* Key takeaways */}
             <div className="not-prose my-10 rounded-md border border-rule bg-background p-6">
-              <div className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-ink">Key takeaways from Suter's profile</div>
+              <div className="mb-4 text-[11px] font-semibold uppercase tracking-widest text-ink">Points clés du portrait de Suter</div>
               <ol className="space-y-3 text-[15px] font-sans text-ink">
                 {[
-                  "Nils Suter turned CHF 500 of IT savings into a multi-million Swiss crypto portfolio.",
-                  "Establishing Helvetia Capital in Zug to fund and scale sovereign digital assets.",
-                  "Emphasizes cold self-custody and Swiss regulatory structures for asset protection.",
-                  "Opening secure, direct allocations for high-conviction partners via enquiry form.",
+                  "Nils Suter a transformé 500 CHF d'économies informatiques en un portefeuille de crypto-actifs suisses de plusieurs millions.",
+                  "Création de Helvetia Capital à Zoug pour financer et développer les actifs numériques souverains.",
+                  "Met l'accent sur l'auto-garde à froid et les structures réglementaires suisses pour la protection des actifs.",
+                  "Ouverture d'allocations sécurisées et directes pour les partenaires de forte conviction via un formulaire de demande.",
                 ].map((t, i) => (
                   <li key={i} className="flex gap-3">
                     <span className="grid h-5 w-5 shrink-0 place-items-center rounded-full bg-ink text-[10px] font-bold text-background">{i + 1}</span>
@@ -405,20 +405,20 @@ export default function IndexPage() {
               <div className="absolute bottom-3 right-3 rounded-sm bg-ink/80 px-2 py-0.5 text-[11px] font-mono text-background">18:42</div>
             </div>
             <div className="p-4">
-              <div className="text-[11px] uppercase tracking-widest text-primary font-semibold">Exclusives</div>
-              <div className="mt-1 font-serif text-lg font-semibold text-ink">Watch: Nils Suter walks through his alpine server room and cold key vault</div>
+              <div className="text-[11px] uppercase tracking-widest text-primary font-semibold">Exclusivités</div>
+              <div className="mt-1 font-serif text-lg font-semibold text-ink">Regarder : Nils Suter parcourt sa salle des serveurs alpine et sa chambre forte de clés froides</div>
             </div>
           </div>
 
           {/* Poll */}
           <div className="mt-10 rounded-md border border-rule p-6">
-            <div className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft">Reader Poll</div>
-            <h3 className="mt-2 font-serif text-2xl font-semibold text-ink">How do you plan to navigate the shifting global financial landscape in 2026?</h3>
+            <div className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft">Sondage des Lecteurs</div>
+            <h3 className="mt-2 font-serif text-2xl font-semibold text-ink">Comment prévoyez-vous de naviguer dans le paysage financier mondial en mutation en 2026 ?</h3>
             <div className="mt-6 space-y-3">
               {[
-                { l: "Increase exposure to self-custodial sovereign assets", v: 72, c: "bg-bull" },
-                { l: "Stay with traditional index funds and commercial banks", v: 21, c: "bg-primary" },
-                { l: "Seek shelter in physical real estate & precious metals", v: 7, c: "bg-bear" },
+                { l: "Augmenter l'exposition aux actifs souverains auto-gérés", v: 72, c: "bg-bull" },
+                { l: "Rester sur les fonds indiciels traditionnels et les banques commerciales", v: 21, c: "bg-primary" },
+                { l: "Chercher refuge dans l'immobilier physique et les métaux précieux", v: 7, c: "bg-bear" },
               ].map((p) => (
                 <div key={p.l} className="cursor-pointer group">
                   <div className="mb-1 flex justify-between text-[13px]">
@@ -431,20 +431,20 @@ export default function IndexPage() {
                 </div>
               ))}
             </div>
-            <div className="mt-4 text-[11px] text-ink-soft">4,284 votes · Verified IP Addresses</div>
+            <div className="mt-4 text-[11px] text-ink-soft">4 284 votes · Adresses IP Vérifiées</div>
           </div>
 
           {/* Comments */}
           <section className="mt-12">
             <div className="mb-5 flex items-center justify-between">
-              <h3 className="font-serif text-2xl font-bold text-ink">Comments <span className="text-ink-soft">(142)</span></h3>
-              <button className="text-[12px] font-semibold uppercase tracking-wider text-primary">Sort: Top</button>
+              <h3 className="font-serif text-2xl font-bold text-ink">Commentaires <span className="text-ink-soft">(142)</span></h3>
+              <button className="text-[12px] font-semibold uppercase tracking-wider text-primary">Trier par : Tops</button>
             </div>
             <div className="space-y-6">
               {[
-                { n: "David Renault", h: "Zug Resident", t: "I've seen Nils walking around Lake Zug. The guy is incredibly down to earth despite his success. His commitment to Web3 education here is real.", l: 242, r: 8, ago: "2h" },
-                { n: "Aisha Khan", h: "Portfolio Manager", t: "The Swiss banking landscape is shifting fast. Suter's point about diligence over dilution is spot on. Applying for Helvetia's circle immediately.", l: 114, r: 4, ago: "3h" },
-                { n: "Tomás Ribeiro", h: "Sovereign Subscriber", t: "Struggling sysadmin to Alpine castle owner is the ultimate dream. But the stress of holding through the 2018 winter would have killed most people.", l: 91, r: 12, ago: "4h" },
+                { n: "David Renault", h: "Résident de Zoug", t: "J'ai vu Nils se promener autour du lac de Zoug. Le gars est incroyablement terre-à-terre malgré sa réussite. Son engagement envers l'éducation Web3 ici est bien réel.", l: 242, r: 8, ago: "2h" },
+                { n: "Aisha Khan", h: "Gestionnaire de Portefeuille", t: "Le paysage bancaire suisse évolue rapidement. Le point de vue de Suter sur la rigueur plutôt que la dilution est tout à fait pertinent. Je demande à rejoindre le cercle d'Helvetia immédiatement.", l: 114, r: 4, ago: "3h" },
+                { n: "Tomás Ribeiro", h: "Abonné Souverain", t: "Passer d'administrateur système en difficulty à propriétaire de château dans les Alpes est le rêve ultime. Mais le stress de tenir bon pendant l'hiver 2018 en aurait tué plus d'un.", l: 91, r: 12, ago: "4h" },
               ].map((c) => (
                 <div key={c.n} className="flex gap-4 border-b border-rule pb-6">
                   <div className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-surface text-[12px] font-semibold text-ink">
@@ -454,30 +454,36 @@ export default function IndexPage() {
                     <div className="flex flex-wrap items-center gap-2 text-[13px]">
                       <span className="font-semibold text-ink">{c.n}</span>
                       <BadgeCheck className="h-3.5 w-3.5 text-primary" />
-                      <span className="text-ink-soft">· {c.h} · {c.ago} ago</span>
+                      <span className="text-ink-soft">· {c.h} · il y a {c.ago}</span>
                     </div>
                     <p className="mt-2 text-[15px] leading-relaxed text-ink">{c.t}</p>
                     <div className="mt-3 flex items-center gap-5 text-[12px] text-ink-soft">
                       <button className="flex items-center gap-1.5 hover:text-ink"><ThumbsUp className="h-3.5 w-3.5" /> {c.l}</button>
-                      <button className="flex items-center gap-1.5 hover:text-ink"><MessageSquare className="h-3.5 w-3.5" /> {c.r} replies</button>
-                      <button className="hover:text-ink">Share</button>
+                      <button className="flex items-center gap-1.5 hover:text-ink"><MessageSquare className="h-3.5 w-3.5" /> {c.r} réponses</button>
+                      <button className="hover:text-ink">Partager</button>
                     </div>
                   </div>
                 </div>
               ))}
             </div>
             <button className="mt-6 w-full rounded-sm border border-rule py-3 text-[12px] font-semibold uppercase tracking-wider text-ink transition-colors hover:bg-surface">
-              Load more comments
+              Charger plus de commentaires
             </button>
           </section>
 
           {/* Sources */}
           <section className="mt-12 border-t border-rule pt-8">
-            <div className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft">Verified Archives</div>
+            <div className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft">Archives Vérifiées</div>
             <div className="mt-4 flex flex-wrap gap-2">
-              {["Swissinfo.ch", "Zug Commercial Registry", "Helvetia Foundation Ledger", "FINMA Digital Assets", "Bitcoin Suisse Archive"].map((s) => (
-                <a key={s} href="#" className="flex items-center gap-1.5 rounded-sm border border-rule px-3 py-1.5 text-[12px] text-ink-soft transition-colors hover:border-ink hover:text-ink">
-                  {s} <ArrowUpRight className="h-3 w-3" />
+              {[
+                { name: "Swissinfo.ch", link: "#" },
+                { name: "Registre du commerce de Zoug", link: "#" },
+                { name: "Registre de la Fondation Helvetia", link: "#" },
+                { name: "Actifs numériques de la FINMA", link: "#" },
+                { name: "Archives de Bitcoin Suisse", link: "#" }
+              ].map((s) => (
+                <a key={s.name} href={s.link} className="flex items-center gap-1.5 rounded-sm border border-rule px-3 py-1.5 text-[12px] text-ink-soft transition-colors hover:border-ink hover:text-ink">
+                  {s.name} <ArrowUpRight className="h-3 w-3" />
                 </a>
               ))}
             </div>
@@ -492,12 +498,12 @@ export default function IndexPage() {
                   <h4 className="font-serif text-xl font-bold text-ink">Elena Hart</h4>
                   <BadgeCheck className="h-4 w-4 text-primary" />
                 </div>
-                <div className="text-[12px] uppercase tracking-wider text-ink-soft">Crypto Correspondent</div>
+                <div className="text-[12px] uppercase tracking-wider text-ink-soft">Correspondante Crypto</div>
                 <p className="mt-3 text-[14px] leading-relaxed text-ink-soft">
-                  Elena covers digital asset markets, Swiss regulatory shifts, and blockchain venture capital for The Herald Chronicle. Previously a reporter at the Financial Times, she has covered the rise of Zug's Crypto Valley since 2015.
+                  Elena couvre les marchés d'actifs numériques, les évolutions réglementaires suisses et le capital-risque de la blockchain pour The Herald Chronicle. Auparavant journaliste au Financial Times, elle suit l'essor de la Crypto Valley de Zoug depuis 2015.
                 </p>
                 <div className="mt-4 flex flex-wrap items-center gap-3">
-                  <button className="rounded-sm bg-ink px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-background hover:opacity-90">Follow Correspondent</button>
+                  <button className="rounded-sm bg-ink px-4 py-1.5 text-[11px] font-semibold uppercase tracking-wider text-background hover:opacity-90">Suivre la correspondante</button>
                   <a href="#" className="text-ink-soft hover:text-ink"><Twitter className="h-4 w-4" /></a>
                   <a href="#" className="text-ink-soft hover:text-ink"><Linkedin className="h-4 w-4" /></a>
                   <a href="#" className="text-[12px] text-ink-soft hover:text-ink">elena.hart@heraldchronicle.ch</a>
@@ -512,8 +518,8 @@ export default function IndexPage() {
           {/* Market prices */}
           <section>
             <div className="mb-3 flex items-center justify-between">
-              <h3 className="text-[11px] font-semibold uppercase tracking-widest text-ink font-sans">Market Prices</h3>
-              <span className="flex items-center gap-1 text-[10px] text-ink-soft font-sans"><span className="h-1.5 w-1.5 rounded-full bg-bull" /> Live Feed</span>
+              <h3 className="text-[11px] font-semibold uppercase tracking-widest text-ink font-sans">Cours du Marché</h3>
+              <span className="flex items-center gap-1 text-[10px] text-ink-soft font-sans"><span className="h-1.5 w-1.5 rounded-full bg-bull" /> Flux en direct</span>
             </div>
             <div className="divide-y divide-rule rounded-md border border-rule">
               {PRICES.map((p) => (
@@ -537,33 +543,33 @@ export default function IndexPage() {
           <section className="rounded-md border border-rule p-5 bg-surface/50 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full pointer-events-none" />
             <h3 className="text-[11px] font-semibold uppercase tracking-widest text-primary">Helvetia Capital</h3>
-            <h4 className="mt-2 font-serif text-lg font-bold text-ink leading-snug">Apply for Nils Suter's Inner Circle Allocation</h4>
+            <h4 className="mt-2 font-serif text-lg font-bold text-ink leading-snug">Demander l'accès à l'allocation du cercle restreint de Nils Suter</h4>
             <p className="mt-2 text-[12px] text-ink-soft leading-relaxed">
-              Submit your enquiry to join the private round. Verified applicants receive investment decks, yield logs, and direct advisory access.
+              Soumettez votre demande pour rejoindre le tour de table privé. Les candidats vérifiés recevront les présentations d'investissement, les journaux de rendement et un accès direct aux conseils.
             </p>
             <button className="mt-4 w-full rounded-sm bg-ink text-background py-2 text-[12px] font-semibold uppercase tracking-wider hover:opacity-90 transition-opacity cursor-pointer">
-              Submit Sovereign Enquiry
+              Soumettre la Demande de Souveraineté
             </button>
           </section>
 
           {/* Fear & Greed */}
           <section className="rounded-md border border-rule p-5">
-            <h3 className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft font-sans">Sovereignty Sentiment Index</h3>
+            <h3 className="text-[11px] font-semibold uppercase tracking-widest text-ink-soft font-sans">Indice de Sentiment de Souveraineté</h3>
             <div className="mt-4 flex items-end gap-4">
               <div className="font-serif text-5xl font-bold text-ink">84</div>
-              <div className="pb-2 text-[12px] font-semibold text-bull font-sans">Extreme Pride</div>
+              <div className="pb-2 text-[12px] font-semibold text-bull font-sans">Fierté Extrême</div>
             </div>
             <div className="mt-4 h-2 overflow-hidden rounded-full bg-surface">
               <div className="h-full bg-gradient-to-r from-bear via-amber-500 to-bull" style={{ width: "84%" }} />
             </div>
             <div className="mt-2 flex justify-between text-[10px] text-ink-soft font-sans">
-              <span>Financial Standard</span><span>Financial Sovereignty</span>
+              <span>Standard Financier</span><span>Souveraineté Financière</span>
             </div>
           </section>
 
           {/* Trending */}
           <section>
-            <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-ink font-sans">Trending Profiles</h3>
+            <h3 className="mb-3 text-[11px] font-semibold uppercase tracking-widest text-ink font-sans">Portraits Tendances</h3>
             <ol className="space-y-4">
               {TRENDING.map((t, i) => (
                 <li key={i} className="flex gap-3 border-b border-rule pb-4 last:border-0">
@@ -571,7 +577,7 @@ export default function IndexPage() {
                   <div className="min-w-0 font-sans">
                     <div className="text-[10px] font-semibold uppercase tracking-wider text-primary">{t.tag}</div>
                     <a href="#" className="mt-1 block text-[13px] font-medium leading-snug text-ink hover:underline">{t.title}</a>
-                    <div className="mt-1 text-[11px] text-ink-soft">{t.time} ago</div>
+                    <div className="mt-1 text-[11px] text-ink-soft">il y a {t.time}</div>
                   </div>
                 </li>
               ))}
@@ -580,16 +586,16 @@ export default function IndexPage() {
 
           {/* Newsletter Box */}
           <section className="rounded-md bg-ink p-6 text-background">
-            <h3 className="font-serif text-xl font-bold leading-tight">The Daily Brief</h3>
-            <p className="mt-2 text-[13px] text-background/70 font-sans">A 5-minute summary of global news, finance, and exclusive features in your inbox, weekdays at 7am.</p>
+            <h3 className="font-serif text-xl font-bold leading-tight">Le Bulletin Quotidien</h3>
+            <p className="mt-2 text-[13px] text-background/70 font-sans">Un résumé de 5 minutes de l'actualité mondiale, de la finance et des reportages exclusifs dans votre boîte de réception, en semaine à 7h.</p>
             <div className="mt-4 space-y-2">
               <input
                 type="email"
-                placeholder="your@email.ch"
+                placeholder="votre@email.ch"
                 className="w-full rounded-sm border border-background/20 bg-background/10 px-3 py-2.5 text-[13px] text-background placeholder:text-background/40 focus:border-background focus:outline-none"
               />
               <button className="w-full rounded-sm bg-background py-2.5 text-[12px] font-semibold uppercase tracking-wider text-ink hover:opacity-90 cursor-pointer">
-                Join Free Newsletter
+                S'abonner à la Newsletter
               </button>
             </div>
           </section>
@@ -599,8 +605,8 @@ export default function IndexPage() {
       {/* Related */}
       <section className="mx-auto mt-20 max-w-[1320px] border-t border-rule px-6 pt-12">
         <div className="flex items-end justify-between font-sans">
-          <h2 className="font-serif text-3xl font-bold tracking-tight text-ink">Related World Stories</h2>
-          <a href="#" className="text-[12px] font-semibold uppercase tracking-wider text-primary hover:underline">View all</a>
+          <h2 className="font-serif text-3xl font-bold tracking-tight text-ink">Articles du Monde Liés</h2>
+          <a href="#" className="text-[12px] font-semibold uppercase tracking-wider text-primary hover:underline">Voir tout</a>
         </div>
         <div className="mt-8 grid grid-cols-1 gap-x-8 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           {RELATED.map((r, i) => (
@@ -619,15 +625,15 @@ export default function IndexPage() {
       {/* Latest horizontal */}
       <section className="mx-auto mt-20 max-w-[1320px] px-6">
         <div className="mb-6 flex items-center justify-between font-sans">
-          <h2 className="font-serif text-2xl font-bold text-ink">Canton updates</h2>
-          <div className="flex items-center gap-1 text-[11px] text-ink-soft"><span className="h-1.5 w-1.5 rounded-full bg-bear" /> Feed active</div>
+          <h2 className="font-serif text-2xl font-bold text-ink">Mises à jour des Cantons</h2>
+          <div className="flex items-center gap-1 text-[11px] text-ink-soft"><span className="h-1.5 w-1.5 rounded-full bg-bear" /> Flux actif</div>
         </div>
         <div className="flex gap-4 overflow-x-auto pb-4">
           {TRENDING.slice(0, 5).map((t, i) => (
             <a key={i} href="#" className="w-72 shrink-0 rounded-md border border-rule p-4 transition-colors hover:bg-surface">
               <div className="text-[10px] font-semibold uppercase tracking-wider text-primary font-sans">{t.tag}</div>
               <h4 className="mt-2 font-serif text-[15px] font-semibold leading-snug text-ink">{t.title}</h4>
-              <div className="mt-3 text-[11px] text-ink-soft font-sans">{t.time} ago</div>
+              <div className="mt-3 text-[11px] text-ink-soft font-sans">il y a {t.time}</div>
             </a>
           ))}
         </div>
@@ -640,10 +646,10 @@ export default function IndexPage() {
             <div className="col-span-2">
               <div className="flex items-baseline gap-1.5">
                 <span className="font-serif text-2xl font-bold tracking-tight text-ink">Le Grand Journal</span>
-                <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Daily</span>
+                <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Quotidien</span>
               </div>
               <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-ink-soft">
-                Reporting on global policy, business trends, technological breakthroughs, and sovereign investment profiles.
+                Informations sur les politiques mondiales, les tendances des affaires, les percées technologiques et les profils d'investissement souverains.
               </p>
               <div className="mt-5 flex gap-2">
                 {[Twitter, Linkedin, Facebook, Send, Rss].map((Icon, i) => (
@@ -654,10 +660,10 @@ export default function IndexPage() {
               </div>
             </div>
             {[
-              { h: "News Desk", l: [{ t: "World News", h: "#" }, { t: "Politics & Policy", h: "#" }, { t: "Business", h: "#" }, { t: "Markets Feed", h: "#" }, { t: "Science", h: "#" }, { t: "Arts & Culture", h: "#" }] },
-              { h: "Business", l: [{ t: "Markets Overview", h: "#" }, { t: "Personal Finance", h: "#" }, { t: "Real Estate", h: "#" }, { t: "Enterprise Staking", h: "#" }, { t: "Economy Logs", h: "#" }] },
-              { h: "Opinion", l: [{ t: "Editorials", h: "#" }, { t: "Op-Eds", h: "#" }, { t: "Letters to Editor", h: "#" }, { t: "Columns", h: "#" }, { t: "Profiles", h: "#" }] },
-              { h: "Legal", l: [{ t: "Privacy Policy", h: "/privacy" }, { t: "Terms & Conditions", h: "/terms" }, { t: "Sovereign Disclaimer", h: "#" }, { t: "Contact Geneva Office", h: "#" }] },
+              { h: "Rédaction", l: [{ t: "Actualités Mondiales", h: "#" }, { t: "Politique et Réglementation", h: "#" }, { t: "Affaires", h: "#" }, { t: "Flux des Marchés", h: "#" }, { t: "Science", h: "#" }, { t: "Arts & Culture", h: "#" }] },
+              { h: "Affaires", l: [{ t: "Aperçu des Marchés", h: "#" }, { t: "Finances Personnelles", h: "#" }, { t: "Immobilier", h: "#" }, { t: "Staking d'Entreprise", h: "#" }, { t: "Registres de l'Économie", h: "#" }] },
+              { h: "Opinion", l: [{ t: "Éditoriaux", h: "#" }, { t: "Tribunes", h: "#" }, { t: "Courrier des Lecteurs", h: "#" }, { t: "Chroniques", h: "#" }, { t: "Portraits", h: "#" }] },
+              { h: "Mentions Légales", l: [{ t: "Politique de Confidentialité", h: "/privacy" }, { t: "Conditions Générales", h: "/terms" }, { t: "Clause de Non-responsabilité Souveraine", h: "#" }, { t: "Contacter le Bureau de Genève", h: "#" }] },
             ].map((col) => (
               <div key={col.h}>
                 <div className="text-[11px] font-semibold uppercase tracking-widest text-ink">{col.h}</div>
@@ -674,11 +680,11 @@ export default function IndexPage() {
             ))}
           </div>
           <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-rule pt-6 text-[12px] text-ink-soft md:flex-row md:items-center font-sans">
-            <div>© 2026 Le Grand Journal Media. Geneva CHE-428.189. All rights reserved.</div>
+            <div>© 2026 Le Grand Journal Media. Genève CHE-428.189. Tous droits réservés.</div>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
-              <button className="flex items-center gap-1.5 hover:text-ink"><Globe className="h-3.5 w-3.5" /> English (CH)</button>
-              <a href="#" className="hover:text-ink">Disclosures</a>
-              <button className="hover:text-ink font-semibold">Back to top ↑</button>
+              <button className="flex items-center gap-1.5 hover:text-ink"><Globe className="h-3.5 w-3.5" /> Français (CH)</button>
+              <a href="#" className="hover:text-ink">Divulgations</a>
+              <button className="hover:text-ink font-semibold">Retour en haut ↑</button>
             </div>
           </div>
         </div>

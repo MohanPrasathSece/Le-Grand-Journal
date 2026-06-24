@@ -3,10 +3,10 @@ import { FileText, ChevronLeft, Calendar } from "lucide-react";
 
 export default function TermsPage() {
   useEffect(() => {
-    document.title = "Terms & Conditions — The Herald Chronicle";
+    document.title = "Conditions Générales d'Utilisation — The Herald Chronicle";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
-      metaDesc.setAttribute("content", "Terms and conditions of service for users of The Herald Chronicle and Helvetia Capital platforms.");
+      metaDesc.setAttribute("content", "Conditions générales d'utilisation pour les utilisateurs des plateformes The Herald Chronicle et Helvetia Capital.");
     }
   }, []);
 
@@ -22,7 +22,7 @@ export default function TermsPage() {
         <div className="mx-auto flex max-w-[900px] items-center justify-between px-6 py-4">
           <a href="/" onClick={handleBack} className="flex items-center gap-1.5 font-serif text-xl font-bold tracking-tight text-ink hover:opacity-80">
             <span>The Herald Chronicle</span>
-            <span className="text-[9px] uppercase tracking-widest text-primary px-1 bg-surface border border-rule rounded">Daily</span>
+            <span className="text-[9px] uppercase tracking-widest text-primary px-1 bg-surface border border-rule rounded">Quotidien</span>
           </a>
           <a 
             href="/" 
@@ -30,7 +30,7 @@ export default function TermsPage() {
             className="flex items-center gap-1 text-xs font-semibold text-ink-soft hover:text-ink transition-colors"
           >
             <ChevronLeft className="w-4 h-4" />
-            Back to Home
+            Retour à l'Accueil
           </a>
         </div>
       </header>
@@ -39,182 +39,182 @@ export default function TermsPage() {
       <main className="mx-auto max-w-[760px] px-6 pt-10">
         <div className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-widest text-primary mb-3">
           <FileText className="w-3.5 h-3.5" />
-          <span>Terms of Service</span>
+          <span>Conditions d'Utilisation</span>
         </div>
 
         <h1 className="font-serif text-3xl md:text-4xl font-bold tracking-tight text-ink mb-2">
-          Terms & Conditions
+          Conditions Générales d'Utilisation
         </h1>
         
         <div className="flex items-center gap-1 text-xs text-ink-soft mb-8 pb-4 border-b border-rule font-mono">
           <Calendar className="w-3.5 h-3.5" />
-          <span>Last Updated: June 24, 2026</span>
+          <span>Dernière mise à jour : 24 juin 2026</span>
         </div>
 
         <div className="prose-editorial space-y-6 text-[16px] leading-[1.7] text-ink-soft">
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">1. Acceptance of Terms</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">1. Acceptation des Conditions</h2>
             <p>
-              By accessing, browsing, or using the services provided by <strong>The Herald Chronicle</strong> ("Website", "we", "us", or "our"), including submitting enquiries through our Sovereign Registry forms, you acknowledge that you have read, understood, and agree to be bound by these Terms & Conditions. If you do not agree to these terms, you must immediately discontinue using this Website.
+              En accédant à ce site Web, en y naviguant ou en utilisant les services fournis par <strong>The Herald Chronicle</strong> (« Site Web », « nous », « notre » ou « nos »), y compris en soumettant des demandes via nos formulaires du Registre Souverain, vous reconnaissez avoir lu, compris et accepté d'être lié par les présentes Conditions Générales d'Utilisation. Si vous n'acceptez pas ces conditions, vous devez immédiatement cesser d'utiliser ce Site Web.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">2. Eligibility</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">2. Éligibilité</h2>
             <p>
-              By using our Website, you represent and warrant that you are at least 18 years of age and possess the legal authority to enter into these Terms & Conditions. If you are accessing this Website on behalf of an institution or corporate entity, you represent that you have the authority to bind that entity to these terms.
+              En utilisant notre Site Web, vous déclarez et garantissez que vous êtes âgé d'au moins 18 ans et que vous possédez l'autorité légale pour accepter les présentes Conditions Générales d'Utilisation. Si vous accédez à ce Site Web au nom d'une institution ou d'une entité morale, vous déclarez que vous avez le pouvoir d'engager cette entité envers ces conditions.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">3. Website Purpose</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">3. Objet du Site Web</h2>
             <p>
-              The Herald Chronicle is a digital publication providing news profiles, technology reviews, and educational content regarding macroeconomic trends and digital assets. Helvetia Capital provides private capital allocation advisory services. All content presented on this Website is for educational and informational purposes only.
+              The Herald Chronicle est une publication numérique fournissant des portraits d'actualité, des revues technologiques et du contenu éducatif concernant les tendances macroéconomiques et les actifs numériques. Helvetia Capital fournit des services de conseil en allocation de capital privé. Tout le contenu présenté sur ce Site Web est fourni uniquement à des fins éducatives et informatives.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">4. User Responsibilities</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">4. Responsabilités de l'Utilisateur</h2>
             <p>
-              You agree to provide true, accurate, current, and complete contact details when submitting forms through our Website. You are solely responsible for securing your local connection, hardware, and access keys when interacting with digital services.
+              Vous acceptez de fournir des coordonnées véridiques, exactes, à jour et complètes lors de la soumission de formulaires sur notre Site Web. Vous êtes seul responsable de la sécurité de votre connexion locale, de votre matériel et de vos clés d'accès lors de vos interactions avec des services numériques.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">5. Acceptable Use</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">5. Utilisation Acceptable</h2>
             <p>
-              You agree to use this Website only for lawful purposes. You must not use our forms or services to transmit spam, execute malicious scripts, harvest data, or impersonate other individuals or entities.
+              Vous acceptez d'utiliser ce Site Web uniquement à des fins licites. Vous ne devez pas utiliser nos formulaires ou services pour transmettre des spams, exécuter des scripts malveillants, collecter des données ou usurper l'identité d'autres personnes ou entités.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">6. Prohibited Activities</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">6. Activités Interdites</h2>
             <p>
-              You are prohibited from:
+              Il vous est interdit de :
             </p>
             <ul className="list-disc pl-5 space-y-1.5">
-              <li>Attempting to bypass our secure server proxy layers.</li>
-              <li>Extracting data via scrapers, spiders, or automated web crawlers.</li>
-              <li>Flooding our CRM endpoints with fake or spam registration packets.</li>
-              <li>Decompiling or reverse-engineering the canvas, animations, or styling scripts.</li>
+              <li>Tenter de contourner nos couches de proxy de serveur sécurisées.</li>
+              <li>Extraire des données via des extracteurs (scrapers), des robots (spiders) ou des robots d'indexation automatisés.</li>
+              <li>Inonder nos points de terminaison CRM avec des paquets d'inscription faux ou indésirables (spam).</li>
+              <li>Décompiler ou rétroconcevoir le canvas, les animations ou les scripts de style.</li>
             </ul>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">7. Intellectual Property</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">7. Propriété Intellectuelle</h2>
             <p>
-              All text, charts, graphics, layout elements, designs, animations, and source code on this Website are the exclusive intellectual property of The Herald Chronicle Media and Helvetia Capital. You may not copy, republish, distribute, or modify any portion of this site without our prior written consent.
+              Tous les textes, graphiques, éléments de mise en page, conceptions, animations et codes sources de ce Site Web sont la propriété intellectuelle exclusive de The Herald Chronicle Media et d'Helvetia Capital. Vous ne pouvez pas copier, republier, distribuer ou modifier une partie quelconque de ce site sans notre consentement écrit préalable.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">8. Accuracy of Information</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">8. Exactitude des Informations</h2>
             <p>
-              While we strive to ensure that all editorial articles and news reporting are accurate, fact-checked, and up-to-date, we make no guarantees, warranties, or representations regarding the absolute completeness or accuracy of any profile, market index feed, or technical documentation.
+              Bien que nous nous efforcions de veiller à ce que tous les articles éditoriaux et reportages d'actualité soient exacts, vérifiés et à jour, nous ne donnons aucune garantie, assurance ou déclaration concernant l'exhaustivité absolue ou l'exactitude de tout portrait, flux d'indice de marché ou documentation technique.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">9. No Financial Advice</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">9. Absence de Conseil Financier</h2>
             <p>
-              <strong>Important:</strong> None of the content, profiles, interviews, or research articles published on this Website constitute financial, tax, or legal advice. The interview with Nils Suter is a biographical profile detailing his personal experiences and opinions. It is not an offer or solicitation to buy, sell, or hold any cryptocurrency or financial instrument.
+              <strong>Important :</strong> Aucun contenu, portrait, entretien ou article de recherche publié sur ce Site Web ne constitue un conseil financier, fiscal ou juridique. L'entretien avec Nils Suter est un portrait biographique détaillant ses expériences personnelles et ses opinions. Il ne s'agit pas d'une offre ou d'une sollicitation d'achat, de vente ou de détention de toute cryptomonnaie ou de tout instrument financier.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">10. No Investment Advice</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">10. Absence de Conseil en Investissement</h2>
             <p>
-              Neither The Herald Chronicle nor Helvetia Capital operate as licensed brokerage firms, brokers, or wealth advisors in any jurisdiction. You should consult a qualified, licensed financial professional before making any investment decisions.
+              Ni The Herald Chronicle ni Helvetia Capital n'opèrent en tant que sociétés de courtage agréées, courtiers ou conseillers en patrimoine dans quelque juridiction que ce soit. Vous devez consulter un professionnel de la finance qualifié et agréé avant de prendre toute décision d'investissement.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink text-bear">11. Cryptocurrency Risk Disclosure</h2>
+            <h2 className="font-serif text-xl font-bold text-ink text-bear">11. Divulgation des Risques liés aux Cryptomonnaies</h2>
             <p className="border-l-2 border-bear pl-4 py-1.5 bg-red-950/5 text-ink-soft">
-              <strong>WARNING:</strong> Digital assets, cryptocurrencies, and decentralized staking protocols are subject to extreme volatility and market fluctuations. Participating in early token rounds, cold self-custody setups, and venture staking pools carries a high degree of risk. You could lose all of your allocated capital. Past performance is not indicative of future results.
+              <strong>AVERTISSEMENT :</strong> Les actifs numériques, les cryptomonnaies et les protocoles de jalonnement (staking) décentralisés sont soumis à une volatilité extrême et à des fluctuations du marché. La participation aux premiers cycles d'émission de jetons, la configuration de portefeuilles hors ligne (cold self-custody) et les pools de jalonnement spéculatifs comportent un niveau de risque élevé. Vous pourriez perdre l'intégralité de votre capital alloué. Les performances passées ne préjugent pas des résultats futurs.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">12. No Guarantee of Returns</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">12. Absence de Garantie de Rendement</h2>
             <p>
-              We do not guarantee or promise any yield, return, profit, or asset preservation when you submit an allocation request. Stating interest in a sovereign allocation round is an expression of interest only and does not establish an investment contract.
+              Nous ne garantissons ni ne promettons aucun rendement, profit ou préservation des actifs lorsque vous soumettez une demande d'allocation. La manifestation d'intérêt pour un cycle d'allocation souverain est uniquement une déclaration d'intérêt et n'établit pas de contrat d'investissement.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">13. Limitation of Liability</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">13. Limitation de Responsabilité</h2>
             <p>
-              To the maximum extent permitted by applicable law, in no event shall The Herald Chronicle, Helvetia Capital, or their affiliates, partners, or writers be liable for any direct, indirect, incidental, punitive, or consequential damages resulting from your use of this Website, your reliance on any published content, or your interaction with digital asset markets.
+              Dans la mesure maximale permise par la loi applicable, The Herald Chronicle, Helvetia Capital ou leurs sociétés affiliées, partenaires ou rédacteurs ne pourront en aucun cas être tenus responsables de tout dommage direct, indirect, accessoire, punitif ou consécutif résultant de votre utilisation de ce Site Web, de votre confiance envers tout contenu publié ou de vos interactions avec les marchés d'actifs numériques.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">14. Indemnification</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">14. Indemnisation</h2>
             <p>
-              You agree to defend, indemnify, and hold harmless The Herald Chronicle and its officers, directors, employees, and agents from and against any claims, liabilities, losses, costs, or damages arising out of your violation of these Terms or your misuse of the Website's services.
+              Vous acceptez de défendre, d'indemniser et de dégager de toute responsabilité The Herald Chronicle ainsi que ses dirigeants, administrateurs, employés et agents contre toute réclamation, responsabilité, perte, coût ou dommage découlant de votre violation des présentes Conditions ou de votre mauvaise utilisation des services du Site Web.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">15. Third-Party Services</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">15. Services Tiers</h2>
             <p>
-              We may utilize third-party services (such as HubSpot CRM syncing) to log user enquiries. We are not responsible for the performance, service availability, or data policies of these third-party providers.
+              Nous pouvons utiliser des services tiers (tels que la synchronisation HubSpot CRM) pour enregistrer les demandes des utilisateurs. Nous ne sommes pas responsables des performances, de la disponibilité des services ou des politiques de données de ces prestataires tiers.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">16. Privacy Policy Reference</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">16. Référence à la Politique de Confidentialité</h2>
             <p>
-              Your use of this Website is also governed by our Privacy Policy. Please review our <a href="/privacy" onClick={(e) => { e.preventDefault(); window.history.pushState({}, "", "/privacy"); }} className="text-primary hover:underline">Privacy Policy</a> to understand how we collect and process your contact data securely.
+              Votre utilisation de ce Site Web est également régie par notre Politique de Confidentialité. Veuillez consulter notre <a href="/privacy" onClick={(e) => { e.preventDefault(); window.history.pushState({}, "", "/privacy"); }} className="text-primary hover:underline">Politique de Confidentialité</a> pour comprendre comment nous collectons et traitons vos données de contact de manière sécurisée.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">17. Suspension or Termination</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">17. Suspension ou Résiliation</h2>
             <p>
-              We reserve the right to suspend or terminate your access to our Website, our Sovereign Enquiry Form, or our newsletter services at any time, without notice, for conduct that we believe violates these Terms or is harmful to our platform.
+              Nous nous réservons le droit de suspendre ou de résilier votre accès à notre Site Web, à notre Formulaire de Demande Souveraine ou à nos services de newsletter à tout moment, sans préavis, pour tout comportement que nous estimons contraire aux présentes Conditions ou préjudiciable à notre plateforme.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">18. Governing Law</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">18. Droit Applicable</h2>
             <p>
-              These Terms & Conditions are governed by and construed in accordance with the laws of <strong>Switzerland</strong>, specifically the canton of <strong>Zug</strong>, without reference to conflict of laws principles.
+              Les présentes Conditions Générales d'Utilisation sont régies et interprétées conformément aux lois de la <strong>Suisse</strong>, en particulier du canton de <strong>Zoug</strong>, sans référence aux principes de conflit de lois.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">19. Dispute Resolution</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">19. Règlement des Différends</h2>
             <p>
-              Any legal action, suit, or proceeding arising out of these Terms & Conditions shall be instituted exclusively in the competent courts of Zug, Switzerland, and you consent to personal jurisdiction in such venue.
+              Toute action en justice, poursuite ou procédure découlant des présentes Conditions Générales d'Utilisation sera intentée exclusivement devant les tribunaux compétents de Zoug, en Suisse, et vous acceptez la compétence personnelle de ces tribunaux.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">20. Severability</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">20. Divisibilité</h2>
             <p>
-              If any provision of these Terms is found to be invalid or unenforceable under applicable law, the remaining provisions will continue in full force and effect.
+              Si une disposition des présentes Conditions est jugée invalide ou inapplicable en vertu de la loi en vigueur, les autres dispositions continueront de produire leurs pleins effets.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">21. Changes to Terms</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">21. Modifications des Conditions</h2>
             <p>
-              We reserve the right, at our sole discretion, to modify or replace these Terms at any time. It is your responsibility to check this page periodically for changes. Your continued use of the Website following any updates constitutes acceptance of the new Terms.
+              Nous nous réservons le droit, à notre seule discrétion, de modifier ou de remplacer les présentes Conditions à tout moment. Il est de votre responsabilité de consulter régulièrement cette page pour prendre connaissance des modifications. Votre utilisation continue du Site Web après la publication de toute mise à jour constitue votre acceptation des nouvelles Conditions.
             </p>
           </section>
 
           <section className="space-y-3">
-            <h2 className="font-serif text-xl font-bold text-ink">22. Contact Information</h2>
+            <h2 className="font-serif text-xl font-bold text-ink">22. Coordonnées de Contact</h2>
             <p>
-              If you have any questions about these Terms & Conditions, you may contact our legal desk:
+              Si vous avez des questions concernant les présentes Conditions Générales d'Utilisation, vous pouvez contacter notre service juridique :
             </p>
             <p className="font-mono text-sm bg-surface border border-rule p-3 rounded">
-              Helvetia Capital Legal Desk<br />
-              Schloss Oberwil, Lake Zug<br />
-              Canton of Zug, Switzerland<br />
-              Email: legal@heraldchronicle.ch
+              Service Juridique d'Helvetia Capital<br />
+              Schloss Oberwil, Lac de Zoug<br />
+              Canton de Zoug, Suisse<br />
+              E-mail : legal@heraldchronicle.ch
             </p>
           </section>
         </div>
@@ -222,7 +222,7 @@ export default function TermsPage() {
       
       {/* Footer */}
       <footer className="mx-auto max-w-[900px] border-t border-rule mt-16 px-6 py-8 text-center text-xs text-ink-soft font-mono">
-        © 2026 The Herald Chronicle / Helvetia Capital. Zug Canton CHE-428.189. All rights reserved.
+        © 2026 The Herald Chronicle / Helvetia Capital. Canton de Zoug CHE-428.189. Tous droits réservés.
       </footer>
     </div>
   );
