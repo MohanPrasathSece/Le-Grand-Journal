@@ -75,7 +75,7 @@ export default function EnquiryPage() {
   const [submitError, setSubmitError] = useState("");
   const [syncHistory, setSyncHistory] = useState<string[]>([]);
   const [leadsList, setLeadsList] = useState<Lead[]>([]);
-  const [showCRMDebugger, setShowCRMDebugger] = useState(true);
+  const [showCRMDebugger, setShowCRMDebugger] = useState(false);
   const [animateModules, setAnimateModules] = useState(false);
 
   // SEO Update and Data Load
@@ -137,8 +137,8 @@ export default function EnquiryPage() {
 
       if (response.ok) {
         addHistory("Server validated and authenticated request.");
-        addHistory("Data mapped and injected to HubSpot CRM Successfully.");
-        addHistory(`Assigned HubSpot CRM Token: ${data.crmId}`);
+        addHistory("Data processed and synchronized successfully.");
+        addHistory(`Assigned Registry Token: ${data.crmId}`);
 
         const newLead: Lead = {
           id: Math.random().toString(36).substring(2, 9),
@@ -163,7 +163,7 @@ export default function EnquiryPage() {
         setMessage("");
       } else {
         console.error("CRM sync error: ", data.error);
-        addHistory("CRITICAL ERROR: CRM server rejected lead.");
+        addHistory("CRITICAL ERROR: Secure endpoint rejected submission.");
         addHistory(`API Reason: ${data.error || "Unknown error occurred"}`);
         setSubmitError(data.error || "The secure CRM server was unable to save your lead. Please check your credentials or try again later.");
       }
@@ -304,13 +304,13 @@ export default function EnquiryPage() {
                   <div className="max-w-md mx-auto bg-slate-900 border border-slate-850 rounded-2xl p-6 text-left font-mono text-xs text-emerald-400 shadow-lg">
                     <div className="flex items-center gap-2 border-b border-slate-800 pb-3 mb-3 text-emerald-355 font-bold uppercase tracking-wider">
                       <Database className="w-5 h-5" />
-                      <span>SECURE CRM SYNC REPORT</span>
+                      <span>SECURE REGISTRY SYNC REPORT</span>
                     </div>
                     <div className="space-y-1.5 text-slate-305">
-                      <div>STATUS: <span className="text-emerald-400 font-bold">[LEAD_SYNCED]</span></div>
-                      <div>PLATFORM TARGET: <span className="text-white">HubSpot API Secure Node</span></div>
+                      <div>STATUS: <span className="text-emerald-400 font-bold">[SYNC_COMPLETE]</span></div>
+                      <div>PLATFORM TARGET: <span className="text-white">Encrypted API Gateway Node</span></div>
                       <div>ENCRYPTION LAYER: <span className="text-white">AES-256 GCM</span></div>
-                      <div>CRM SYNC ID: <span className="text-purple-400 font-bold">hs-{Math.floor(Math.random() * 800000 + 200000)}</span></div>
+                      <div>SYNC ID: <span className="text-purple-400 font-bold">sync-{Math.floor(Math.random() * 800000 + 200000)}</span></div>
                     </div>
                   </div>
                   <button 
@@ -664,15 +664,15 @@ export default function EnquiryPage() {
               </div>
               <div className="font-sans">
                 <div className="font-bold text-slate-800 text-sm">How is client data kept secure?</div>
-                <div className="text-slate-500 text-xs mt-1 leading-relaxed">Profiles bypass frontends, routed to HubSpot CRM via backend proxy endpoints.</div>
+                <div className="text-slate-500 text-xs mt-1 leading-relaxed">Profiles bypass frontends, routed securely via backend proxy endpoints.</div>
               </div>
             </div>
           </StandardCard>
 
-          {/* SECTION 8 - LIVE CRM NODE SYNC FEED */}
+          {/* SECTION 8 - SYNC CONNECTION TERMINAL */}
           <StandardCard
-            title="CRM Sync Node Terminal"
-            subtitle="Websocket console tracking API request parameters"
+            title="Sync Node Terminal"
+            subtitle="Console tracking connection pipeline status"
             icon={Terminal}
             badge="Sync Monitor"
             badgeType="info"
@@ -744,7 +744,7 @@ export default function EnquiryPage() {
                       <th className="pb-3.5">Name</th>
                       <th className="pb-3.5">Email</th>
                       <th className="pb-3.5">Phone</th>
-                      <th className="pb-3.5 text-right">CRM Sync Target</th>
+                      <th className="pb-3.5 text-right">Sync Gateway</th>
                       <th className="pb-3.5 text-right">Sync ID</th>
                     </tr>
                   </thead>
@@ -758,7 +758,7 @@ export default function EnquiryPage() {
                         <td className="py-4 text-right">
                           <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 font-sans text-[10px] font-bold">
                             <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            HubSpot Secure API
+                            Encrypted Secure API
                           </span>
                         </td>
                         <td className="py-4 text-right font-bold text-purple-600">{lead.crmId ?? "PENDING"}</td>
