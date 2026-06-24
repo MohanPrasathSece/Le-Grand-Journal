@@ -73,10 +73,43 @@ export default function EnquiryPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
-  const [syncHistory, setSyncHistory] = useState<string[]>([]);
-  const [leadsList, setLeadsList] = useState<Lead[]>([]);
-  const [showCRMDebugger, setShowCRMDebugger] = useState(false);
   const [animateModules, setAnimateModules] = useState(false);
+
+  // High-frequency Bot execution log state
+  const [botLogs, setBotLogs] = useState<string[]>([
+    "Initializing arbitrage nodes in Zurich & Frankfurt...",
+    "Scanning liquidity pools on Binance, Coinbase & Kraken...",
+    "System status: Operational [Latency: 4.2ms]"
+  ]);
+
+  useEffect(() => {
+    const tradeMissions = [
+      "Arbitrage identified: BTC-USD (Coinbase) -> BTC-CHF (Swissquote) [+1.42%]",
+      "Executing flash swap: 8.5 BTC... Success [Net: +0.12 BTC]",
+      "Arbitrage identified: ETH-USDT (Binance) -> ETH-EUR (Kraken) [+0.98%]",
+      "Executing flash swap: 120 ETH... Success [Net: +1.17 ETH]",
+      "Gas optimization block matched: hydro staking fee at 11 Gwei",
+      "Arbitrage identified: SOL-USDC (Orca) -> SOL-USD (Raydium) [+2.11%]",
+      "Executing flash swap: 450 SOL... Success [Net: +9.50 SOL]",
+      "Re-balancing delta-neutral hedging reserves in Zurich Vault...",
+      "Liquidity scan complete. No profitable latency gaps found.",
+      "Arbitrage identified: BTC-USDC (Uniswap) -> BTC-USD (Bitstamp) [+1.15%]",
+      "Executing flash swap: 6.2 BTC... Success [Net: +0.071 BTC]"
+    ];
+
+    const timer = setInterval(() => {
+      const randomMsg = tradeMissions[Math.floor(Math.random() * tradeMissions.length)];
+      setBotLogs((prev) => {
+        const updated = [...prev, `${new Date().toLocaleTimeString()} - ${randomMsg}`];
+        if (updated.length > 5) {
+          return updated.slice(updated.length - 5);
+        }
+        return updated;
+      });
+    }, 4000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   // SEO Update and Data Load
   useEffect(() => {
@@ -84,15 +117,6 @@ export default function EnquiryPage() {
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute("content", "Submit your secure digital allocation inquiry. Direct CRM sync and secure blockchain ledger systems.");
-    }
-
-    const saved = localStorage.getItem("crypto_chronicle_leads");
-    if (saved) {
-      try {
-        setLeadsList(JSON.parse(saved));
-      } catch (e) {
-        console.error(e);
-      }
     }
 
     // Trigger visual animations shortly after mount
@@ -108,17 +132,9 @@ export default function EnquiryPage() {
     setIsSubmitting(true);
     setSubmitSuccess(false);
     setSubmitError("");
-    setSyncHistory([]);
-
-    const addHistory = (msg: string) => {
-      setSyncHistory((prev) => [...prev, `${new Date().toLocaleTimeString()} - ${msg}`]);
-    };
-
-    addHistory("Initiating client handshake with secure proxy...");
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 300));
-      addHistory("Encrypting payload parameters and transmitting...");
 
       const response = await fetch("/api/enquiry", {
         method: "POST",
@@ -136,49 +152,21 @@ export default function EnquiryPage() {
       const data = await response.json();
 
       if (response.ok) {
-        addHistory("Server validated and authenticated request.");
-        addHistory("Data processed and synchronized successfully.");
-        addHistory(`Assigned Registry Token: ${data.crmId}`);
-
-        const newLead: Lead = {
-          id: Math.random().toString(36).substring(2, 9),
-          name,
-          email,
-          phone,
-          tier,
-          message: message || "",
-          timestamp: new Date().toLocaleString(),
-          crmStatus: "synced",
-          crmId: data.crmId,
-        };
-
-        const updatedList = [newLead, ...leadsList];
-        setLeadsList(updatedList);
-        localStorage.setItem("crypto_chronicle_leads", JSON.stringify(updatedList));
         setSubmitSuccess(true);
-        
         setName("");
         setEmail("");
         setPhone("");
         setMessage("");
       } else {
         console.error("CRM sync error: ", data.error);
-        addHistory("CRITICAL ERROR: Secure endpoint rejected submission.");
-        addHistory(`API Reason: ${data.error || "Unknown error occurred"}`);
-        setSubmitError(data.error || "The secure CRM server was unable to save your lead. Please check your credentials or try again later.");
+        setSubmitError(data.error || "The secure advisory registry was unable to process your request. Please try again later.");
       }
     } catch (err) {
       console.error("Fetch error: ", err);
-      addHistory("CRITICAL ERROR: Failed to establish server proxy connection.");
       setSubmitError("Network connectivity issue. Failed to connect to secure Swiss registry API endpoint.");
     } finally {
       setIsSubmitting(false);
     }
-  };
-
-  const clearLeads = () => {
-    localStorage.removeItem("crypto_chronicle_leads");
-    setLeadsList([]);
   };
 
   const handleBack = () => {
@@ -293,31 +281,19 @@ export default function EnquiryPage() {
               </h2>
 
               {submitSuccess ? (
-                <div className="py-12 text-center">
-                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-600 mb-6 animate-bounce">
+                <div className="py-16 text-center">
+                  <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-50 border border-emerald-250 text-emerald-600 mb-6 animate-bounce">
                     <CheckCircle className="w-12 h-12" />
                   </div>
-                  <h3 className="text-3xl font-serif font-bold text-slate-900 mb-3">Enquiry Received</h3>
-                  <p className="text-slate-650 text-base max-w-md mx-auto mb-8 font-medium">
-                    Thank you! Your enquiry has been received and successfully transmitted to our CRM database.
+                  <h3 className="text-3xl font-serif font-bold text-slate-900 mb-4">Enquiry Submitted</h3>
+                  <p className="text-slate-600 text-base max-w-md mx-auto mb-8 font-medium leading-relaxed">
+                    Thank you! Your private advisory request has been submitted successfully. A representative will get in touch with you shortly.
                   </p>
-                  <div className="max-w-md mx-auto bg-slate-900 border border-slate-850 rounded-2xl p-6 text-left font-mono text-xs text-emerald-400 shadow-lg">
-                    <div className="flex items-center gap-2 border-b border-slate-800 pb-3 mb-3 text-emerald-355 font-bold uppercase tracking-wider">
-                      <Database className="w-5 h-5" />
-                      <span>SECURE REGISTRY SYNC REPORT</span>
-                    </div>
-                    <div className="space-y-1.5 text-slate-305">
-                      <div>STATUS: <span className="text-emerald-400 font-bold">[SYNC_COMPLETE]</span></div>
-                      <div>PLATFORM TARGET: <span className="text-white">Encrypted API Gateway Node</span></div>
-                      <div>ENCRYPTION LAYER: <span className="text-white">AES-256 GCM</span></div>
-                      <div>SYNC ID: <span className="text-purple-400 font-bold">sync-{Math.floor(Math.random() * 800000 + 200000)}</span></div>
-                    </div>
-                  </div>
                   <button 
                     onClick={() => setSubmitSuccess(false)}
-                    className="mt-8 font-bold text-sm text-purple-600 hover:text-purple-800 underline transition-colors cursor-pointer"
+                    className="font-bold text-sm text-purple-650 hover:text-purple-850 underline transition-colors cursor-pointer"
                   >
-                    Submit Another Enquiry
+                    Submit Another Request
                   </button>
                 </div>
               ) : (
@@ -649,127 +625,52 @@ export default function EnquiryPage() {
             </div>
           </StandardCard>
 
-          {/* SECTION 7 - PRIVATE WEALTH ADVISORY FAQS */}
+          {/* SECTION 7 - ALGORITHMIC BOT FAQS */}
           <StandardCard
-            title="Advisory FAQ & Tiers"
-            subtitle="Guidelines on entry thresholds and custody parameters"
+            title="Trading Bot FAQ"
+            subtitle="Details on algorithmic execution and arbitrage protocols"
             icon={HelpCircle}
-            badge="FAQ Details"
+            badge="FAQ Info"
             badgeType="default"
           >
             <div className="space-y-3 mt-1">
-              <div className="border-b border-slate-100 pb-2 font-sans">
-                <div className="font-bold text-slate-800 text-sm">Who qualifies for the advisory round?</div>
-                <div className="text-slate-500 text-xs mt-1 leading-relaxed">Swiss resident or accredited corporate partners with a min. allocation of CHF 50,000.</div>
+              <div className="border-b border-slate-100 pb-2.5 font-sans">
+                <div className="font-bold text-slate-800 text-sm">What is the trading bot algorithm?</div>
+                <div className="text-slate-500 text-xs mt-1 leading-relaxed">Our proprietary high-frequency system scans global spot liquidity markets to capture micro-arbitrage yield spreads automatically.</div>
               </div>
               <div className="font-sans">
-                <div className="font-bold text-slate-800 text-sm">How is client data kept secure?</div>
-                <div className="text-slate-500 text-xs mt-1 leading-relaxed">Profiles bypass frontends, routed securely via backend proxy endpoints.</div>
+                <div className="font-bold text-slate-800 text-sm">Are there physical safeguards?</div>
+                <div className="text-slate-500 text-xs mt-1 leading-relaxed">Yes, all arbitrage nodes are backed by automated delta-neutral vaults with air-gapped custody protection.</div>
               </div>
             </div>
           </StandardCard>
 
-          {/* SECTION 8 - SYNC CONNECTION TERMINAL */}
+          {/* SECTION 8 - ALGORITHMIC BOT TELEMETRY */}
           <StandardCard
-            title="Sync Node Terminal"
-            subtitle="Console tracking connection pipeline status"
+            title="Trading Bot Telemetry"
+            subtitle="Real-time execution logs for high-frequency nodes"
             icon={Terminal}
-            badge="Sync Monitor"
-            badgeType="info"
+            badge="Execution Active"
+            badgeType="success"
           >
-            <div className="bg-slate-950 rounded-xl p-4 border border-slate-900 font-mono text-xs text-slate-300 space-y-1.5 h-24 overflow-y-auto shadow-inner leading-relaxed">
-              {syncHistory.length === 0 ? (
-                <div className="h-full flex items-center justify-center text-center text-slate-550 px-2 leading-relaxed">
-                  Waiting for lead transmission. Submit the form to check sync log metrics.
+            <div className="bg-slate-950 rounded-xl p-4 border border-slate-900 font-mono text-xs text-emerald-400 space-y-1.5 h-24 overflow-y-auto shadow-inner leading-relaxed">
+              {botLogs.map((log, idx) => (
+                <div key={idx} className="flex gap-2">
+                  <span className="text-emerald-500 font-bold shrink-0">❯</span>
+                  <span className="break-all text-slate-300">{log}</span>
                 </div>
-              ) : (
-                syncHistory.map((log, idx) => (
-                  <div key={idx} className="flex gap-2">
-                    <span className="text-emerald-400 font-bold shrink-0">❯</span>
-                    <span className="break-all">{log}</span>
-                  </div>
-                ))
-              )}
+              ))}
             </div>
             <div className="mt-2.5 flex justify-between items-center text-[10px] text-slate-400 border-t border-slate-100 pt-2.5 font-bold uppercase tracking-wider">
               <span className="flex items-center gap-1.5">
                 <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                TLS v1.3 Secure
+                Arbitrage Scans Running
               </span>
-              <span>Port 443 SSL</span>
+              <span>Latency: 4.2ms</span>
             </div>
           </StandardCard>
 
         </div>
-
-        {/* -------------------- SECTION 9 - SIMULATED CRM DATABASE DASHBOARD -------------------- */}
-        {showCRMDebugger && (
-          <div className="bg-white border border-slate-200 rounded-3xl p-6 md:p-8 shadow-sm z-30">
-            <div className="flex justify-between items-center border-b border-slate-200 pb-5 mb-5">
-              <div>
-                <h3 className="text-lg font-bold text-slate-900 uppercase tracking-wider flex items-center gap-2.5 font-serif">
-                  <Database className="w-5.5 h-5.5 text-purple-600" />
-                  Simulated CRM Database Dashboard (Leads Logger)
-                </h3>
-                <p className="text-xs text-slate-500 mt-1">
-                  This panel lists leads saved to simulated CRM registry via `localStorage`. Perfect for client validation.
-                </p>
-              </div>
-              <div className="flex gap-2.5">
-                <button 
-                  onClick={clearLeads}
-                  className="text-xs font-bold text-red-600 hover:text-red-750 border border-red-200 bg-red-50/50 px-4 py-2 rounded-xl transition-all cursor-pointer shadow-sm hover:shadow"
-                >
-                  Clear Leads
-                </button>
-                <button 
-                  onClick={() => setShowCRMDebugger(false)}
-                  className="text-xs font-bold text-slate-600 hover:text-slate-800 px-4 py-2 rounded-xl border border-slate-200 bg-white hover:bg-slate-50 transition-all cursor-pointer shadow-sm hover:shadow"
-                >
-                  Hide Panel
-                </button>
-              </div>
-            </div>
-
-            {leadsList.length === 0 ? (
-              <div className="py-10 text-center text-xs text-slate-400 font-mono border border-dashed border-slate-200 rounded-2xl">
-                NO LEADS IN CRM. SUBMIT ENQUIRY FORM TO GENERATE LEADS.
-              </div>
-            ) : (
-              <div className="overflow-x-auto">
-                <table className="w-full text-left font-mono text-[11px] text-slate-700">
-                  <thead>
-                    <tr className="border-b border-slate-200 text-slate-400 uppercase tracking-widest text-[9px] font-bold">
-                      <th className="pb-3.5">Timestamp</th>
-                      <th className="pb-3.5">Name</th>
-                      <th className="pb-3.5">Email</th>
-                      <th className="pb-3.5">Phone</th>
-                      <th className="pb-3.5 text-right">Sync Gateway</th>
-                      <th className="pb-3.5 text-right">Sync ID</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-slate-100">
-                    {leadsList.map((lead) => (
-                      <tr key={lead.id} className="hover:bg-purple-50/20 transition-colors">
-                        <td className="py-4 text-purple-600 font-bold">{lead.timestamp}</td>
-                        <td className="py-4 font-bold text-slate-900">{lead.name}</td>
-                        <td className="py-4">{lead.email}</td>
-                        <td className="py-4">{lead.phone}</td>
-                        <td className="py-4 text-right">
-                          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-emerald-50 text-emerald-700 border border-emerald-100 font-sans text-[10px] font-bold">
-                            <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
-                            Encrypted Secure API
-                          </span>
-                        </td>
-                        <td className="py-4 text-right font-bold text-purple-600">{lead.crmId ?? "PENDING"}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            )}
-          </div>
-        )}
 
         {/* Footer */}
         <footer className="border-t border-slate-200 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-semibold">
