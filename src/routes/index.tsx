@@ -46,7 +46,7 @@ const RELATED = [
 ];
 
 const TICKER = [
-  "LE GRAND JOURNAL QUOTIDIEN", "LA FED DISCUTE DE L'AJUSTEMENT DES TAUX", "L'INTERVIEW DE NILS SUTER SUSCITE UN INTÉRÊT MONDIAL", "L'OR CONTINUE SA COURSE RECORD",
+  "LE GRAND RAPPORT QUOTIDIEN", "LA FED DISCUTE DE L'AJUSTEMENT DES TAUX", "L'INTERVIEW DE NILS SUTER SUSCITE UN INTÉRÊT MONDIAL", "L'OR CONTINUE SA COURSE RECORD",
 ];
 
 function Sparkline({ up }: { up: boolean }) {
@@ -62,7 +62,7 @@ function Sparkline({ up }: { up: boolean }) {
 
 export default function IndexPage() {
   useEffect(() => {
-    document.title = "L'Alchimiste Suisse : Comment Nils Suter a acheté un château à Zoug avec du Bitcoin — Le Grand Journal";
+    document.title = "L'Alchimiste Suisse : Comment Nils Suter a acheté un château à Zoug avec du Bitcoin — le grand rapport";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
       metaDesc.setAttribute("content", "Au cœur du château de Zoug : Nils Suter, le pionnier de la crypto le plus célèbre de Suisse, explique en détail comment le Bitcoin lui a sauvé la vie, sa philosophie sur la souveraineté, et pourquoi il finance la prochaine génération de développeurs européens.");
@@ -134,7 +134,7 @@ export default function IndexPage() {
       <header className="sticky top-0 z-40 border-b border-rule bg-background/95 backdrop-blur">
         <div className="mx-auto flex max-w-[1320px] items-center gap-6 px-6 py-3">
           <a href="/" className="flex items-baseline gap-1.5">
-            <span className="font-serif text-2xl font-bold tracking-tight text-ink">Le Grand Journal</span>
+            <span className="font-serif text-2xl font-bold tracking-tight text-ink">le grand rapport</span>
             <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Quotidien</span>
           </a>
           <div className="ml-auto flex items-center gap-1">
@@ -247,9 +247,9 @@ export default function IndexPage() {
 
           {/* Hero image */}
           <figure className="mt-8">
-            <img src={heroImg} alt="Nils Suter, pionnier de la crypto, lors de son entretien exclusif avec Le Grand Journal" width={1600} height={900} className="aspect-[16/9] w-full rounded-md object-cover" />
+            <img src={heroImg} alt="Nils Suter, pionnier de la crypto, lors de son entretien exclusif avec le grand rapport" width={1600} height={900} className="aspect-[16/9] w-full rounded-md object-cover" />
             <figcaption className="mt-3 flex flex-wrap justify-between gap-2 text-[12px] text-ink-soft">
-              <span>Nils Suter (à droite) s'exprimant lors de son entretien exclusif pour Le Grand Journal, détaillant son parcours et sa vision de la souveraineté numérique.</span>
+              <span>Nils Suter (à droite) s'exprimant lors de son entretien exclusif pour le grand rapport, détaillant son parcours et sa vision de la souveraineté numérique.</span>
               <span className="italic">Photo : The Herald Chronicle / Jean-Luc Bovet</span>
             </figcaption>
           </figure>
@@ -645,7 +645,7 @@ export default function IndexPage() {
           <div className="grid grid-cols-2 gap-10 md:grid-cols-6 font-sans">
             <div className="col-span-2">
               <div className="flex items-baseline gap-1.5">
-                <span className="font-serif text-2xl font-bold tracking-tight text-ink">Le Grand Journal</span>
+                <span className="font-serif text-2xl font-bold tracking-tight text-ink">le grand rapport</span>
                 <span className="text-[10px] font-semibold uppercase tracking-widest text-primary">Quotidien</span>
               </div>
               <p className="mt-3 max-w-xs text-[13px] leading-relaxed text-ink-soft">
@@ -680,7 +680,7 @@ export default function IndexPage() {
             ))}
           </div>
           <div className="mt-12 flex flex-col items-start justify-between gap-4 border-t border-rule pt-6 text-[12px] text-ink-soft md:flex-row md:items-center font-sans">
-            <div>© 2026 Le Grand Journal Media. Genève CHE-428.189. Tous droits réservés.</div>
+            <div>© 2026 le grand rapport Media. Genève CHE-428.189. Tous droits réservés.</div>
             <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
               <button className="flex items-center gap-1.5 hover:text-ink"><Globe className="h-3.5 w-3.5" /> Français (CH)</button>
               <a href="#" className="hover:text-ink">Divulgations</a>
