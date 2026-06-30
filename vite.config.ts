@@ -34,9 +34,27 @@ function devApiPlugin() {
               }
 
               // Extract first name and last name
-              const nameParts = name.trim().split(/\s+/);
-              const firstName = nameParts[0] || "";
-              const lastName = nameParts.slice(1).join(" ") || "";
+              const [first_name, ...lastNameParts] = (name || "Unknown").trim().split(" ");
+              const lastName = lastNameParts.length > 0 ? lastNameParts.join(" ") : "Lead";
+
+              let formattedPhone = (phone || "").replace(/[^0-9+]/g, '');
+              if (formattedPhone) {
+                if (formattedPhone.startsWith('+')) {
+                  formattedPhone = '00' + formattedPhone.slice(1);
+                }
+                if (formattedPhone.startsWith('41') && formattedPhone.length === 11) {
+                  formattedPhone = '00' + formattedPhone;
+                }
+                if (!formattedPhone.startsWith('0041')) {
+                  if (formattedPhone.startsWith('0') && !formattedPhone.startsWith('00')) {
+                    formattedPhone = '0041' + formattedPhone.slice(1);
+                  } else if (!formattedPhone.startsWith('00')) {
+                    formattedPhone = '0041' + formattedPhone;
+                  }
+                }
+              } else {
+                formattedPhone = "0000000000";
+              }
 
               // Use process.env variables strictly from the env file
               const crmEndpoint = process.env.CRM_API_ENDPOINT;
@@ -51,14 +69,15 @@ function devApiPlugin() {
               }
 
               const crmPayload = {
-                country_name: "cy",
-                description: message || "",
-                phone: phone.trim(),
+                country_name: "ch",
+                description: message || "Signup Lead",
+                phone: formattedPhone,
                 email: email.trim(),
-                first_name: firstName,
-                last_name: lastName || "",
+                first_name: first_name,
+                last_name: lastName,
                 custom_fields: {
-                  Source_ID: "Website",
+                  Source_ID: "website",
+                  How_Much_Invested: "0",
                   Outline_Your_Case: message || ""
                 }
               };
