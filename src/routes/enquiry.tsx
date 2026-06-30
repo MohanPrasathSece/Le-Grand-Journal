@@ -60,6 +60,7 @@ export default function EnquiryPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState("");
+  const [phoneError, setPhoneError] = useState("");
   const [animateModules, setAnimateModules] = useState(false);
 
   // High-frequency Bot execution log state
@@ -111,14 +112,25 @@ export default function EnquiryPage() {
     return () => clearTimeout(timer);
   }, []);
 
-  // Form Submission via secure proxy
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!name || !email || !phone) return;
 
+    const cleanNum = phone.replace(/\s+/g, "");
+    if (!cleanNum) {
+      setPhoneError("Veuillez entrer un numéro de téléphone");
+      setIsSubmitting(false);
+      return;
+    } else if (!/^(\+41|0041|0)?[1-9]\d{8}$/.test(cleanNum)) {
+      setPhoneError("Veuillez entrer un numéro suisse valide (ex: 079 123 45 67)");
+      setIsSubmitting(false);
+      return;
+    }
+
     setIsSubmitting(true);
     setSubmitSuccess(false);
     setSubmitError("");
+    setPhoneError("");
 
     try {
       await new Promise((resolve) => setTimeout(resolve, 300));
@@ -343,6 +355,11 @@ export default function EnquiryPage() {
                         className="w-full bg-slate-950/60 border border-slate-800 rounded-xl pl-12 pr-5 py-4 text-[16px] text-white placeholder-slate-500 focus:bg-slate-950 focus:border-purple-500 focus:ring-4 focus:ring-purple-500/5 outline-none transition-all"
                       />
                     </div>
+                    {phoneError && (
+                      <div className="mt-2 text-sm text-red-500 font-bold font-sans">
+                        {phoneError}
+                      </div>
+                    )}
                   </div>
 
                   <div>

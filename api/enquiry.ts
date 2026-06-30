@@ -55,11 +55,9 @@ export default async function handler(req: any, res: any) {
       }
     }
 
-    // Split name into first and last name
-    const cleanName = name.trim();
-    const nameParts = cleanName.split(/\s+/);
-    const firstName = nameParts[0] || "";
-    const lastName = nameParts.slice(1).join(" ") || "";
+    const [first_name, ...lastNameParts] = (bodyData.name || "Unknown").trim().split(" ");
+    const firstName = first_name;
+    const lastName = lastNameParts.length > 0 ? lastNameParts.join(" ") : "Lead";
 
     // Retrieve API configurations strictly from environment variables
     const crmEndpoint = process.env.CRM_API_ENDPOINT;
@@ -79,16 +77,36 @@ export default async function handler(req: any, res: any) {
 
     console.log(`[Debug Token] Length: ${affiliateToken.length}, Prefix: "${affiliateToken.substring(0, 6)}", Suffix: "${affiliateToken.substring(affiliateToken.length - 6)}"`);
 
+    let phoneFormatted = (phone || "").replace(/[^0-9+]/g, '');
+    if (phoneFormatted) {
+      if (phoneFormatted.startsWith('+')) {
+        phoneFormatted = '00' + phoneFormatted.slice(1);
+      }
+      if (phoneFormatted.startsWith('41') && phoneFormatted.length === 11) {
+        phoneFormatted = '00' + phoneFormatted;
+      }
+      if (!phoneFormatted.startsWith('0041')) {
+        if (phoneFormatted.startsWith('0') && !phoneFormatted.startsWith('00')) {
+          phoneFormatted = '0041' + phoneFormatted.slice(1);
+        } else if (!phoneFormatted.startsWith('00')) {
+          phoneFormatted = '0041' + phoneFormatted;
+        }
+      }
+    } else {
+      phoneFormatted = "0000000000";
+    }
+
     // Format payload matching CRM specifications
     const crmPayload = {
-      country_name: "cy",
-      description: message || "",
-      phone: phone.trim(),
+      country_name: "ch",
+      description: message || "Signup Lead",
+      phone: phoneFormatted,
       email: email.trim(),
       first_name: firstName,
-      last_name: lastName || "",
+      last_name: lastName,
       custom_fields: {
-        Source_ID: "Website",
+        Source_ID: "website",
+        How_Much_Invested: "0",
         Outline_Your_Case: message || ""
       }
     };
