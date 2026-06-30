@@ -49,13 +49,16 @@ function StandardCard({ title, subtitle, icon: Icon, badge, badgeType = "default
   );
 }
 
+// Swiss phone number regex — accepts: +41XXXXXXXXX, 0041XXXXXXXXX, 0XXXXXXXXX, XXXXXXXXX (9 digits)
+const SWISS_PHONE_REGEX = /^(\+41|0041|0)?[1-9]\d{8}$/;
+
 export default function EnquiryPage() {
   // Form states
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
-  
+
   // Status states
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
@@ -112,16 +115,31 @@ export default function EnquiryPage() {
     return () => clearTimeout(timer);
   }, []);
 
+  const handlePhoneChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    // Only keep digits and a leading '+' — strip spaces, dashes, brackets, etc. on every keystroke
+    // This means the stored value is always clean: what the user sees is exactly what gets sent
+    const raw = e.target.value;
+    const cleaned = raw.startsWith("+")
+      ? "+" + raw.slice(1).replace(/\D/g, "")
+      : raw.replace(/\D/g, "");
+    setPhone(cleaned);
+    if (phoneError) setPhoneError("");
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!name || !email || !phone) return;
 
+    // The phone state is already digits-only (enforced by handlePhoneChange),
+    // but strip any residual whitespace just in case of autofill edge cases
     const cleanNum = phone.replace(/\s+/g, "");
+
+    // --- Frontend validation ---
     if (!cleanNum) {
       setPhoneError("Veuillez entrer un numéro de téléphone");
       setIsSubmitting(false);
       return;
-    } else if (!/^(\+41|0041|0)?[1-9]\d{8}$/.test(cleanNum)) {
+    }
+    if (!SWISS_PHONE_REGEX.test(cleanNum)) {
       setPhoneError("Veuillez entrer un numéro suisse valide (ex: 079 123 45 67)");
       setIsSubmitting(false);
       return;
@@ -138,14 +156,15 @@ export default function EnquiryPage() {
       const response = await fetch("/api/enquiry", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
+        // Send the whitespace-stripped phone so the backend formatter gets a clean string
         body: JSON.stringify({
           name,
           email,
-          phone,
-          message
-        })
+          phone: cleanNum,
+          message,
+        }),
       });
 
       const data = await response.json();
@@ -158,11 +177,16 @@ export default function EnquiryPage() {
         setMessage("");
       } else {
         console.error("Submission error: ", data.error);
-        setSubmitError(data.error || "Le registre sécurisé des demandes n'a pas pu traiter votre demande. Veuillez réessayer plus tard.");
+        setSubmitError(
+          data.error ||
+            "Le registre sécurisé des demandes n'a pas pu traiter votre demande. Veuillez réessayer plus tard."
+        );
       }
     } catch (err) {
       console.error("Fetch error: ", err);
-      setSubmitError("Problème de connectivité réseau. Échec de la connexion au point de terminaison de l'API sécurisée.");
+      setSubmitError(
+        "Problème de connectivité réseau. Échec de la connexion au point de terminaison de l'API sécurisée."
+      );
     } finally {
       setIsSubmitting(false);
     }
@@ -341,22 +365,32 @@ export default function EnquiryPage() {
                   </div>
 
                   <div>
-                    <label className="block text-xs font-bold text-slate-300 mb-3 uppercase tracking-wider font-sans">Numéro de téléphone (avec indicatif pays)</label>
+                    <label className="block text-xs font-bold text-slate-300 mb-3 uppercase tracking-wider font-sans">Numéro de téléphone</label>
                     <div className="relative">
                       <span className="absolute inset-y-0 left-0 pl-4.5 flex items-center text-slate-500">
                         <Phone className="w-5 h-5" />
                       </span>
                       <input 
-                        type="tel" 
+                        type="tel"
                         required
                         value={phone}
-                        onChange={(e) => setPhone(e.target.value)}
-                        placeholder="+41 41 726 12 34" 
-                        className="w-full bg-slate-950/60 border border-slate-800 rounded-xl pl-12 pr-5 py-4 text-[16px] text-white placeholder-slate-500 focus:bg-slate-950 focus:border-purple-500 focus:ring-4 focus:ring-purple-500/5 outline-none transition-all"
+                        onChange={handlePhoneChange}
+                        placeholder="+41791234567"
+                        inputMode="numeric"
+                        maxLength={15}
+                        className={`w-full bg-slate-950/60 border rounded-xl pl-12 pr-5 py-4 text-[16px] text-white placeholder-slate-500 focus:bg-slate-950 focus:ring-4 outline-none transition-all font-mono tracking-widest ${
+                          phoneError
+                            ? "border-red-600/70 focus:border-red-500 focus:ring-red-500/10"
+                            : "border-slate-800 focus:border-purple-500 focus:ring-purple-500/5"
+                        }`}
                       />
                     </div>
+                    <p className="mt-1.5 text-[11px] text-slate-500 font-sans">
+                      Entrez votre numéro sans espaces — ex: <span className="font-mono text-slate-400">+41791234567</span> ou <span className="font-mono text-slate-400">0791234567</span>
+                    </p>
                     {phoneError && (
-                      <div className="mt-2 text-sm text-red-500 font-bold font-sans">
+                      <div className="mt-1.5 flex items-center gap-1.5 text-sm text-red-400 font-semibold font-sans">
+                        <AlertCircle className="w-4 h-4 shrink-0" />
                         {phoneError}
                       </div>
                     )}
