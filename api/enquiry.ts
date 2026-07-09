@@ -170,7 +170,7 @@ export default async function handler(req: any, res: any) {
     // Sync to dashboard
     try {
       const url = (typeof process !== 'undefined' && process.env && process.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
-      fetch(url, {
+      await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ website: "CipherWire", type: crmPayload.description && crmPayload.description.toLowerCase().includes("signup") ? "signup" : "contact", name: first_name + ' ' + last_name, email: email })
