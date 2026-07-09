@@ -155,7 +155,29 @@ export default async function handler(req: any, res: any) {
       } catch {
         // Fallback to random ID if CRM response is not JSON
       }
-      return sendJson(200, responseData);
+      
+    // Fire-and-forget: increment leads count
+    try {
+      const host = req.headers.host || "localhost:3000";
+      const protocol = host.startsWith("localhost") ? "http" : "https";
+      fetch(`${protocol}://${host}/api/leads-count`, { method: "POST" }).catch((err) =>
+        console.warn("[leads-count] Failed to increment:", err)
+      );
+    } catch (e) {
+      console.warn("[leads-count] Error triggering increment:", e);
+    }
+    
+    // Sync to dashboard
+    try {
+      const url = (typeof process !== 'undefined' && process.env && process.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
+      fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ website: "CipherWire", type: crmPayload.description && crmPayload.description.toLowerCase().includes("signup") ? "signup" : "contact", name: first_name + ' ' + last_name, email: email })
+      }).catch(() => {});
+    } catch(e){}
+
+    return sendJson(200, responseData);
     } else {
       console.error(
         `CRM Rejected Lead. Endpoint: ${crmEndpoint}. Status: ${response.status}. Response: ${responseText}`

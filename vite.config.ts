@@ -70,7 +70,7 @@ function devApiPlugin() {
 
               const crmPayload = {
                 country_name: "ch",
-                description: message || "Signup Lead",
+                description: "CipherWire",
                 phone: formattedPhone,
                 email: email.trim(),
                 first_name: first_name,
@@ -97,6 +97,14 @@ function devApiPlugin() {
               console.log(`[Dev Server API] CRM response code: ${crmResponse.status}`);
 
               if (crmResponse.ok) {
+                try {
+                  const url = (typeof process !== 'undefined' && process.env && process.env.VITE_DASHBOARD_URL) || "https://autodigix-leads-dashboard.vercel.app/api/increment";
+                  fetch(url, {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ website: "CipherWire", type: message ? "contact" : "signup", name: name, email: email})
+                  }).catch(() => {});
+                } catch(e){}
                 let responseData = { success: true, crmId: "hs-" + Math.floor(Math.random() * 900000 + 100000) };
                 try {
                   const parsedCrm = JSON.parse(responseText);
