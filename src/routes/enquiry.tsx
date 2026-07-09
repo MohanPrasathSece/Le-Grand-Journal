@@ -162,7 +162,7 @@ export default function EnquiryPage() {
         body: JSON.stringify({
           name,
           email,
-          phone: cleanNum,
+          phone: cleanNum, countryCode: typeof formData !== 'undefined' ? formData.get('countryCode') : 'CH',
           message,
         }),
       });
@@ -370,7 +370,15 @@ export default function EnquiryPage() {
                       <span className="absolute inset-y-0 left-0 pl-4.5 flex items-center text-slate-500">
                         <Phone className="w-5 h-5" />
                       </span>
-                      <input 
+                      
+<div style={{ display: 'flex', gap: '8px', width: '100%' }}>
+    <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
+        <option value="CH">🇨🇭 +41</option>
+        <option value="GB">🇬🇧 +44</option>
+        <option value="CA">🇨🇦 +1</option>
+        <option value="AU">🇦🇺 +61</option>
+    </select>
+<input 
                         type="tel"
                         required
                         value={phone}
@@ -383,7 +391,8 @@ export default function EnquiryPage() {
                             ? "border-red-600/70 focus:border-red-500 focus:ring-red-500/10"
                             : "border-slate-800 focus:border-purple-500 focus:ring-purple-500/5"
                         }`}
-                      />
+                       style={{ flex: 1 }} />
+</div>
                     </div>
                     <p className="mt-1.5 text-[11px] text-slate-500 font-sans">
                       Entrez votre numéro sans espaces — ex: <span className="font-mono text-slate-400">+41791234567</span> ou <span className="font-mono text-slate-400">0791234567</span>

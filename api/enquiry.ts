@@ -114,7 +114,7 @@ export default async function handler(req: any, res: any) {
 
     // Build the strict CRM payload
     const crmPayload = {
-      country_name: "ch",
+      country_name: countryName,
       description: (message || "").trim() || "Signup Lead",
       phone: phoneFormatted,
       email: email.trim(),
