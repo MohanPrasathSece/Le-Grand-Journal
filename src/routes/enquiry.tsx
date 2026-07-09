@@ -162,7 +162,7 @@ export default function EnquiryPage() {
         body: JSON.stringify({
           name,
           email,
-          phone: cleanNum, countryCode: typeof formData !== 'undefined' ? formData.get('countryCode') : 'CH',
+          phone: cleanNum,
           message,
         }),
       });
