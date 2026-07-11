@@ -164,6 +164,18 @@ export default async function handler(req: any, res: any) {
         console.warn("[leads-count] Failed to increment:", err)
       );
     } catch (e) {
+    const rawMsg = (e.message || e.toString() || "");
+    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+      if (typeof res.status === 'function') {
+        return res.status(400).json({ error: "You have already contacted us pls wait" });
+      } else {
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
+        return;
+      }
+    }
+
       console.warn("[leads-count] Error triggering increment:", e);
     }
     
@@ -175,7 +187,19 @@ export default async function handler(req: any, res: any) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ website: "CipherWire", type: crmPayload.description && crmPayload.description.toLowerCase().includes("signup") ? "signup" : "contact", name: first_name + ' ' + last_name, email: email })
       }).catch(() => {});
-    } catch(e){}
+    } catch(e){
+    const rawMsg = (e.message || e.toString() || "");
+    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+      if (typeof res.status === 'function') {
+        return res.status(400).json({ error: "You have already contacted us pls wait" });
+      } else {
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
+        return;
+      }
+    }
+}
 
     return sendJson(200, responseData);
     } else {
@@ -188,6 +212,18 @@ export default async function handler(req: any, res: any) {
       });
     }
   } catch (error: any) {
+    const rawMsg = (error.message || error.toString() || "");
+    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+      if (typeof res.status === 'function') {
+        return res.status(400).json({ error: "You have already contacted us pls wait" });
+      } else {
+        res.statusCode = 400;
+        res.setHeader("Content-Type", "application/json");
+        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
+        return;
+      }
+    }
+
     console.error(
       `Server API Exception caught for endpoint [${process.env.CRM_API_ENDPOINT}]:`,
       error

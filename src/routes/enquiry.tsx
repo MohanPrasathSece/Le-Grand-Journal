@@ -183,6 +183,14 @@ export default function EnquiryPage() {
         );
       }
     } catch (err) {
+      const rawMsg = (err?.message || err?.toString() || "");
+      if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+        toast.error("You have already contacted us pls wait");
+        if (typeof setError === 'function') setError("You have already contacted us pls wait");
+        setLoading(false);
+        return;
+      }
+
       console.error("Fetch error: ", err);
       setSubmitError(
         "Problème de connectivité réseau. Échec de la connexion au point de terminaison de l'API sécurisée."
@@ -200,6 +208,14 @@ export default function EnquiryPage() {
         window.history.pushState({}, "", "/");
       }
     } catch (e) {
+      const rawMsg = (e?.message || e?.toString() || "");
+      if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+        toast.error("You have already contacted us pls wait");
+        if (typeof setError === 'function') setError("You have already contacted us pls wait");
+        setLoading(false);
+        return;
+      }
+
       window.history.pushState({}, "", "/");
     }
   };
