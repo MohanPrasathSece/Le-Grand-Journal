@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import {
+import { toast } from "sonner";
   Shield, CheckCircle, Database, Server, User, Mail, Phone, MessageSquare, ArrowRight,
   RefreshCw, FileText, Sparkles, Cpu, Layers, HardDrive, AlertCircle, TrendingUp, MapPin,
   Globe, Activity, HelpCircle, Lock, Terminal
@@ -185,9 +186,9 @@ export default function EnquiryPage() {
     } catch (err: any) {
       const rawMsg = (err?.message || err?.toString() || "");
       if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+        toast.success("Vous nous avez déjà contactés. Veuillez patienter.");
         return;
       }
-
       console.error("Fetch error: ", err);
       setSubmitError(
         "Problème de connectivité réseau. Échec de la connexion au point de terminaison de l'API sécurisée."
@@ -207,9 +208,9 @@ export default function EnquiryPage() {
     } catch (e: any) {
       const rawMsg = (e?.message || e?.toString() || "");
       if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+        toast.success("Vous nous avez déjà contactés. Veuillez patienter.");
         return;
       }
-
       window.history.pushState({}, "", "/");
     }
   };
