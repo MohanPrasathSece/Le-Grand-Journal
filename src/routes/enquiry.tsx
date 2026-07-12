@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import {
 import { toast } from "sonner";
+import {
   Shield, CheckCircle, Database, Server, User, Mail, Phone, MessageSquare, ArrowRight,
   RefreshCw, FileText, Sparkles, Cpu, Layers, HardDrive, AlertCircle, TrendingUp, MapPin,
   Globe, Activity, HelpCircle, Lock, Terminal
@@ -133,6 +133,29 @@ export default function EnquiryPage() {
     // The phone state is already digits-only (enforced by handlePhoneChange),
     // but strip any residual whitespace just in case of autofill edge cases
     const cleanNum = phone.replace(/\s+/g, "");
+    const phoneLengths: Record<string, number> = {
+      FR: 9, CH: 9, BE: 9, CA: 10, US: 10, GB: 10, DE: 10, ES: 9, IT: 10, NL: 9, SE: 9, AU: 9, IN: 10, AE: 9, SG: 8, ZA: 9, BR: 11, MX: 10, JP: 10, CY: 8
+    };
+    const cCode = typeof data !== 'undefined' && data.countryCode ? data.countryCode : (typeof countryCode !== 'undefined' ? countryCode : 'CH');
+    const expectedLen = phoneLengths[cCode as string] || 9;
+    if (cleanNum && (cleanNum.length < expectedLen - 1 || cleanNum.length > expectedLen + 2)) {
+      if (typeof setPhoneError !== 'undefined') {
+        setPhoneError(`Veuillez entrer un numéro valide pour le pays sélectionné (${expectedLen} chiffres attendus)`);
+        if (typeof setIsSubmitting !== 'undefined') setIsSubmitting(false);
+        if (typeof setLoading !== 'undefined') setLoading(false);
+        return;
+      }
+      if (typeof setError !== 'undefined') {
+        setError(`Veuillez entrer un numéro valide pour le pays sélectionné (${expectedLen} chiffres attendus)`);
+        if (typeof setIsSubmitting !== 'undefined') setIsSubmitting(false);
+        if (typeof setLoading !== 'undefined') setLoading(false);
+        return;
+      }
+      if (typeof errs !== 'undefined') {
+        errs.phone = `Veuillez entrer un numéro valide pour le pays sélectionné (${expectedLen} chiffres attendus)`;
+      }
+    }
+
 
     // --- Frontend validation ---
     if (!cleanNum) {
@@ -385,9 +408,25 @@ export default function EnquiryPage() {
 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
     <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
         <option value="CH">🇨🇭 +41</option>
-        <option value="GB">🇬🇧 +44</option>
+        <option value="FR">🇫🇷 +33</option>
+        <option value="BE">🇧🇪 +32</option>
         <option value="CA">🇨🇦 +1</option>
+        <option value="US">🇺🇸 +1</option>
+        <option value="GB">🇬🇧 +44</option>
+        <option value="DE">🇩🇪 +49</option>
+        <option value="ES">🇪🇸 +34</option>
+        <option value="IT">🇮🇹 +39</option>
+        <option value="NL">🇳🇱 +31</option>
+        <option value="SE">🇸🇪 +46</option>
         <option value="AU">🇦🇺 +61</option>
+        <option value="IN">🇮🇳 +91</option>
+        <option value="AE">🇦🇪 +971</option>
+        <option value="SG">🇸🇬 +65</option>
+        <option value="ZA">🇿🇦 +27</option>
+        <option value="BR">🇧🇷 +55</option>
+        <option value="MX">🇲🇽 +52</option>
+        <option value="JP">🇯🇵 +81</option>
+        <option value="CY">🇨🇾 +357</option>
     </select>
 <input 
                         type="tel"
