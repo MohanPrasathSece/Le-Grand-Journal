@@ -88,7 +88,7 @@ function devApiPlugin() {
 
               // Extract first name and last name
               const [first_name, ...lastNameParts] = (name || "Unknown").trim().split(" ");
-              const lastName = lastNameParts.length > 0 ? lastNameParts.join(" ") : "Lead";
+              const lastName = lastNameParts.length > 0 ? lastNameParts.join(" ") : "";
 
               const formattedPhone = formatPhoneForCRM(phone, userCountryCode);
 

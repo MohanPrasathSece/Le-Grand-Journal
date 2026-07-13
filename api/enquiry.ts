@@ -116,7 +116,7 @@ export default async function handler(req: any, res: any) {
 
     // Parse name — trim first to prevent leading spaces producing a blank first_name
     const [first_name, ...lastNameParts] = (name || "Unknown").trim().split(" ");
-    const last_name = lastNameParts.length > 0 ? lastNameParts.join(" ") : "Lead";
+    const last_name = lastNameParts.length > 0 ? lastNameParts.join(" ") : "";
 
     // Load CRM credentials from environment variables
     const crmEndpoint = process.env.CRM_API_ENDPOINT;
