@@ -98,6 +98,7 @@ export default function EnquiryPage() {
   const [submitError, setSubmitError] = useState("");
   const [phoneError, setPhoneError] = useState("");
   const [animateModules, setAnimateModules] = useState(false);
+  const [mounted, setMounted] = useState(false);
 
   // High-frequency Bot execution log state
   const [botLogs, setBotLogs] = useState<string[]>([
@@ -137,6 +138,7 @@ export default function EnquiryPage() {
 
   // SEO Update and Data Load
   useEffect(() => {
+    setMounted(true);
     document.title = "Portail d'Allocation Algorithmique de Capital";
     const metaDesc = document.querySelector('meta[name="description"]');
     if (metaDesc) {
@@ -426,33 +428,40 @@ export default function EnquiryPage() {
                     <div className="relative">
                       
 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
-    <Select value={countryCode} onValueChange={(value) => setCountryCode(value)}>
-      <SelectTrigger className="flex h-[58px] w-[140px] items-center justify-between whitespace-nowrap rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-4 text-[16px] text-white shadow-sm transition-all focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/5 hover:bg-slate-950/80 cursor-pointer [&>span]:line-clamp-1">
-        <SelectValue placeholder="CH +41" />
-      </SelectTrigger>
-      <SelectContent className="bg-slate-950 border border-slate-800 text-white rounded-xl max-h-[300px]">
-        <SelectItem value="CH" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">CH +41</SelectItem>
-        <SelectItem value="FR" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">FR +33</SelectItem>
-        <SelectItem value="BE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">BE +32</SelectItem>
-        <SelectItem value="CA" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">CA +1</SelectItem>
-        <SelectItem value="US" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">US +1</SelectItem>
-        <SelectItem value="GB" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">GB +44</SelectItem>
-        <SelectItem value="DE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">DE +49</SelectItem>
-        <SelectItem value="ES" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">ES +34</SelectItem>
-        <SelectItem value="IT" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">IT +39</SelectItem>
-        <SelectItem value="NL" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">NL +31</SelectItem>
-        <SelectItem value="SE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">SE +46</SelectItem>
-        <SelectItem value="AU" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">AU +61</SelectItem>
-        <SelectItem value="IN" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">IN +91</SelectItem>
-        <SelectItem value="AE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">AE +971</SelectItem>
-        <SelectItem value="SG" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">SG +65</SelectItem>
-        <SelectItem value="ZA" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">ZA +27</SelectItem>
-        <SelectItem value="BR" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">BR +55</SelectItem>
-        <SelectItem value="MX" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">MX +52</SelectItem>
-        <SelectItem value="JP" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">JP +81</SelectItem>
-        <SelectItem value="CY" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">CY +357</SelectItem>
-      </SelectContent>
-    </Select>
+    {mounted ? (
+      <Select value={countryCode} onValueChange={(value) => setCountryCode(value)}>
+        <SelectTrigger className="flex h-[58px] w-[140px] items-center justify-between whitespace-nowrap rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-4 text-[16px] text-white shadow-sm transition-all focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/5 hover:bg-slate-950/80 cursor-pointer [&>span]:line-clamp-1">
+          <SelectValue placeholder="CH +41" />
+        </SelectTrigger>
+        <SelectContent className="bg-slate-950 border border-slate-800 text-white rounded-xl max-h-[300px]">
+          <SelectItem value="CH" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">CH +41</SelectItem>
+          <SelectItem value="FR" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">FR +33</SelectItem>
+          <SelectItem value="BE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">BE +32</SelectItem>
+          <SelectItem value="CA" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">CA +1</SelectItem>
+          <SelectItem value="US" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">US +1</SelectItem>
+          <SelectItem value="GB" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">GB +44</SelectItem>
+          <SelectItem value="DE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">DE +49</SelectItem>
+          <SelectItem value="ES" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">ES +34</SelectItem>
+          <SelectItem value="IT" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">IT +39</SelectItem>
+          <SelectItem value="NL" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">NL +31</SelectItem>
+          <SelectItem value="SE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">SE +46</SelectItem>
+          <SelectItem value="AU" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">AU +61</SelectItem>
+          <SelectItem value="IN" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">IN +91</SelectItem>
+          <SelectItem value="AE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">AE +971</SelectItem>
+          <SelectItem value="SG" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">SG +65</SelectItem>
+          <SelectItem value="ZA" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">ZA +27</SelectItem>
+          <SelectItem value="BR" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">BR +55</SelectItem>
+          <SelectItem value="MX" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">MX +52</SelectItem>
+          <SelectItem value="JP" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">JP +81</SelectItem>
+          <SelectItem value="CY" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">CY +357</SelectItem>
+        </SelectContent>
+      </Select>
+    ) : (
+      <div className="flex h-[58px] w-[140px] items-center justify-between whitespace-nowrap rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-4 text-[16px] text-white/40 shadow-sm font-medium">
+        <span>{countryCode} +{COUNTRY_PHONE_PATTERNS[countryCode]?.dialCode || "41"}</span>
+        <span className="text-[10px] opacity-40">▼</span>
+      </div>
+    )}
 <input 
                         type="tel"
                         required
@@ -470,7 +479,8 @@ export default function EnquiryPage() {
 </div>
                     </div>
                     <p className="mt-1.5 text-[11px] text-slate-500 font-sans">
-                      Entrez votre numéro sans espaces — ex: <span className="font-mono text-slate-400">{COUNTRY_PHONE_PATTERNS[countryCode].example}</span>
+                      <span>Entrez votre numéro sans espaces — ex: </span>
+                      <span className="font-mono text-slate-400">{COUNTRY_PHONE_PATTERNS[countryCode]?.example}</span>
                     </p>
                     {phoneError && (
                       <div className="mt-1.5 flex items-center gap-1.5 text-sm text-red-400 font-semibold font-sans">
