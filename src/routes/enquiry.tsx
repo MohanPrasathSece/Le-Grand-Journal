@@ -5,6 +5,13 @@ import {
   RefreshCw, FileText, Sparkles, Cpu, Layers, HardDrive, AlertCircle, TrendingUp, MapPin,
   Globe, Activity, HelpCircle, Lock, Terminal
 } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 
 interface CardProps {
   title: string;
@@ -50,6 +57,30 @@ function StandardCard({ title, subtitle, icon: Icon, badge, badgeType = "default
   );
 }
 
+// Country-specific phone validation patterns
+const COUNTRY_PHONE_PATTERNS: Record<string, { dialCode: string; pattern: RegExp; example: string }> = {
+  CH: { dialCode: "41", pattern: /^(\+41|0041|0)?[1-9]\d{8}$/, example: "079 123 45 67" },
+  FR: { dialCode: "33", pattern: /^(\+33|0033|0)?[1-9]\d{8}$/, example: "06 12 34 56 78" },
+  BE: { dialCode: "32", pattern: /^(\+32|0032|0)?[1-9]\d{8}$/, example: "0471 12 34 56" },
+  CA: { dialCode: "1", pattern: /^(\+1|001)?[2-9]\d{9}$/, example: "416 123 4567" },
+  US: { dialCode: "1", pattern: /^(\+1|001)?[2-9]\d{9}$/, example: "212 555 1234" },
+  GB: { dialCode: "44", pattern: /^(\+44|0044|0)?[1-9]\d{9}$/, example: "07700 900123" },
+  DE: { dialCode: "49", pattern: /^(\+49|0049|0)?[1-9]\d{10}$/, example: "0151 12345678" },
+  ES: { dialCode: "34", pattern: /^(\+34|0034|0)?[6-9]\d{8}$/, example: "612 345 678" },
+  IT: { dialCode: "39", pattern: /^(\+39|0039|0)?[3]\d{8,9}$/, example: "333 1234567" },
+  NL: { dialCode: "31", pattern: /^(\+31|0031|0)?[6]\d{8}$/, example: "06 12345678" },
+  SE: { dialCode: "46", pattern: /^(\+46|0046|0)?[7-9]\d{8}$/, example: "070 123 45 67" },
+  AU: { dialCode: "61", pattern: /^(\+61|0061|0)?[4]\d{8}$/, example: "0412 345 678" },
+  IN: { dialCode: "91", pattern: /^(\+91|0091|0)?[6-9]\d{9}$/, example: "98765 43210" },
+  AE: { dialCode: "971", pattern: /^(\+971|00971)?[5]\d{8}$/, example: "050 123 4567" },
+  SG: { dialCode: "65", pattern: /^(\+65|0065)?[8-9]\d{7}$/, example: "8123 4567" },
+  ZA: { dialCode: "27", pattern: /^(\+27|0027|0)?[6-8]\d{8}$/, example: "082 123 4567" },
+  BR: { dialCode: "55", pattern: /^(\+55|0055)?[1-9]{2}[9]?\d{8}$/, example: "11 91234-5678" },
+  MX: { dialCode: "52", pattern: /^(\+52|0052)?[1-9]{2}\d{8}$/, example: "55 1234 5678" },
+  JP: { dialCode: "81", pattern: /^(\+81|0081|0)?[789]\d{8,9}$/, example: "090 1234 5678" },
+  CY: { dialCode: "357", pattern: /^(\+357|00357)?[9]\d{7}$/, example: "99 123456" },
+};
+
 // Swiss phone number regex — accepts: +41XXXXXXXXX, 0041XXXXXXXXX, 0XXXXXXXXX, XXXXXXXXX (9 digits)
 const SWISS_PHONE_REGEX = /^(\+41|0041|0)?[1-9]\d{8}$/;
 
@@ -59,6 +90,7 @@ export default function EnquiryPage() {
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
   const [message, setMessage] = useState("");
+  const [countryCode, setCountryCode] = useState("CH");
 
   // Status states
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -133,38 +165,18 @@ export default function EnquiryPage() {
     // The phone state is already digits-only (enforced by handlePhoneChange),
     // but strip any residual whitespace just in case of autofill edge cases
     const cleanNum = phone.replace(/\s+/g, "");
-    const phoneLengths: Record<string, number> = {
-      FR: 9, CH: 9, BE: 9, CA: 10, US: 10, GB: 10, DE: 10, ES: 9, IT: 10, NL: 9, SE: 9, AU: 9, IN: 10, AE: 9, SG: 8, ZA: 9, BR: 11, MX: 10, JP: 10, CY: 8
-    };
-    const cCode = typeof data !== 'undefined' && data.countryCode ? data.countryCode : (typeof countryCode !== 'undefined' ? countryCode : 'CH');
-    const expectedLen = phoneLengths[cCode as string] || 9;
-    if (cleanNum && (cleanNum.length < expectedLen - 1 || cleanNum.length > expectedLen + 2)) {
-      if (typeof setPhoneError !== 'undefined') {
-        setPhoneError(`Veuillez entrer un numéro valide pour le pays sélectionné (${expectedLen} chiffres attendus)`);
-        if (typeof setIsSubmitting !== 'undefined') setIsSubmitting(false);
-        if (typeof setLoading !== 'undefined') setLoading(false);
-        return;
-      }
-      if (typeof setError !== 'undefined') {
-        setError(`Veuillez entrer un numéro valide pour le pays sélectionné (${expectedLen} chiffres attendus)`);
-        if (typeof setIsSubmitting !== 'undefined') setIsSubmitting(false);
-        if (typeof setLoading !== 'undefined') setLoading(false);
-        return;
-      }
-      if (typeof errs !== 'undefined') {
-        errs.phone = `Veuillez entrer un numéro valide pour le pays sélectionné (${expectedLen} chiffres attendus)`;
-      }
-    }
-
-
+    
+    // Country-specific validation
+    const countryPattern = COUNTRY_PHONE_PATTERNS[countryCode];
+    
     // --- Frontend validation ---
     if (!cleanNum) {
       setPhoneError("Veuillez entrer un numéro de téléphone");
       setIsSubmitting(false);
       return;
     }
-    if (!SWISS_PHONE_REGEX.test(cleanNum)) {
-      setPhoneError("Veuillez entrer un numéro suisse valide (ex: 079 123 45 67)");
+    if (!countryPattern.pattern.test(cleanNum)) {
+      setPhoneError(`Veuillez entrer un numéro valide pour ${countryCode} (ex: ${countryPattern.example})`);
       setIsSubmitting(false);
       return;
     }
@@ -188,6 +200,8 @@ export default function EnquiryPage() {
           email,
           phone: cleanNum,
           message,
+          countryCode,
+          leadType: "contact",
         }),
       });
 
@@ -199,12 +213,21 @@ export default function EnquiryPage() {
         setEmail("");
         setPhone("");
         setMessage("");
+        setCountryCode("CH");
       } else {
         console.error("Submission error: ", data.error);
-        setSubmitError(
-          data.error ||
-            "Le registre sécurisé des demandes n'a pas pu traiter votre demande. Veuillez réessayer plus tard."
-        );
+        
+        // Show professional messaging without technical "error" jargon
+        if (data.error === "already_exists" || (data.error && data.error.includes("déjà contactés")) || (data.message && data.message.includes("déjà contactés"))) {
+          setSubmitError("Vous nous avez déjà contactés. Veuillez patienter.");
+        } else if (data.error === "invalid_lead" || (data.error && data.error.includes("valides"))) {
+          setSubmitError(data.message || "Certaines informations saisies ne semblent pas valides. Veuillez vérifier le format de votre numéro de téléphone et de votre e-mail.");
+        } else {
+          setSubmitError(
+            data.message || data.error ||
+              "Le registre sécurisé des demandes n'a pas pu traiter votre demande. Veuillez réessayer plus tard."
+          );
+        }
       }
     } catch (err: any) {
       const rawMsg = (err?.message || err?.toString() || "");
@@ -401,33 +424,35 @@ export default function EnquiryPage() {
                   <div>
                     <label className="block text-xs font-bold text-slate-300 mb-3 uppercase tracking-wider font-sans">Numéro de téléphone</label>
                     <div className="relative">
-                      <span className="absolute inset-y-0 left-0 pl-4.5 flex items-center text-slate-500">
-                        <Phone className="w-5 h-5" />
-                      </span>
                       
 <div style={{ display: 'flex', gap: '8px', width: '100%' }}>
-    <select name="countryCode" style={{ width: '110px', background: 'rgba(0,0,0,0.3)', border: '1px solid rgba(255,255,255,0.2)', borderRadius: '8px', color: '#fff', padding: '0.8rem', fontFamily: 'inherit' }}>
-        <option value="CH">🇨🇭 +41</option>
-        <option value="FR">🇫🇷 +33</option>
-        <option value="BE">🇧🇪 +32</option>
-        <option value="CA">🇨🇦 +1</option>
-        <option value="US">🇺🇸 +1</option>
-        <option value="GB">🇬🇧 +44</option>
-        <option value="DE">🇩🇪 +49</option>
-        <option value="ES">🇪🇸 +34</option>
-        <option value="IT">🇮🇹 +39</option>
-        <option value="NL">🇳🇱 +31</option>
-        <option value="SE">🇸🇪 +46</option>
-        <option value="AU">🇦🇺 +61</option>
-        <option value="IN">🇮🇳 +91</option>
-        <option value="AE">🇦🇪 +971</option>
-        <option value="SG">🇸🇬 +65</option>
-        <option value="ZA">🇿🇦 +27</option>
-        <option value="BR">🇧🇷 +55</option>
-        <option value="MX">🇲🇽 +52</option>
-        <option value="JP">🇯🇵 +81</option>
-        <option value="CY">🇨🇾 +357</option>
-    </select>
+    <Select value={countryCode} onValueChange={(value) => setCountryCode(value)}>
+      <SelectTrigger className="flex h-[58px] w-[140px] items-center justify-between whitespace-nowrap rounded-xl border border-slate-800 bg-slate-950/60 px-4 py-4 text-[16px] text-white shadow-sm transition-all focus:outline-none focus:border-purple-500 focus:ring-4 focus:ring-purple-500/5 hover:bg-slate-950/80 cursor-pointer [&>span]:line-clamp-1">
+        <SelectValue placeholder="CH +41" />
+      </SelectTrigger>
+      <SelectContent className="bg-slate-950 border border-slate-800 text-white rounded-xl max-h-[300px]">
+        <SelectItem value="CH" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">CH +41</SelectItem>
+        <SelectItem value="FR" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">FR +33</SelectItem>
+        <SelectItem value="BE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">BE +32</SelectItem>
+        <SelectItem value="CA" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">CA +1</SelectItem>
+        <SelectItem value="US" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">US +1</SelectItem>
+        <SelectItem value="GB" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">GB +44</SelectItem>
+        <SelectItem value="DE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">DE +49</SelectItem>
+        <SelectItem value="ES" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">ES +34</SelectItem>
+        <SelectItem value="IT" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">IT +39</SelectItem>
+        <SelectItem value="NL" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">NL +31</SelectItem>
+        <SelectItem value="SE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">SE +46</SelectItem>
+        <SelectItem value="AU" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">AU +61</SelectItem>
+        <SelectItem value="IN" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">IN +91</SelectItem>
+        <SelectItem value="AE" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">AE +971</SelectItem>
+        <SelectItem value="SG" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">SG +65</SelectItem>
+        <SelectItem value="ZA" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">ZA +27</SelectItem>
+        <SelectItem value="BR" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">BR +55</SelectItem>
+        <SelectItem value="MX" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">MX +52</SelectItem>
+        <SelectItem value="JP" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">JP +81</SelectItem>
+        <SelectItem value="CY" className="focus:bg-slate-900 focus:text-white cursor-pointer py-2.5 pl-3 pr-8 text-sm">CY +357</SelectItem>
+      </SelectContent>
+    </Select>
 <input 
                         type="tel"
                         required
@@ -436,7 +461,7 @@ export default function EnquiryPage() {
                         placeholder="+41791234567"
                         inputMode="numeric"
                         maxLength={15}
-                        className={`w-full bg-slate-950/60 border rounded-xl pl-12 pr-5 py-4 text-[16px] text-white placeholder-slate-500 focus:bg-slate-950 focus:ring-4 outline-none transition-all font-mono tracking-widest ${
+                        className={`w-full bg-slate-950/60 border rounded-xl pl-4 pr-5 py-4 text-[16px] text-white placeholder-slate-500 focus:bg-slate-950 focus:ring-4 outline-none transition-all font-mono tracking-widest ${
                           phoneError
                             ? "border-red-600/70 focus:border-red-500 focus:ring-red-500/10"
                             : "border-slate-800 focus:border-purple-500 focus:ring-purple-500/5"
@@ -445,7 +470,7 @@ export default function EnquiryPage() {
 </div>
                     </div>
                     <p className="mt-1.5 text-[11px] text-slate-500 font-sans">
-                      Entrez votre numéro sans espaces — ex: <span className="font-mono text-slate-400">+41791234567</span> ou <span className="font-mono text-slate-400">0791234567</span>
+                      Entrez votre numéro sans espaces — ex: <span className="font-mono text-slate-400">{COUNTRY_PHONE_PATTERNS[countryCode].example}</span>
                     </p>
                     {phoneError && (
                       <div className="mt-1.5 flex items-center gap-1.5 text-sm text-red-400 font-semibold font-sans">

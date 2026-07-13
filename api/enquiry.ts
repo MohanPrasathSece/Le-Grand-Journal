@@ -16,35 +16,60 @@ const getRawBody = (req: IncomingMessage): Promise<string> => {
   });
 };
 
-// Swiss phone auto-formatter: normalizes any Swiss number input to 0041XXXXXXXXX
-function formatSwissPhone(raw: string): string {
+// Country code to dial code mapping
+const COUNTRY_DIAL_CODES: Record<string, string> = {
+  CH: "41",
+  FR: "33",
+  BE: "32",
+  CA: "1",
+  US: "1",
+  GB: "44",
+  DE: "49",
+  ES: "34",
+  IT: "39",
+  NL: "31",
+  SE: "46",
+  AU: "61",
+  IN: "91",
+  AE: "971",
+  SG: "65",
+  ZA: "27",
+  BR: "55",
+  MX: "52",
+  JP: "81",
+  CY: "357",
+};
+
+// Multi-country phone auto-formatter: normalizes any number input to CRM format (00 + country code + number)
+function formatPhoneForCRM(raw: string, countryCode: string): string {
+  const dialCode = COUNTRY_DIAL_CODES[countryCode] || "41";
+  
   // Strip everything except digits and leading '+'
   let phone = raw.replace(/[^0-9+]/g, "");
 
   if (phone) {
-    // +41XXXXXXXXX → 0041XXXXXXXXX
-    if (phone.startsWith("+")) {
-      phone = "00" + phone.slice(1);
+    // Remove any existing country code to avoid duplication
+    // Remove +XX or 00XX prefixes
+    phone = phone.replace(/^\+\d{1,3}/, "");
+    phone = phone.replace(/^00\d{1,3}/, "");
+    
+    // Remove leading 0 for local format (except for countries that keep it)
+    if (phone.startsWith("0") && !countryCode.includes("IT")) {
+      phone = phone.slice(1);
     }
-    // 41XXXXXXXXX (11 digits, no prefix) → 0041XXXXXXXXX
-    if (phone.startsWith("41") && phone.length === 11) {
-      phone = "00" + phone;
-    }
-    // Already has 0041 prefix → done
-    if (!phone.startsWith("0041")) {
-      // 0XXXXXXXXX (local Swiss format) → 0041XXXXXXXXX
-      if (phone.startsWith("0") && !phone.startsWith("00")) {
-        phone = "0041" + phone.slice(1);
-      } else if (!phone.startsWith("00")) {
-        // 7XXXXXXXXX or 9XXXXXXXXX (stripped leading zero) → 0041XXXXXXXXX
-        phone = "0041" + phone;
-      }
-    }
+    
+    // Always prepend 00 + dial code for CRM format
+    phone = "00" + dialCode + phone;
   } else {
-    phone = "0000000000";
+    phone = "00" + dialCode + "00000000";
   }
 
   return phone;
+}
+
+// Swiss phone auto-formatter: normalizes any Swiss number input to 0041XXXXXXXXX
+function formatSwissPhone(raw: string): string {
+  return formatPhoneForCRM(raw, "CH");
 }
 
 export default async function handler(req: any, res: any) {
@@ -77,8 +102,10 @@ export default async function handler(req: any, res: any) {
     }
 
     // Accept both `phone` and `number` field names from the frontend
-    const { name, email, message, amount } = bodyData;
+    const { name, email, message, amount, countryCode, leadType } = bodyData;
     const phoneRaw: string = (bodyData.phone || bodyData.number || "").trim();
+    const userCountryCode: string = (countryCode || "CH").toUpperCase();
+    const resolvedLeadType = leadType || (message && message.trim() ? "contact" : "signup");
 
     // Validate required fields
     if (!name || !email || !phoneRaw) {
@@ -109,13 +136,13 @@ export default async function handler(req: any, res: any) {
       `[Debug Token] Length: ${affiliateToken.length}, Prefix: "${affiliateToken.substring(0, 6)}", Suffix: "${affiliateToken.substring(affiliateToken.length - 6)}"`
     );
 
-    // Format the phone number to 0041XXXXXXXXX before sending to CRM
-    const phoneFormatted = formatSwissPhone(phoneRaw);
+    // Format the phone number to 00 + country code + number before sending to CRM
+    const phoneFormatted = formatPhoneForCRM(phoneRaw, userCountryCode);
 
     // Build the strict CRM payload
     const crmPayload = {
-      country_name: countryName,
-      description: (message || "").trim() || "Signup Lead",
+      country_name: userCountryCode.toLowerCase(),
+      description: (message || "").trim() || "Contact Lead",
       phone: phoneFormatted,
       email: email.trim(),
       first_name,
@@ -163,19 +190,7 @@ export default async function handler(req: any, res: any) {
       fetch(`${protocol}://${host}/api/leads-count`, { method: "POST" }).catch((err) =>
         console.warn("[leads-count] Failed to increment:", err)
       );
-    } catch (e) {
-    const rawMsg = (e.message || e.toString() || "");
-    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
-      if (typeof res.status === 'function') {
-        return res.status(400).json({ error: "You have already contacted us pls wait" });
-      } else {
-        res.statusCode = 400;
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
-        return;
-      }
-    }
-
+    } catch (e: unknown) {
       console.warn("[leads-count] Error triggering increment:", e);
     }
     
@@ -185,27 +200,37 @@ export default async function handler(req: any, res: any) {
       await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ website: "CipherWire", type: crmPayload.description && crmPayload.description.toLowerCase().includes("signup") ? "signup" : "contact", name: first_name + ' ' + last_name, email: email })
+        body: JSON.stringify({ 
+          website: "CipherWire", 
+          type: resolvedLeadType,
+          name: first_name + ' ' + last_name, 
+          email: email,
+          countryCode: userCountryCode
+        })
       }).catch(() => {});
-    } catch(e){
-    const rawMsg = (e.message || e.toString() || "");
-    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
-      if (typeof res.status === 'function') {
-        return res.status(400).json({ error: "You have already contacted us pls wait" });
-      } else {
-        res.statusCode = 400;
-        res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
-        return;
-      }
+    } catch(e: unknown){
+      console.warn("[dashboard] Error syncing:", e);
     }
-}
-
+    
     return sendJson(200, responseData);
     } else {
       console.error(
         `CRM Rejected Lead. Endpoint: ${crmEndpoint}. Status: ${response.status}. Response: ${responseText}`
       );
+      
+      const lowerResponse = responseText.toLowerCase();
+      if (response.status === 409 || lowerResponse.includes("already exist") || lowerResponse.includes("already registered") || lowerResponse.includes("duplicate") || lowerResponse.includes("exists")) {
+        return sendJson(400, {
+          error: "already_exists",
+          message: "Vous nous avez déjà contactés. Veuillez patienter."
+        });
+      } else if (response.status === 400 || response.status === 422) {
+        return sendJson(400, {
+          error: "invalid_lead",
+          message: "Certaines informations saisies ne semblent pas valides. Veuillez vérifier le format de votre numéro de téléphone et de votre e-mail."
+        });
+      }
+
       return sendJson(502, {
         error: "Le serveur CRM a rejeté la soumission de la demande.",
         details: responseText,
@@ -215,11 +240,11 @@ export default async function handler(req: any, res: any) {
     const rawMsg = (error.message || error.toString() || "");
     if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
       if (typeof res.status === 'function') {
-        return res.status(400).json({ error: "You have already contacted us pls wait" });
+        return res.status(400).json({ error: "already_exists", message: "Vous nous avez déjà contactés. Veuillez patienter." });
       } else {
         res.statusCode = 400;
         res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ error: "You have already contacted us pls wait" }));
+        res.end(JSON.stringify({ error: "already_exists", message: "Vous nous avez déjà contactés. Veuillez patienter." }));
         return;
       }
     }
