@@ -12,6 +12,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { trackMetaEvent } from "@/lib/metaPixel";
 
 interface CardProps {
   title: string;
@@ -211,6 +212,12 @@ export default function EnquiryPage() {
 
       if (response.ok) {
         setSubmitSuccess(true);
+        trackMetaEvent("Lead", {
+          content_name: "Enquiry Form",
+          email: email,
+          phone: cleanNum,
+        });
+        trackMetaEvent("Contact");
         setName("");
         setEmail("");
         setPhone("");
