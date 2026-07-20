@@ -60,6 +60,7 @@ function StandardCard({ title, subtitle, icon: Icon, badge, badgeType = "default
 
 // Country-specific phone validation patterns
 const COUNTRY_PHONE_PATTERNS: Record<string, { dialCode: string; pattern: RegExp; example: string }> = {
+  IE: { dialCode: "353", pattern: /^8\d{8}$/, example: "87 123 4567" },
   CH: { dialCode: "41", pattern: /^(\+41|0041|0)?[1-9]\d{8}$/, example: "079 123 45 67" },
   FR: { dialCode: "33", pattern: /^(\+33|0033|0)?[1-9]\d{8}$/, example: "06 12 34 56 78" },
   BE: { dialCode: "32", pattern: /^(\+32|0032|0)?[1-9]\d{8}$/, example: "0471 12 34 56" },
