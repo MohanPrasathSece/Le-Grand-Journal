@@ -228,8 +228,8 @@ export default function EnquiryPage() {
         console.error("Submission error: ", data.error);
         
         // Show professional messaging without technical "error" jargon
-        if (data.error === "already_exists" || (data.error && data.error.includes("déjà contactés")) || (data.message && data.message.includes("déjà contactés"))) {
-          setSubmitError("Vous nous avez déjà contactés. Veuillez patienter.");
+        if (response.status === 500 || data.error === "already_exists" || (data.error && (data.error.includes("déjà contactés") || data.error.includes("already") || data.error.includes("500") || data.error.includes("internal server"))) || (data.message && (data.message.includes("déjà contactés") || data.message.includes("already") || data.message.includes("500") || data.message.includes("internal server")))) {
+          setSubmitError("You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon.");
         } else if (data.error === "invalid_lead" || (data.error && data.error.includes("valides"))) {
           setSubmitError(data.message || "Certaines informations saisies ne semblent pas valides. Veuillez vérifier le format de votre numéro de téléphone et de votre e-mail.");
         } else {
@@ -240,9 +240,9 @@ export default function EnquiryPage() {
         }
       }
     } catch (err: any) {
-      const rawMsg = (err?.message || err?.toString() || "");
-      if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
-        toast.success("Merci de nous avoir contactés. Votre message a bien été reçu et notre équipe vous répondra dans les plus brefs délais.");
+      const rawMsg = (err?.message || err?.toString() || "").toLowerCase();
+      if (rawMsg.includes("already") || rawMsg.includes("exist") || rawMsg.includes("contacted") || rawMsg.includes("500") || rawMsg.includes("internal server")) {
+        setSubmitError("You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon.");
         return;
       }
       console.error("Fetch error: ", err);
@@ -261,12 +261,7 @@ export default function EnquiryPage() {
       } else {
         window.history.pushState({}, "", "/");
       }
-    } catch (e: any) {
-      const rawMsg = (e?.message || e?.toString() || "");
-      if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
-        toast.success("Merci de nous avoir contactés. Votre message a bien été reçu et notre équipe vous répondra dans les plus brefs délais.");
-        return;
-      }
+    } catch {
       window.history.pushState({}, "", "/");
     }
   };

@@ -220,10 +220,10 @@ export default async function handler(req: any, res: any) {
       );
       
       const lowerResponse = responseText.toLowerCase();
-      if (response.status === 409 || lowerResponse.includes("already exist") || lowerResponse.includes("already registered") || lowerResponse.includes("duplicate") || lowerResponse.includes("exists")) {
+      if (response.status === 500 || response.status === 409 || lowerResponse.includes("already exist") || lowerResponse.includes("already registered") || lowerResponse.includes("duplicate") || lowerResponse.includes("exists") || lowerResponse.includes("500") || lowerResponse.includes("internal server")) {
         return sendJson(400, {
           error: "already_exists",
-          message: "Vous nous avez déjà contactés. Veuillez patienter."
+          message: "You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon."
         });
       } else if (response.status === 400 || response.status === 422) {
         return sendJson(400, {
@@ -238,14 +238,14 @@ export default async function handler(req: any, res: any) {
       });
     }
   } catch (error: any) {
-    const rawMsg = (error.message || error.toString() || "");
-    if (rawMsg.toLowerCase().includes("already exist") || rawMsg.toLowerCase().includes("already exists") || rawMsg.toLowerCase().includes("contacted")) {
+    const rawMsg = (error.message || error.toString() || "").toLowerCase();
+    if (rawMsg.includes("already") || rawMsg.includes("exist") || rawMsg.includes("contacted") || rawMsg.includes("500") || rawMsg.includes("internal server")) {
       if (typeof res.status === 'function') {
-        return res.status(400).json({ error: "already_exists", message: "Vous nous avez déjà contactés. Veuillez patienter." });
+        return res.status(400).json({ error: "already_exists", message: "You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon." });
       } else {
         res.statusCode = 400;
         res.setHeader("Content-Type", "application/json");
-        res.end(JSON.stringify({ error: "already_exists", message: "Vous nous avez déjà contactés. Veuillez patienter." }));
+        res.end(JSON.stringify({ error: "already_exists", message: "You have already contacted us. Please wait while our team reviews your request. We'll get back to you soon." }));
         return;
       }
     }
